@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="Puerta-ZonaDeDespacho"
+		title="SELECCIONE PUERTA"
+		search="onFiltarMatchcodePuerta"
+		confirm="onConfirmarSeleccionMatchcodePuerta"
+		cancel="onCerrarMatchcodePuerta"
+		noDataText="SIN DATOS"	
+	 	items="{mAyudaPuertas>/}">  <!--SCH-Proyecto Guatemala -->                        
+		<StandardListItem
+			title="{mAyudaPuertas>Puerta}"                
+			description="{mAyudaPuertas>ZonaDeDespacho}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>
+
+
+<!-- items="{ZEWM_0006>/PuertaMcSet}">  -->
+<!--SCH-Proyecto Guatemala -->

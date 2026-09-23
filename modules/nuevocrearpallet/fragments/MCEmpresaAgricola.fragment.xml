@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		growingThreshold="10"
+		cancel="onCerrarFragmento('MCEmpresaAgricola')"
+		confirm="onSelectMCTratamientoFrio"
+		search="onFilterMCTratamientoFrio($event, ['KUNNR','NAME1'])"
+		noDataText="SIN DATOS"
+		title="Lista de Empresas"
+		items="{scope>/MCTratamientoFrio/}" >
+		<StandardListItem
+			title="{scope>KUNNR}-{scope>NAME1}"
+			description=""
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

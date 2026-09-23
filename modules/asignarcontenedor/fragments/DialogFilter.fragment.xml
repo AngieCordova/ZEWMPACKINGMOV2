@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Filtrar" contentWidth="450px" type="Message" afterClose="onAfterCloseDialogReporte">
+			<Panel expandable="true" headerText="Filtro por rango" width="100%">
+				<content>
+					<HBox alignItems="Stretch" class="sapUiSmallMargin nestedFlexboxes">
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="6" styleClass="sapUiTinyMargin" />
+							</layoutData>
+							<Label text="Desde" labelFor="inpDialogFilterDesde" design="Bold" />
+							<Input id="inpDialogFilterDesde" value="" />
+                            <Button icon="sap-icon://filter" text="Agregar" width="100%" type="Emphasized" press="handleRangoDialogFilter" />
+						</VBox>
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="6" styleClass="sapUiTinyMargin" />
+							</layoutData>
+							<Label text="Hasta" labelFor="inpDialogFilterHasta" design="Bold" />
+							<Input id="inpDialogFilterHasta" value="" />
+						</VBox>
+					</HBox>
+				</content>
+			</Panel>
+			<Panel expandable="true" headerText="Filtro por valores múltiples" width="100%">
+				<content>
+
+                    <Table id="tableDialogFilterMul" items="{listFilter>/}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+                    <headerToolbar>
+                        <Toolbar>
+                        <Button icon="sap-icon://add-activity" text="" press="handleSlcDialogFilterAdd" />
+		                <ToolbarSpacer/>
+                        <Button icon="sap-icon://filter" text="Agregar" type="Emphasized" press="handleSlcDialogFilter" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column minScreenWidth="Tablet" demandPopin="true" >
+                            <Text text="Valores"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                        <cells>
+							<Input value="{listFilter>id}" />
+                        </cells>
+                        </ColumnListItem>
+                    </items>
+                    </Table>
+
+				</content>
+			</Panel>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogReporte"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

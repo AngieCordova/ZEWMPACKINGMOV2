@@ -1,0 +1,109 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:l="sap.ui.layout">
+    <m:Panel>
+		<m:headerToolbar>
+			<m:OverflowToolbar>
+				<m:Title text="Contenedor Sin Asignar"/>
+			</m:OverflowToolbar>
+		</m:headerToolbar>
+        <m:content>
+            <!--  8000018881 -->
+
+            <m:HBox
+            alignItems="Stretch"
+            class="sapUiSmallMargin nestedFlexboxes">
+            <m:VBox>
+                <m:layoutData>
+                <m:FlexItemData growFactor="3" styleClass="sapUiTinyMargin"/>
+                </m:layoutData>
+                <m:Label text="Fecha*" labelFor="txtInpFilterFecha" design="Bold"/>
+                <m:Input id="txtInpFilterFecha" value="{scope>/inputFilterSupFecha}" placeholder="dd/MM/yyyy" submit="handleFilterContSinAsig" change=".onValDateFilterContSinAsig()" showValueHelp="true" valueHelpRequest=".onFilterModalFechaContSinAsig()"/>
+                <m:Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="handleFilterContSinAsig" width="100%"/>
+            </m:VBox>
+
+            <m:VBox>
+                <m:layoutData>
+                <m:FlexItemData growFactor="3" styleClass="sapUiTinyMargin"/>
+                </m:layoutData>
+                <m:Label text="ID" labelFor="txtInpFilterID" design="Bold"/>
+                <m:Input id="txtInpFilterID" value="{scope>/filtrado/IdTransporte}" submit="handleFilterContSinAsig" showValueHelp="true" valueHelpRequest=".onFilterModalContSinAsig('IdTransporte')"/>
+                <m:Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilterContSinAsig" width="100%"/>
+            </m:VBox>
+
+            <m:VBox>
+                <m:layoutData>
+                <m:FlexItemData growFactor="3" styleClass="sapUiTinyMargin"/>
+                </m:layoutData>
+                <m:Label text="Contenedor" labelFor="txtInpFilterContenedor" design="Bold"/>
+                <m:Input id="txtInpFilterContenedor" value="{scope>/filtrado/IdContenedor}" submit="handleFilterContSinAsig" showValueHelp="true" valueHelpRequest=".onFilterModalContSinAsig('IdContenedor')"/>
+            </m:VBox>
+
+            <m:VBox>
+                <m:layoutData>
+                <m:FlexItemData growFactor="3" styleClass="sapUiTinyMargin"/>
+                </m:layoutData>
+                <m:Label text="Booking" labelFor="txtInpFilterBooking" design="Bold"/>
+                <m:Input id="txtInpFilterBooking" value="{scope>/filtrado/Booking}" submit="handleFilterContSinAsig" showValueHelp="true" valueHelpRequest=".onFilterModalContSinAsig('Booking')"/>
+            </m:VBox>
+            </m:HBox>
+
+            <!-- fin 8000018881 -->
+
+            <Table
+                id="table-contendedores_sin_asignar"
+                editable="false"
+                enableColumnReordering="false"
+                rows="{CONTENEDORES_SIN_ASIGNAR>/}"
+                selectionMode="None"
+                visibleRowCount="7"
+                ariaLabelledBy="title">
+                <!-- <extension>
+                    <m:OverflowToolbar>
+                        <m:Title id="title" text="Contenedor Sin Asignar"/>
+                    </m:OverflowToolbar>
+                </extension> -->
+                <columns>
+                    <Column hAlign="Center">
+                        <m:Label text="ID" />
+                        <template>
+                            <m:Text text="{CONTENEDORES_SIN_ASIGNAR>IdTransporte}" wrapping="false" />
+                        </template>
+                    </Column>
+                    <Column hAlign="Center">
+                        <m:Label text="Número De Contenedor" />
+                        <template>
+                            <m:Label text="{CONTENEDORES_SIN_ASIGNAR>IdContenedor}"/>
+                        </template>
+                    </Column>
+                    <Column hAlign="Center">
+                        <m:Label text="Número De Booking" />
+                        <template>
+                            <m:Label text="{CONTENEDORES_SIN_ASIGNAR>Booking}" />
+                        </template>
+                    </Column>
+                    <Column hAlign="Center">
+                        <m:Label text="Fecha" />
+                        <template>
+                            <m:Label text="{parts: [ {path: 'CONTENEDORES_SIN_ASIGNAR>Fecha'} ], formatter: '.formatter.dateString'}" />
+                        </template>
+                    </Column>
+                    <Column hAlign="Center">
+                        <m:Label text="Acción" />
+                        <template>
+                            <m:Button type="Emphasized" icon="sap-icon://add" width="18%" press="onAgregarContenedor">
+                                <!-- <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S2" />
+                                </layoutData> -->
+                            </m:Button>
+                        </template>
+                    </Column>
+                </columns>
+            </Table>
+        </m:content>
+    </m:Panel>
+</core:FragmentDefinition>

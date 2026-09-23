@@ -1,0 +1,89 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:Form editable="false">
+			<f:title>
+				<core:Title text="Asignar Orden A Contenedor" />
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout
+					labelSpanXL="12"
+					labelSpanL="12"
+					labelSpanM="12"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="0"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsXL="3"
+					columnsL="3"
+					columnsM="3"
+					singleContainerFullSize="false" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer title="">
+					<f:formElements>
+						<!-- <f:FormElement label="Número de Orden"> -->
+						<f:FormElement label="Número de Pedido">
+							<f:fields>
+								<Input enabled="false" value="{CABECERA>/IdPedido}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Conteo de Paletas">
+							<f:fields>
+								<Input enabled="false" value="{CABECERA>/CntPallets}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+
+
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="Cliente">
+							<f:fields>
+								<Input enabled="false" value="{CABECERA>/Cliente}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Ubicación">
+							<f:fields>
+								<Input enabled="false" value="{CABECERA>/Zona}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+
+
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="Destino">
+							<f:fields>
+								<Input enabled="false" value="{CABECERA>/Destino}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Estado">
+							<f:fields>
+								<Input enabled="false" value="{CABECERA>/Estado}"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+
+
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="REFERENCIA">
+							<f:fields>
+								<Input enabled="false" value="{CABECERA>/NroOrden} / {CABECERA>/NroViaje}"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

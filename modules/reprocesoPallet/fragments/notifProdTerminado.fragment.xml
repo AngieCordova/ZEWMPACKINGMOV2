@@ -1,0 +1,177 @@
+<core:FragmentDefinition 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:tnt="sap.tnt" 
+    xmlns:l="sap.ui.layout">
+	<Dialog title="Visualizar Id de reproceso" contentWidth="580px" type="Message" afterClose="onAfterCloseDialog('notifProdTerminado')">
+		<content>
+
+            <!-- <VBox class="sapUiSmallMargin"> -->
+                <form:SimpleForm 
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="3"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false" >
+                    <form:content>
+
+                        <Label text="Id de reproceso" />
+                        <Input 
+                            id="inpIdreProcesoNPT" 
+                            value="{scopeNPT>/ordenProceso/ID_REPRO}" 
+                            submit="onBuscarClasificaciones"/> 
+                        
+                        <Label text="Orden de reproceso" />
+                        <Input value="{scopeNPT>/ordenSeleccionado/AUFNR}" editable="false" id="input-orden_reproceso">
+                            <layoutData>
+                                <l:GridData span="XL7 L7 M7 S7" />
+                            </layoutData>
+                        </Input>
+                        <Button icon="sap-icon://course-program" text="" type="Emphasized" press="onBusquedaOrdenNPT">
+                            <layoutData>
+                                <l:GridData span="XL2 L2 M2 S2" />
+                            </layoutData>
+                        </Button>
+                        
+                        <Label text="Producto" />
+                        <Input value="{scopeNPT>/ordenSeleccionado/PLNBEZ} - {scopeNPT>/ordenSeleccionado/MAKTX}" editable="false"/>
+                        
+                        <Label text="Viaje" />
+                        <Input value="{scopeNPT>/ordenSeleccionado/VIAJE} - {scopeNPT>/ordenSeleccionado/VBELN}" editable="false"/>
+                        
+                        <!-- CONSIGNATARIO -->
+                        <Label text="Consignatario" />
+                        <Input value="{scopeNPT>/ordenProceso/Consignatario}" editable="false">
+                            <layoutData>
+                                <l:GridData span="XL7 L7 M7 S7" />
+                            </layoutData>
+                        </Input>
+                        <Button icon="sap-icon://employee-lookup" 
+                            type="Emphasized" 
+                            press="onAbrirAyudaBusqueda(
+                                $event,
+                                'AyudaConsignatario',
+                                '/sap/opu/odata/sap/ZEWM_0018_SRV',
+                                '/AyudaBusquedaConsignatarioSet',
+                                [
+                                    {
+                                        'modelo': 'scopeNPT',
+                                        'path'  : '/ordenSeleccionado/PLNBEZ',
+										'campo_filtro' : 'IProducto',
+                                        'mensaje_error': 'Debe seleccionar una ORDEN',
+										'campo_id'	   : 'input-orden_reproceso'
+                                    }
+                                ]
+                            )">
+                            <layoutData>
+                                <l:GridData span="XL2 L2 M2 S2" />
+                            </layoutData>
+                        </Button>
+                        
+                        <!-- GRUPO DE IMPRESORAS -->
+                        <Label text="Grupo de Impresoras" />
+                        <Input  value="{scopeNPT>/ordenProceso/GrupoImpresora}" editable="false">
+                            <layoutData>
+                                <l:GridData span="XL7 L7 M7 S7" />
+                            </layoutData>
+                        </Input>
+                        <Button icon="sap-icon://print" 
+                            type="Emphasized" 
+                            press="onAbrirAyudaBusqueda(
+                                $event, 
+                                'AyudaGrupoImpresora', 
+                                '/sap/opu/odata/sap/ZEWM_0001_SRV', 
+                                '/Grupo_ImpresorasSet')">
+                            <layoutData>
+                                <l:GridData span="XL2 L2 M2 S2" />
+                            </layoutData>
+                        </Button>
+
+                        <!-- <Label text="Cantidad" />
+                        <Input id="inpCantidadNPT" value="{scopeNPT>/ordenProceso/CANT}" liveChange="onChaneCantidadNPT"/> -->
+                        
+                        <Label text="Máx. Pallet" />
+                        <Input value="{scopeNPT>/ordenSeleccionado/UMREZ}" editable="false"/>
+                        
+                        <!-- <Label text="Nro. Pallet Skynet" />
+                        <Input id="inpSkynetNPT" value="{scopeNPT>/ordenProceso/CODSKY}" /> -->
+                        
+                        <!-- <Label width="100%" text="Comentario" />
+                        <TextArea  value="{scopeNPT>/ordenProceso/COMENTARIO}" placeholder="Añade un comentario (opcional)" rows="3" width="100%"/> -->
+                    </form:content>
+                </form:SimpleForm>
+
+                <Table id="table-lista_cajas_notificas" inset="false" items="{mListaNotificar>/}">
+                    <columns>
+                        <Column vAlign="Middle" hAlign="Center">
+                            <Text text="Proveedor" />
+                        </Column>
+                        
+                        <Column vAlign="Middle" hAlign="Center">
+                            <Text text="Variedad" />
+                        </Column>
+
+                        <Column vAlign="Middle" hAlign="Center">
+                            <Text text="Módulo" />
+                        </Column>
+
+                        <Column vAlign="Middle" hAlign="Center">
+                            <Text text="Cantidad Cajas" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                            	<Text text="{mListaNotificar>Proveedor}"/>
+                                <Text text="{mListaNotificar>Variedad}"/>
+                                <Text text="{mListaNotificar>Modulo}" />
+                                <Input value="{mListaNotificar>Cantidad}" liveChange="onValidarCantidadCajas"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <form:SimpleForm 
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false" >
+                    <form:content>
+                        <Label width="100%" text="Comentario" />
+                        <TextArea  value="{scopeNPT>/ordenProceso/COMENTARIO}" placeholder="Añade un comentario (opcional)" rows="3" width="100%"/>
+                    </form:content>
+                </form:SimpleForm>
+            <!-- </VBox> -->
+
+		</content>
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialog('notifProdTerminado')"></Button>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://activity-individual" text="Notificar" press="onSaveNPT"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

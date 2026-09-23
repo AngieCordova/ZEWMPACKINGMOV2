@@ -1,0 +1,340 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns:l="sap.ui.layout">
+
+    <Dialog title="Cargar Paletas de Producto Terminado - {scope>/escanearPuertaTitle}" contentWidth="850px" type="Message" afterClose="onAfterCloseDialogReportePallets">
+        <content>
+
+            <IconTabBar
+                id="iconTabBarReportePallets"
+                expanded="{device>/isNoPhone}"
+                class="sapUiResponsiveContentPadding">
+
+                <items>
+                    <IconTabFilter
+                        icon="sap-icon://bar-code"
+                        text="Paletas"
+                        key="escanearPaleta">
+
+                        <HBox
+                            fitContainer="true"
+                            alignItems="Stretch"
+                            class="sapUiSmallMargin nestedFlexboxes">
+
+                            <VBox>
+                                <layoutData>
+                                    <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                                </layoutData>
+
+                                <!-- Inicio TKT 8000018867 -->
+                                <Label text="Pedido" labelFor="txtPedido" design="Bold"/>
+                                <Input id="txtPedido" value="{scope>/IdPedido}" editable="false"/>
+                                <!-- Fin TKT 8000018867 -->
+
+                                <Label text="Escanear Paleta" labelFor="txtEscanearPallet" design="Bold"/>
+                                <Input id="txtEscanearPallet" value="{scope>/txtEscanearPallet}" submit="onPickPallet" change="onClearPuerta"/>
+                                <Button icon="sap-icon://connected" text="Escoger" width="100%" type="Emphasized" press="onPickPallet"/>
+                            </VBox>
+
+                            <VBox>
+                                <layoutData>
+                                    <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                                </layoutData>
+
+                                <!-- Inicio TKT 8000018867 -->
+                                <Label text="Orden/Viaje" labelFor="txtOrdenViaje" design="Bold"/>
+                                <Input id="txtOrdenViaje" value="{scope>/Orden} / {scope>/Viaje}" editable="false"/>
+                                <!-- Fin TKT 8000018867 -->
+
+                                <Label text="Escanear Puerta de Muelle" labelFor="txtEscanearPuerta" design="Bold"/>
+                                <Input id="txtEscanearPuerta" submit="onPickPuertaMuelle" value="{scope>/txtEscanearPuerta}" enabled="{scope>/bloqueoEscanearPuerta}"/>
+                                <Button icon="sap-icon://enter-more" text="Enviar" width="100%" type="Emphasized" press="onPickPuertaMuelle" enabled="{scope>/bloqueoBtnSendPallet}"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox
+                            fitContainer="true"
+                            alignItems="Stretch"
+                            class="sapUiSmallMargin nestedFlexboxes">
+
+                            <VBox>
+                                <layoutData>
+                                    <FlexItemData growFactor="1" styleClass="sapUiTinyMargin"/>
+                                </layoutData>
+
+                                <tnt:InfoLabel text="PENDIENTES" colorScheme="7" displayOnly="true"/>
+
+                                <FlexBox renderType="Div" alignItems="Start">
+                                    <Input value="PALLETS" editable="false" class="sapUiSmallMarginEnd">
+                                        <layoutData>
+                                            <FlexItemData growFactor="4"/>
+                                        </layoutData>
+                                    </Input>
+
+                                    <Input value="{scope>/contPendiente}" editable="false" width="auto" class="sapUiSmallMarginEnd">
+                                        <layoutData>
+                                            <FlexItemData growFactor="2"/>
+                                        </layoutData>
+                                    </Input>
+                                </FlexBox>
+
+                                <Table items="{palletsPendientes>/}" inset="false" id="tableReportCargaPallets" class="sapUiMediumBeginEnd">
+                                    <layoutData>
+                                        <FlexItemData growFactor="3"/>
+                                    </layoutData>
+
+                                    <columns>
+                                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                            <Text text="Número de Paleta"/>
+                                        </Column>
+                                    </columns>
+
+                                    <items>
+                                        <ColumnListItem vAlign="Middle">
+                                            <cells>
+                                                <Text text="{
+                                                    parts: [
+                                                        {path: 'palletsPendientes>IdPalletV2'},
+                                                        {path: 'palletsPendientes>IdPallet'}
+                                                    ],
+                                                    formatter: '.formatter.IdPallet'}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+
+                            <VBox class="bes-VBox-min-width-80">
+                                <layoutData>
+                                    <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                                </layoutData>
+
+                                <tnt:InfoLabel text="CARGADOS" colorScheme="3" displayOnly="true"/>
+
+                                <FlexBox renderType="Div">
+                                    <Input value="PALLETS" editable="false" class="sapUiSmallMarginEnd">
+                                        <layoutData>
+                                            <FlexItemData growFactor="3"/>
+                                        </layoutData>
+                                    </Input>
+
+                                    <Input value="{scope>/contCargado}" editable="false" width="auto" class="sapUiSmallMarginEnd">
+                                        <layoutData>
+                                            <FlexItemData growFactor="2"/>
+                                        </layoutData>
+                                    </Input>
+                                </FlexBox>
+
+                                <Table items="{palletsCargados>/}" inset="false" id="tableReportCargaPalletsCol2">
+                                    <columns>
+                                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                            <Text text="Número de Paleta"/>
+                                        </Column>
+
+                                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                            <Text text="Puerta de Embarque"/>
+                                        </Column>
+
+                                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                            <Text text="Estado"/>
+                                        </Column>
+
+                                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5rem">
+                                        </Column>
+                                    </columns>
+
+                                    <items>
+                                        <ColumnListItem vAlign="Middle">
+                                            <cells>
+                                                <Text text="{
+                                                    parts: [
+                                                        {path: 'palletsCargados>IdPalletV2'},
+                                                        {path: 'palletsCargados>IdPallet'}
+                                                    ],
+                                                    formatter: '.formatter.IdPallet'}"/>
+
+                                                <Text text="{palletsCargados>Puerta}"/>
+
+                                                <tnt:InfoLabel text="{palletsCargados>Estado}" colorScheme="{
+                                                    path: 'palletsCargados>Estado',
+                                                    formatter: '.formatter.colorLabel'}" displayOnly="true"/>
+
+                                                <Button icon="sap-icon://disconnected" text="" type="Emphasized" press=".onUnPickPallet(${palletsCargados>IdPedido},${palletsCargados>IdPallet},${palletsCargados>IdPalletV2})" visible="{
+                                                    path: 'palletsCargados>Estado',
+                                                    formatter: '.formatter.visibleUnPick'}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </HBox>
+
+                    </IconTabFilter>
+
+                    <IconTabFilter
+                        icon="sap-icon://validate"
+                        iconColor="Critical"
+                        text="Posiciones"
+                        key="bloquearPosiciones">
+
+                        <Button icon="sap-icon://edit" text="Editar" type="Reject" press="onHabilitarEdicionPos(true)" visible="{= ${scope>/enableEdicionPosiones} ? false : true}"/>
+
+                        <Button icon="sap-icon://edit-outside" text="Cancelar edición" type="Emphasized" press="onHabilitarEdicionPos(false)" visible="{scope>/enableEdicionPosiones}"/>
+
+                        <VBox width="360px" class="CPCEWM-VBox-header" justifyContent="Center" alignItems="Center">
+                            <l:HorizontalLayout allowWrapping="true" id="tableReportBloqueoPosiciones" content="{posiciones>/results}">
+
+                                <GenericTile header="{posiciones>Correlativo}" class="CPCEWM-GenericTilePosiciones" subheader="{posiciones>Estado}" visible="true">
+
+                                    <customData>
+                                        <core:CustomData
+                                            key="GenericTilePosiciones-color"
+                                            value="{posiciones>Estado}"
+                                            writeToDom="true"/>
+                                    </customData>
+
+                                    <tileContent>
+                                        <TileContent unit="" footer="">
+                                            <content>
+                                                <VBox>
+                                                    <Text text="{
+                                                        parts: [
+                                                            {path: 'posiciones>IdPalletV2'},
+                                                            {path: 'posiciones>IdPallet'}
+                                                        ],
+                                                        formatter: '.formatter.printPalletData'}"
+                                                        visible="{
+                                                        parts: [
+                                                            {path: 'posiciones>IdPalletV2'},
+                                                            {path: 'posiciones>IdPallet'}
+                                                        ],
+                                                        formatter: '.formatter.visibleIfExist'}"/>
+
+                                                    <Button text="{
+                                                        parts: [
+                                                            {path: 'posiciones>Estado'}
+                                                        ],
+                                                        formatter: '.formatter.textBtnPosicion'}"
+                                                        type="{
+                                                        parts: [
+                                                            {path: 'posiciones>Estado'}
+                                                        ],
+                                                        formatter: '.formatter.typeBtnPosicion'}"
+                                                        visible="{
+                                                        parts: [
+                                                            {path: 'scope>/enableEdicionPosiones'},
+                                                            {path: 'posiciones>Estado'}
+                                                        ],
+                                                        formatter: '.formatter.visibleBtnPosicion'}"
+                                                        press="onRevActionPosicion"/>
+                                                </VBox>
+                                            </content>
+                                        </TileContent>
+                                    </tileContent>
+                                </GenericTile>
+
+                            </l:HorizontalLayout>
+                        </VBox>
+
+                    </IconTabFilter>
+
+                    <IconTabFilter
+                        icon="sap-icon://validate"
+                        text="Reporte"
+                        key="reportePosiciones">
+
+                        <Button icon="sap-icon://print" text="Imprimir" press="onPrintReport"/>
+
+                        <HBox
+                            fitContainer="true"
+                            alignItems="Stretch"
+                            class="sapUiSmallMargin nestedFlexboxes">
+
+                            <VBox>
+                                <layoutData>
+                                    <FlexItemData growFactor="6"/>
+                                    <!-- styleClass= "sapUiTinyMargin" -->
+                                </layoutData>
+
+                                <Label text="Número de contenedor" labelFor="txtRepPosicionesPrintIdContenedor" design="Bold"/>
+                                <Text id="txtRepPosicionesPrintIdContenedor" wrappingType="Hyphenated" text="{scope>/IdContenedor}" class="sapUiSmallMarginBottom"/>
+
+                                <!-- Inicio TKT 8000018864 -->
+                                <Label text="Booking" labelFor="txtRepPosicionesPrintBooking" design="Bold"/>
+                                <Text id="txtRepPosicionesPrintBooking" wrappingType="Hyphenated" text="{scope>/Booking}" class="sapUiSmallMarginBottom"/>
+
+                                <Label text="Destino" labelFor="txtRepPosicionesPrintDestino" design="Bold"/>
+                                <Text id="txtRepPosicionesPrintDestino" wrappingType="Hyphenated" text="{scope>/Destino}" class="sapUiSmallMarginBottom"/>
+
+                                <Label text="Zona" labelFor="txtRepPosicionesPrintZona" design="Bold"/>
+                                <Text id="txtRepPosicionesPrintZona" wrappingType="Hyphenated" text="{scope>/Ubicacion}" class="sapUiSmallMarginBottom"/>
+                                <!-- Fin TKT 8000018864 -->
+                            </VBox>
+
+                            <VBox>
+                                <layoutData>
+                                    <FlexItemData growFactor="6"/>
+                                    <!-- styleClass= "sapUiTinyMargin" -->
+                                </layoutData>
+
+                                <Label text="Pedido" labelFor="txtRepPosicionesPrintIdPedido" design="Bold"/>
+                                <Text id="txtRepPosicionesPrintIdPedido" wrappingType="Hyphenated" text="{scope>/IdPedidoMostrar}" class="sapUiSmallMarginBottom"/>
+                                <!-- text="{scope>/IdPedido } -->
+
+                                <!-- Inicio TKT 8000018864 -->
+                                <Label text="Exportador" labelFor="txtRepPosicionesPrintExpor" design="Bold"/>
+                                <Text id="txtRepPosicionesPrintExpor" wrappingType="Hyphenated" text="{scope>/Exportador}" class="sapUiSmallMarginBottom"/>
+
+                                <Label text="Fecha Despacho" labelFor="txtRepPosicionesPrintFechaDes" design="Bold"/>
+                                <Text id="txtRepPosicionesPrintFechaDes" wrappingType="Hyphenated" text="{
+                                    parts: [
+                                        {path: 'scope>/Fecha_Despacho'}
+                                    ],
+                                    formatter: '.formatter.formatDate'}" class="sapUiSmallMarginBottom"/>
+                                <!-- Fin TKT 8000018864 -->
+                            </VBox>
+                        </HBox>
+
+                        <VBox width="360px" class="CPCEWM-VBox-header" justifyContent="Center" alignItems="Center">
+                            <l:HorizontalLayout allowWrapping="true" id="tableReportPosicionesPrint" content="{posiciones>/results}">
+
+                                <GenericTile header="{posiciones>Correlativo}" class="CPCEWM-GenericTilePosiciones" subheader="{posiciones>Estado}" visible="true">
+
+                                    <customData>
+                                        <core:CustomData
+                                            key="GenericTilePosiciones-color"
+                                            value="{posiciones>Estado}"
+                                            writeToDom="true"/>
+                                    </customData>
+
+                                    <tileContent>
+                                        <TileContent unit="" footer="">
+                                            <content>
+                                                <Text text="{
+                                                    parts: [
+                                                        {path: 'posiciones>IdPalletV2'},
+                                                        {path: 'posiciones>IdPallet'}
+                                                    ],
+                                                    formatter: '.formatter.printPalletData'}"/>
+                                            </content>
+                                        </TileContent>
+                                    </tileContent>
+                                </GenericTile>
+
+                            </l:HorizontalLayout>
+                        </VBox>
+
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+
+        </content>
+
+        <beginButton>
+            <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogReportePallets"></Button>
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

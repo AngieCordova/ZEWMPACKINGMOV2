@@ -1,0 +1,106 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="Asignar Orden a Zona" contentWidth="680px" type="Message">
+		<content>
+      <l:VerticalLayout id="containerLayout" width="100%">
+        <l:BlockLayout id="BlockLayout" >
+          <l:BlockLayoutRow accentCells="Accent1">
+            <l:BlockLayoutCell title="Orden">
+              <form:Form editable="false">
+                <form:layout>
+                  <form:ResponsiveGridLayout
+                    labelSpanXL="4"
+                    labelSpanL="4"
+                    labelSpanM="12"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="0"
+                    emptySpanL="0"
+                    emptySpanM="0"
+                    emptySpanS="0"
+                    columnsXL="2"
+                    columnsL="2"
+                    columnsM="2"
+                    singleContainerFullSize="false" />
+                </form:layout>
+                <form:formContainers>
+                  <form:FormContainer>
+                    <form:formElements>
+                      <form:FormElement label="Número de Pedido">
+                        <form:fields>
+                          <Text text="{scope>/PEDIDO}" />
+                        </form:fields>
+                      </form:FormElement>
+                      <form:FormElement label="Número de Referencia">
+                        <form:fields>
+                          <Text text="{scope>/ORDEN} - {scope>/VIAJE}" />
+                        </form:fields>
+                      </form:FormElement>
+                    </form:formElements>
+                  </form:FormContainer>
+                  <form:FormContainer>
+                    <form:formElements>
+                      <form:FormElement label="Destino">
+                        <form:fields>
+                          <Text text="{scope>/DESTINO}" />
+                        </form:fields>
+                      </form:FormElement>
+                    </form:formElements>
+                  </form:FormContainer>                  
+                  <form:FormContainer>
+                    <form:formElements>
+                      <form:FormElement label="Cliente">
+                        <form:fields>
+                          <Text text="{scope>/CLIENTE}" />
+                        </form:fields>
+                      </form:FormElement>
+                      
+                      <form:FormElement label="Cantidad de pallets">
+                        <form:fields>
+                          <Text text="{scope>/CANT_PALLETS}" />
+                        </form:fields>
+                      </form:FormElement>
+                      
+                      <form:FormElement label="Tipo de Transporte">
+                        <form:fields>
+                          <Text text="{scope>/TIP_TRANSPORTE}" />
+                        </form:fields>
+                      </form:FormElement>
+                      
+                      <form:FormElement label="Consolidado">
+                        <form:fields>
+                          <Text text="{scope>/CONSOLIDADO}" />
+                        </form:fields>
+                      </form:FormElement>
+                      
+                    </form:formElements>
+                  </form:FormContainer>
+                </form:formContainers>
+              </form:Form>
+            </l:BlockLayoutCell>
+            
+            <l:BlockLayoutCell title="Asignar ubicación en Zona">
+              <Table items="{zonas>/results}" inset="false">
+                <columns>
+                  <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    <Text text="Zona"/>
+                  </Column>
+                </columns>
+                <items>
+                  <ColumnListItem type="Navigation" press="onAssignZona">
+                    <cells>
+                      <Text text="{zonas>ZONA_DE_DESPACHO}"/>
+                    </cells>
+                  </ColumnListItem>
+                </items>
+              </Table>        
+            </l:BlockLayoutCell>
+          </l:BlockLayoutRow>
+        </l:BlockLayout>
+      </l:VerticalLayout>
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogAsignarZona"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

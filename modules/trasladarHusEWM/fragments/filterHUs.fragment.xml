@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="Filtrar HU's" contentWidth="380px" type="Message">
+		<content>
+       
+        <Label text="HU" labelFor="txtFiltrarHU" design="Bold"/>
+        <Input id="txtFiltrarHU" value="{scope>/Exidv2}"/>
+
+        <Label text="Ubicación" labelFor="txtFiltrarUbicacion" design="Bold"/>
+		<SearchField
+			id="txtFiltrarUbicacion"
+			placeholder=""
+			enableSuggestions="true"
+			value = "{scope>/Lgpla}"
+			suggest="onFiltrarUbicacion"
+			suggestionItems="{
+				path: 'slcUbicacion>/'
+			}">
+			<SuggestionItem text="{slcUbicacion>Lgpla}" key="{slcAlmacen>Lgpla}" />
+		</SearchField>
+
+		</content>
+
+		<buttons>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogShowFilter"></Button>
+			<Button icon="sap-icon://clear-filter" text="Limpiar" press="onFiltrarHU(true)"></Button>
+			<Button icon="sap-icon://detail-view" text="Buscar" press="onFiltrarHU(false)"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,67 @@
+<View 
+controllerName="AvocadoProyecto.AvocadoProyecto.modules.nuevocrearpallet.controller.ListaTratarPallet" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Page title="Nuevo Crear pallets de producto terminado" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion" busy="{mBusy>/iniciarPost}">
+		<content>
+			<Table id="table-paletas_tratar" items="{mListaTratar>/}" inset="false" itemPress="onPressPalletTratar">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="TRATAR PALLET" titleStyle="H3" />
+						<ToolbarSpacer />
+						<Button type="Emphasized" icon="sap-icon://refresh" class="sapUiMediumMarginEnd" press="onRefresh"/>
+						<Button type="Emphasized" text="CANCELAR" icon="sap-icon://database" class="sapUiMediumMarginEnd" press="onCancelar"/>
+						<SearchField placeholder="Filtrar Paletas" width="15rem" search="onFiltrarDatosTabla"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Numero de paleta" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Producto" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Cliente / Destino" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Cajas de paleta" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Max. de paleta" />
+					</Column>
+					<Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Cajas faltantes" />
+					</Column>
+					<Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Fecha empaque" />
+					</Column>
+					<Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Empresa agrícola" />
+					</Column>
+					<Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+						<Text text="Orden viaje" />
+					</Column>
+				</columns>
+				<items>
+					<!-- <ColumnListItem type="Navigation" press="onTratarPaletSeleccionItem"> -->
+					<ColumnListItem type="Navigation">
+						<cells>
+							<Text text="{mListaTratar>NRO_PALETA}" />
+							<Text text="{mListaTratar>PRODUCTO}" />
+							<Text text="{mListaTratar>CONSIGNATARIO}" />
+							<Text text="{mListaTratar>CAJAS_EN_PALETA}" />
+							<Text text="{= Number(${mListaTratar>CAJAS_FALTANTES}) + Number(${mListaTratar>CAJAS_EN_PALETA}) }" />
+							<Text text="{mListaTratar>CAJAS_FALTANTES}" />
+							<Text text="{=
+								${mListaTratar>FECHA_EMPAQUE}.substring(6,8) + '.' +
+								${mListaTratar>FECHA_EMPAQUE}.substring(4,6) + '.' +
+								${mListaTratar>FECHA_EMPAQUE}.substring(0,4)
+								}" />
+							<Text text="{mListaTratar>PARTNER} - {mListaTratar>PARTNER_NAME}" />
+							<Text text="{mListaTratar>ORDEN} / {mListaTratar>VIAJE}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</View>

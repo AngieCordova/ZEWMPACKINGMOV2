@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="ORDEN_VIAJE-"
+		growingThreshold="10"
+		cancel="onCerrarFragmento('AyudaViaje')"
+		confirm="onAgregarValorMatchcode"
+		search="onFiltrarDatosMatchcode"
+		noDataText="SIN DATOS"
+		title="SELECCIONE VIAJE"
+		items="{ZEWM_0001>/OrdenViajeSet}" >
+		<StandardListItem
+			title="{ZEWM_0001>ORDEN_VIAJE}"
+			description=""
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

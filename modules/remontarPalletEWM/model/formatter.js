@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{date:function(sDate){var date=eval("new "+sDate.replace(/\//gi,""));return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()},formatDate:function(e){var a=e.substring(0,4);var t=e.substring(4,6);var r=e.substring(6,8);if(Number(a)==0||Number(t)==0||Number(r)==0)return"";return`${r}.${t}.${a}`},calcularCantidadCajasEnPaleta:function(e,a){var t=Number(e);t=isNaN(t)?0:t;var r=Number(a);r=isNaN(r)?0:r;return t-r}}});
+//# sourceMappingURL=formatter.js.map

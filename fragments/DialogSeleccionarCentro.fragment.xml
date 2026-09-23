@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout">
+    <Dialog title="Seleccionar centro de trabajo" contentWidth="28rem" type="Standard"
+        afterClose="onCerrarSeleccionarCentro">
+        <content>
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                <form:layout>
+                    <form:ResponsiveGridLayout labelSpanXL="2" labelSpanL="2" labelSpanM="2"
+                        labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+                        emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1"
+                        columnsM="1" singleContainerFullSize="false" />
+                </form:layout>
+                <form:formContainers>
+                    <form:FormContainer>
+                        <form:formElements>
+                            <form:FormElement label="Centro">
+                                <form:fields>
+                                    <MultiInput id="idCentro" name="idCentro" valueHelpOnly="true"
+                                        showValueHelp="true"
+                                        tokenUpdate=".onCambioCentro"
+                                        valueHelpRequest=".onAbrirAyudaBusqueda($event, { 
+                                            'columnas': [ 
+                                                { 
+                                                    'label': 'Centro' , 
+                                                    'template': 'Werks' 
+                                                }, { 
+                                                    'label': 'Descripción', 
+                                                    'template': 'Name1' 
+                                                } ], 
+                                            'filters': [ 
+                                                { 
+                                                    'name': 'Werks' 
+                                                }, { 
+                                                    'name': 'Name1' 
+                                                } ], 
+                                            'url' : '/CentrosHabilitadosSet', 
+                                            'key' : 'Werks', 
+                                            'description_key': 'Name1', 
+                                            'multiselect' : false, 
+                                            'title' : 'Centro' 
+                                        } )" />                                        
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+                </form:formContainers>
+            </form:Form>
+        </content>
+        <beginButton>
+            <Button enabled="true" press="onAceptarSeleccionarCentro" type="Emphasized"
+                icon="sap-icon://accept" text="Aceptar"></Button>
+        </beginButton>
+        <endButton>
+            <Button type="Ghost" icon="sap-icon://decline" text="Cancelar"
+                press=".onCancelarSeleccionarCentro"></Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

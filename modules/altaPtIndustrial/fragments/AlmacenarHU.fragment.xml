@@ -1,0 +1,226 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="Almacenar HUs PT Industrial en EWM" contentHeight="100%" contentWidth="60%" type="Message" busy="{mBusy>/iniciar}">
+		<content>
+		
+            <!-- CABECERA -->
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="3"
+                        columnsL="3"
+                        columnsM="3"
+                        singleContainerFullSize="false" />
+			    </form:layout>
+                <form:formContainers>
+                    <!--TIPO ALMACEN-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Tipo Álmacen Origen">
+                                <Input
+                                    editable="true"
+                                    maxLength="4"
+                                    id="input-almacen_origen_almacenar_hu"
+                                        value="{mAlmacenarHU>/IdTipoAlmacen}">
+                                    <layoutData>
+                                        <l:GridData span="XL6 L6 M6 S6" />
+                                    </layoutData>
+                                </Input>
+                                <Button 
+                                    id="btn-ayuda_almacen_origen" 
+                                    press="onButtonPressOpenMatchcode($event, 'AyudaAlmacenOrigen')" 
+                                    type="Emphasized" 
+                                    icon="sap-icon://add-product" 
+                                    width="18%">
+                                    <layoutData>
+                                        <l:GridData span="XL3 L3 M3 S3" />
+                                    </layoutData>
+                                </Button>
+                                <Button  
+                                    press="onBuscarListaHuEscanearAlmacenamiento($event, 'AyudaAlmacenOrigen')" 
+                                    type="Emphasized"
+                                    icon="sap-icon://search" 
+                                    width="18%">
+                                    <layoutData>
+                                        <l:GridData span="XL3 L3 M3 S3" />
+                                    </layoutData>
+                                </Button>
+                            </form:FormElement>      
+                        </form:formElements>                        
+                    </form:FormContainer>
+                                      
+                    <!-- ESCANEAR HU -->
+                    <form:FormContainer>                        
+                        <form:formElements>
+                            <form:FormElement label="Escanear HU">
+                                <form:fields>
+                                    <Input 
+                                        id="input-escanear_hu_almacenar_hu"
+                                        maxLength="20"
+                                        required="true"
+                                        editable="true"
+                                        submit="onPasarEscaneoUbicacion"
+                                        value="{mAlmacenarHU>/EscanearHU}"/>
+                                        <!-- <layoutData>
+                                            <l:GridData span="XL9 L9 M9 S9" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button  
+                                        press="onEntrarHuEscaneada" 
+                                        type="Emphasized"
+                                        icon="sap-icon://add" 
+                                        width="18%">
+                                        <layoutData>
+                                            <l:GridData span="XL3 L3 M3 S3" />
+                                        </layoutData>
+                                    </Button> -->
+                                </form:fields>
+                            </form:FormElement>       
+                        </form:formElements>                        
+                    </form:FormContainer>    
+                                                    
+                    <!-- ESCANEAR UBICACION -->
+                    <form:FormContainer>                        
+                        <form:formElements>        
+                            <form:FormElement label="Escanear Ubic.Destino">
+                                <form:fields>
+                                    <Input 
+                                        id="input-escanear_ubicacion_almacenar_hu"
+                                        required="true"
+                                        editable="true"
+                                        maxLength="10"
+                                        submit="onEntrarHuEscaneada"
+                                        value="{mAlmacenarHU>/EscanearUbicacion}">
+                                        <layoutData>
+                                            <l:GridData span="XL9 L9 M9 S9" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button  
+                                        press="onEntrarHuEscaneada" 
+                                        type="Emphasized"
+                                        icon="sap-icon://add" 
+                                        width="18%">
+                                        <layoutData>
+                                            <l:GridData span="XL3 L3 M3 S3" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>     
+                        </form:formElements>                        
+                    </form:FormContainer>
+                </form:formContainers>
+            </form:Form>
+
+
+            
+            <!-- TABLA HU DISPONIBLES PARA ESCANEAR -->
+            <Table id="" inset="false" items="{mListaHU>/}">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="Disponibles ({mCantidadesHU>/disponibles})" level="H2"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <!-- INI TKT 8000024903 - Alta de producto industrial  -->
+                        <!-- <Text text="" />-->
+                        <Text text="N Pallet - HU" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <Text text="Variedad" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <Text text="Módulo" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <Text text="Peso(Kg)" />
+                    </Column>
+                    
+                    <!-- FIN TKT 8000024903 - Alta de producto industrial  -->
+                    
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{mListaHU>IdPalletToBeScaned} - {mListaHU>IdPallet}"/>
+                            <!-- INI TKT 8000024903 - Alta de producto industrial  -->
+                            <Text text="{mListaHU>Variedad}"/>
+                            <Text text="{mListaHU>Modulo}"/>
+                            <Text text="{mListaHU>Peso}"/>                            
+                            <!-- FIN TKT 8000024903 - Alta de producto industrial  -->
+                        </cells>                        
+                    </ColumnListItem>
+                </items>
+            </Table>
+            
+
+            <!-- TABLA HU ESCANEADAS -->
+            <Table id="" inset="false" items="{mListaHUEscaneadas>/}">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="Escaneadas ({mCantidadesHU>/preparadas})" level="H2"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <Text text="" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <Text text="" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{mListaHUEscaneadas>Mostrar}"/>
+                            <Button press="onEliminarHUPreparadoAlmacenamiento" type="Emphasized" icon="sap-icon://decline" width="18%"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+		</content>
+
+        <beginButton>
+            <Button type="Ghost" text="Cancelar" press="onCerrarFragmento('AlmacenarHU')" icon="sap-icon://sys-cancel"></Button>
+        </beginButton>
+		<endButton>
+			<Button type="Emphasized" text="Guardar" press="onGuardarAlmacenamientoHU" icon="sap-icon://save"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

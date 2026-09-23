@@ -1,0 +1,62 @@
+<mvc:View xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
+          xmlns:f="sap.ui.layout.form"
+          xmlns:l="sap.ui.layout"
+          xmlns:u="sap.ui.table"
+          xmlns:t="sap.tnt"
+          controllerName="AvocadoProyecto.AvocadoProyecto.controller.MenuSplitAvocado"
+          xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <App id="app">
+        <pages>
+            <Page title="Menú principa Avocado" navButtonPress="NavPressMenu" showNavButton="false" showFooter="false" showHeader="false">
+                <content>
+
+                    <SplitContainer id="SplitAppDemo">
+                        <masterPages>
+                            <!-- Page id="master2" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.masterPagesMaster" type="XML"/>
+                        </masterPages>
+
+                        <detailPages>
+                            <!-- Page id="detail" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesDetail" type="XML"/>
+
+                            <!-- Page id="IdIngCamion" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdIngCamion" type="XML"/>
+
+                            <!-- Page id="IdCamConf" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdCamConf" type="XML"/>
+
+                            <!-- Page id="IdAlmBins" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdAlmBins" type="XML"/>
+
+                            <!-- Page id="IdStatusGuia" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdStatusGuia" type="XML"/>
+
+                            <!-- Page id="IdAlmStage" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdAlmStage" type="XML"/>
+
+                            <!-- Page id="IdBinsEmp" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdBinsEmp" type="XML"/>
+
+                            <!-- Page id="IdCrearPalet" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdCrearPalet" type="XML"/>
+
+                            <!-- Page id="IdRemontar" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdRemontar" type="XML"/>
+
+                            <!-- Page id="IdCrearPaletNuevo" -->
+                            <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.home.fragments.detailPagesIdCrearPaletNuevo" type="XML"/>
+                        </detailPages>
+                    </SplitContainer>
+
+                    <!--</SplitApp>-->
+
+                </content>
+            </Page>
+        </pages>
+    </App>
+
+</mvc:View>

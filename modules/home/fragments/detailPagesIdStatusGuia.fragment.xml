@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.table" xmlns:t="sap.tnt">
+    <Page id="IdStatusGuia" title="Status de Guía" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idStatusGuiaTable" items="{STGR>/ITAB}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Status de Guía" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button type="Emphasized" text="Refrescar" press="onPressRefrescarGuias" icon="sap-icon://refresh"/>
+              <SearchField placeholder="Filtrar stage" value="{ui>/filterValue}" search="handleFilterStatusGuia" width="15rem"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="7rem">
+              <Text text="Fecha de recepción"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="8rem">
+              <Text text="Empresa Agrícola"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="8rem">
+              <Text text="Módulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="8rem">
+              <Text text="Guía de Remisión"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="8rem">
+              <Text text="Material"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="7rem">
+              <Text text="Kilos Volcados"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="6rem">
+              <Text text="Kilos Notificados"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="7rem">
+              <Text text="Diferencias"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{STGR>BUDAT}"/>
+                <Text text="{STGR>TXT_EMP}"/>
+                <Text text="{STGR>DESCOR}"/>
+                <Text text="{STGR>GUIA}"/>
+                <Text text="{STGR>MAKTX}"/>
+                <Text text="{STGR>MENGE_KV}"/>
+                <Text text="{STGR>MENGE_KN}"/>
+                <Text text="{STGR>MENGE_KR}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</core:FragmentDefinition>

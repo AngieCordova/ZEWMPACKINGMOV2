@@ -1,0 +1,494 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:f="sap.ui.layout.form"
+                         xmlns:tnt="sap.tnt"
+                         xmlns:l="sap.ui.layout"
+                         xmlns:tab="sap.ui.table"
+                         xmlns:micro="sap.suite.ui.microchart">
+
+    <Dialog title="Despacho PT"
+            stretch="true"
+            afterClose="onAfterCloseDialog('despacho')">
+        <content>
+
+            <HBox class="sapUiSmallMargin sapUiSmallMarginBottom" alignItems="Center">
+                <VBox class="sapUiMediumMarginEnd">
+                    <Label text="Exportador" design="Bold"/>
+                    <Text text="{DespachoCab>/Export}" class="sapUiSmallMarginTop"/>
+                </VBox>
+                <VBox class="sapUiMediumMarginEnd">
+                    <Label text="Viaje" design="Bold"/>
+                    <Text text="{CargaCab>/Viaje}" class="sapUiSmallMarginTop"/>
+                </VBox>
+                <VBox class="sapUiMediumMarginEnd">
+                    <Label text="Orden" design="Bold"/>
+                    <Text text="{CargaCab>/Orden}" class="sapUiSmallMarginTop"/>
+                </VBox>
+                <VBox class="sapUiMediumMarginStart">
+                    <Button text="Inicio" press="onPressHourInicioDespacho"
+                            enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                    <Input enabled="false"
+                            width="15rem"
+                            value="{parts: [{path: 'DespachoCab>/FechaIni'}, {path: 'DespachoCab>/HoraIni'}, {path: 'mPholder>/iniDesp'}], formatter: '.formatFechaHora'}"
+                            class="sapUiSmallMarginTop"/>
+                </VBox>
+            </HBox>
+
+            <IconTabBar id="tabBarDespacho" expanded="true" class="sapUiResponsiveContentPadding">
+                <items>
+
+                    <IconTabFilter icon="sap-icon://detail-view" text="General" key="general">
+
+                        <f:Form editable="false">
+                            <f:layout>
+                                <f:ResponsiveGridLayout
+                                    labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                                    columnsXL="2" columnsL="2" columnsM="2"
+                                    singleContainerFullSize="false" />
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer title="">
+                                    <f:formElements>
+                                        <f:FormElement label="Destino">
+                                            <f:fields><Text text="{DespachoCab>/Destino}"/></f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Booking">
+                                            <f:fields><Text text="{DespachoCab>/Booking}" /></f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Zona">
+                                            <f:fields><Text text="{CargaCab>/Zona}"/></f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Tipo Salida">
+                                            <f:fields><Text text="{DespachoCab>/Tiposalida}"/></f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Set Point FCL">
+                                            <f:fields><Text text="{DespachoCab>/SetPointFcl}"/></f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+
+                        <f:Form editable="{= ${DespachoCab>/_guardado} ? false : true}" class="sapUiSmallMarginTop">
+                            <f:layout>
+                                <f:ResponsiveGridLayout
+                                    labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                                    columnsXL="2" columnsL="2" columnsM="2"
+                                    singleContainerFullSize="false" />
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer title="">
+                                    <f:formElements>
+                                        <f:FormElement label="Contenedor">
+                                            <f:fields><Input value="{DespachoCab>/Contenedor}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Auxiliar Turno">
+                                            <f:fields>
+                                                <ComboBox selectedKey="{DespachoCab>/NombAuxili}" items="{Aux>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                    <core:Item key="{Aux>Auxturno}" text="{Aux>Auxturno}" />
+                                                </ComboBox>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Representante exportador">
+                                            <f:fields>
+                                                <ComboBox selectedKey="{DespachoCab>/NomExport}" items="{RepExport>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                    <core:Item key="{RepExport>Auxturno}" text="{RepExport>Auxturno}" />
+                                                </ComboBox>
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                                <f:FormContainer title="">
+                                    <f:formElements>
+                                        <f:FormElement label="T° FCL">
+                                            <f:fields><Input value="{DespachoCab>/TemperaturaFcl}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Supervisor Turno">
+                                            <f:fields>
+                                                <ComboBox selectedKey="{DespachoCab>/NombSuperv}" items="{Sup>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                    <core:Item key="{Sup>Auxturno}" text="{Sup>Auxturno}" />
+                                                </ComboBox>
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+
+                    </IconTabFilter>
+
+                    <IconTabFilter icon="sap-icon://table-view" text="Detalle Pallets" key="detallePallets">
+
+                        <VBox class="sapUiSmallMargin">
+
+                            <Table width="auto" inset="false" items="{path: 'DespachoPallets>/'}">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                            <Title text="Resumen Envases" level="H3"/>
+                                            <ToolbarSpacer />
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column><Text text="Envase" /></Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true"><Text text="# Pallets" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{DespachoPallets>Tipoenvase}" />
+                                            <Text text="{DespachoPallets>Sumpallets}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <HBox class="sapUiSmallMarginTop sapUiSmallMarginBottom" alignItems="Center">
+                                <Label text="Validador de Termógrafos" design="Bold" class="sapUiSmallMarginEnd"/>
+                                <ComboBox selectedKey="{DespachoCab>/ValidTermografo}"
+                                        width="20rem" items="{Sup>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                    <core:Item key="{Sup>Auxturno}" text="{Sup>Auxturno}" />
+                                </ComboBox>
+                            </HBox>
+
+                                                        <Table
+                                items="{DespachoDetalle>/}"
+                                class="DetallePalletsDespachoSticky">
+                                <headerToolbar>
+                                    <OverflowToolbar style="Clear">
+                                        <Title text="Detalle Pallets" level="H3"/>
+                                        <ToolbarSpacer />
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column width="2.5rem"><Text text="N°" /></Column>
+                                    <Column width="10rem"><Text text="Cod Pallet" /></Column>
+                                    <Column width="6rem"><Text text="Calibre" /></Column>
+                                    <Column width="5rem"><Text text="T°" /></Column>
+                                    <Column width="5rem"><Text text="Termógrafo" /></Column>
+                                    <Column width="8rem"><Text text="N° Termógrafo" /></Column>
+                                    <Column width="8rem"><Text text="Tipo" /></Column>
+                                    <Column width="5rem"><Text text="Switch" /></Column>
+                                    <Column width="5rem"><Text text="Sensor" /></Column>
+                                    <Column hAlign="Begin" width="12rem"><Text text="Comentario" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{DespachoDetalle>Correlativo}" wrapping="false"/>
+                                            <Text text="{DespachoDetalle>Pallet}" wrapping="false"/>
+                                            <Text text="{DespachoDetalle>Calibre}" wrapping="false"/>
+                                            <Text text="{DespachoDetalle>Temperatura}" wrapping="false"/>
+                                            <CheckBox selected="{=${DespachoDetalle>Termografo} === 'X' ? true : false}"
+                                                      select="onCheckDespacho"
+                                                      enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                            <Input enabled="{= ${DespachoCab>/_guardado} ? false : (${DespachoDetalle>Termografo} === 'X' ? true : false)}"
+                                                   value="{DespachoDetalle>Termografo_1}"
+                                                   liveChange="onLiveChangeNumerico"/>
+                                            <Select selectedKey="{DespachoDetalle>TipoTermografo}" items="{TipoTerm>/}"
+                                                    enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                <core:Item key="{TipoTerm>Zona}" text="{TipoTerm>Consigna}" />
+                                            </Select>
+                                            <Switch change="onSwitchDespachoDetalle" customTextOn="Yes" customTextOff="No"
+                                                state="{=${DespachoDetalle>Switch} === 'X' ? true : false}"
+                                                enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                            <CheckBox selected="{=${DespachoDetalle>Sensor} === 'X' ? true : false}"
+                                                      select="onCheckDespacho"
+                                                      enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                            <TextArea value="{DespachoDetalle>Comentario}" rows="2" growing="true" width="100%"
+                                                      editable="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                        </VBox>
+
+                    </IconTabFilter>
+
+                    <IconTabFilter icon="sap-icon://notes" text="Datos Adicionales" key="datosAdicionales">
+
+                        <VBox class="sapUiSmallMargin">
+
+                            <f:Form editable="{= ${DespachoCab>/_guardado} ? false : true}">
+                                <f:title><core:Title text="Precintos" /></f:title>
+                                <f:layout>
+                                    <f:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+                                </f:layout>
+                                <f:formContainers>
+
+                                    <f:FormContainer>
+                                        <f:formElements>
+                                            <f:FormElement label="Packing">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPrecpacking}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Op. Logístico">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPrecoplog}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Cliente">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPreccliente}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement>
+                                                <f:label><Label text="{= (${mModeloCentro>/Werks} === '2401' ? 'MAGA' : 'Senasa') + ' 1'}"/></f:label>
+                                                <f:fields><Input maxLength="20" value="{DespachoCab>/ZzPrecsenasa}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement>
+                                                <f:label><Label text="{= (${mModeloCentro>/Werks} === '2401' ? 'MAGA' : 'Senasa') + ' 2'}"/></f:label>
+                                                <f:fields><Input maxLength="20" value="{DespachoCab>/ZzPrecsenasa2}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement>
+                                                <f:label><Label text="{= (${mModeloCentro>/Werks} === '2401' ? 'MAGA' : 'Senasa') + ' 3'}"/></f:label>
+                                                <f:fields><Input maxLength="20" value="{DespachoCab>/ZzPrecsenasa3}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement>
+                                                <f:label><Label text="{= (${mModeloCentro>/Werks} === '2401' ? 'MAGA' : 'Senasa') + ' 4'}"/></f:label>
+                                                <f:fields><Input maxLength="20" value="{DespachoCab>/ZzPrecsenasa4}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Tecnología">
+                                                <f:fields>
+                                                    <ComboBox selectedKey="{DespachoCab>/ZzTecnologia}" items="{Tecnologia>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="{Tecnologia>Codigo}" text="{Tecnologia>Descripcion}" />
+                                                    </ComboBox>
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+                                    <f:FormContainer>
+                                        <f:formElements>
+                                            <f:FormElement label="Línea 1">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPreclinea1}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Línea 2">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPreclinea2}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Línea 3">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPreclinea3}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Cortina">
+                                                <f:fields>
+                                                    <Select selectedKey="{DespachoCab>/Cortina}" items="{ZSeleccion>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="{ZSeleccion>Codigo}" text="{ZSeleccion>Descripcion}" />
+                                                        <layoutData><FlexItemData growFactor="2" /></layoutData>
+                                                    </Select>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/CortinaConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Filtros(#)">
+                                                <f:fields>
+                                                    <Input value="{DespachoCab>/Filtros}" maxLength="1" liveChange="validateNumeros"
+                                                           editable="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <layoutData><FlexItemData growFactor="2" /></layoutData>
+                                                    </Input>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/FiltrosConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Bolsa(#)">
+                                                <f:fields>
+                                                    <Input value="{DespachoCab>/Bolsa}" maxLength="1" liveChange="validateNumeros"
+                                                           editable="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <layoutData><FlexItemData growFactor="2" /></layoutData>
+                                                    </Input>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/BolsaConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Trincado">
+                                                <f:fields>
+                                                    <Select selectedKey="{DespachoCab>/Trincado}" items="{ZSeleccion>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="{ZSeleccion>Codigo}" text="{ZSeleccion>Descripcion}" />
+                                                        <layoutData><FlexItemData growFactor="2" /></layoutData>
+                                                    </Select>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/TrincadoConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Cartones">
+                                                <f:fields>
+                                                    <Select selectedKey="{DespachoCab>/Cartones}" items="{ZSeleccion>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="{ZSeleccion>Codigo}" text="{ZSeleccion>Descripcion}" />
+                                                        <layoutData><FlexItemData growFactor="2" /></layoutData>
+                                                    </Select>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/CartonesConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+                                    <f:FormContainer>
+                                        <f:formElements>
+                                            <f:FormElement label="Aduana 1">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPrecaduana}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Aduana 2">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPrecaduana2}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Aduana 3">
+                                                <f:fields><Input maxLength="15" value="{DespachoCab>/ZzPrecaduana3}" editable="{= ${DespachoCab>/_guardado} ? false : true}"/></f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Validador de Cortina">
+                                                <f:fields>
+                                                    <ComboBox selectedKey="{DespachoCab>/ValidCortina}"
+                                                            items="{Sup>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="{Sup>Auxturno}" text="{Sup>Auxturno}" />
+                                                    </ComboBox>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Validador de Filtros">
+                                                <f:fields>
+                                                    <ComboBox selectedKey="{DespachoCab>/ValidFiltros}"
+                                                            items="{Sup>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="{Sup>Auxturno}" text="{Sup>Auxturno}" />
+                                                    </ComboBox>
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+                                    <f:FormContainer>
+                                        <f:formElements>
+                                            <f:FormElement label="Scrubber">
+                                                <f:fields>
+                                                    <Select selectedKey="{DespachoCab>/Scrubber}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="Si" text="Si" />
+                                                        <core:Item key="No Conforme" text="No Conforme" />
+                                                        <core:Item key="No Aplica" text="No Aplica" />
+                                                    </Select>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/ScrubberConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Riel">
+                                                <f:fields>
+                                                    <Select selectedKey="{DespachoCab>/Riel}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="Con Jebe" text="Con Jebe" />
+                                                        <core:Item key="Sin Jebe" text="Sin Jebe" />
+                                                        <core:Item key="No Aplica" text="No Aplica" />
+                                                    </Select>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/RielConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Ventilación">
+                                                <f:fields>
+                                                    <Select selectedKey="{DespachoCab>/Ventilacion}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="Abierta" text="Abierta" />
+                                                        <core:Item key="Cerrada" text="Cerrada" />
+                                                    </Select>
+                                                    <Text text="Conforme"/>
+                                                    <Switch change="onSwitchDespacho" customTextOn="Si" customTextOff="No"
+                                                        state="{=${DespachoCab>/VentilacionConforme} === 'X' ? true : false}"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+
+                                </f:formContainers>
+                            </f:Form>
+
+                            <f:Form class="sapUiSmallMarginTop" editable="{= ${DespachoCab>/_guardado} ? false : true}">
+                                <f:title><core:Title text="" /></f:title>
+                                <f:layout>
+                                    <f:ResponsiveGridLayout
+                                        labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+                                        columnsXL="2" columnsL="1" columnsM="1"
+                                        singleContainerFullSize="false" />
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="">
+                                        <f:formElements>
+                                            <f:FormElement label="Inspección Sanitaria transporte">
+                                                <f:fields>
+                                                    <RadioButtonGroup id="rbtInsSa" columns="3"
+                                                        selectedIndex="{=${DespachoCab>/InspSanitariaTra} === 'NC' ? 1 : ${DespachoCab>/InspSanitariaTra} === 'C' ? 0 : -1 }"
+                                                        class="sapUiMediumMarginBottom"
+                                                        valueState="Error"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <RadioButton text="C"/>
+                                                        <RadioButton text="NC" />
+                                                    </RadioButtonGroup>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="El tratamiento cumple con las especificaciones">
+                                                <f:fields>
+                                                    <Switch change="onSwitchDespacho"
+                                                        state="{=${DespachoCab>/CumpleEspecificacion} === 'X' ? true : false}"
+                                                        customTextOn="Yes" customTextOff="No"
+                                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <layoutData><FlexItemData growFactor="1" /></layoutData>
+                                                    </Switch>
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                    <f:FormContainer title="">
+                                        <f:formElements>
+                                            <f:FormElement label="Responsable Inspección">
+                                                <f:fields>
+                                                    <ComboBox selectedKey="{DespachoCab>/RespInspSanitaria}"
+                                                            items="{Sup>/}" enabled="{= ${DespachoCab>/_guardado} ? false : true}">
+                                                        <core:Item key="{Sup>Auxturno}" text="{Sup>Auxturno}" />
+                                                    </ComboBox>
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                </f:formContainers>
+                            </f:Form>
+
+                            <FlexBox class="sapUiMediumMarginTop" alignItems="Center">
+                                <Button text="Fin" press="onPressHoraFinDespacho"
+                                        enabled="{= ${DespachoCab>/_guardado} ? false : true}"
+                                        type="Emphasized" class="sapUiSmallMarginEnd" />
+                                <Input enabled="false"
+                                        width="15rem"
+                                        value="{parts: [{path: 'DespachoCab>/FechaFin'}, {path: 'DespachoCab>/HoraFin'}, {path: 'mPholder>/finDesp'}], formatter: '.formatFechaHora'}"/>
+                            </FlexBox>
+
+                        </VBox>
+
+                    </IconTabFilter>
+
+                </items>
+            </IconTabBar>
+
+        </content>
+
+        <buttons>
+            <Button  text="Habilitar Insp." press="onActualizarDespacho"
+                    enabled="{= ${DespachoCab>/_guardado} === true &amp;&amp; ${myParam>/puedeAnularFechaFin} === true ? true : false}"/>
+            <Button icon="sap-icon://save" text="Guardar"
+                type="Emphasized" press="onSaveDespacho"
+                enabled="{= ${DespachoCab>/_finalizado} ? false : true}"/>
+            <Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialog('despacho')"/>
+        </buttons>
+
+    </Dialog>
+</core:FragmentDefinition>

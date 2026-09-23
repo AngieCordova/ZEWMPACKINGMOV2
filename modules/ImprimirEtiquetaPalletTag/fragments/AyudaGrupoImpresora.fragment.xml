@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    growingThreshold="10"
+    cancel="onCerrarFragmentoAyuda"
+    confirm="onAgregarValorAyudaImpresora"
+    search="onFiltrarAyuda"
+    noDataText="SIN DATOS"
+    title="SELECCIONE GRUPO IMPRESORA"
+    items="{/}" >
+    <StandardListItem
+      title="{ZZ_GRUPO}"
+      iconDensityAware="false"
+      iconInset="false"
+      type="Active" />
+  </SelectDialog>
+</core:FragmentDefinition>

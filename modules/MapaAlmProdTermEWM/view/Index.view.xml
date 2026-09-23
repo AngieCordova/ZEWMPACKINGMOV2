@@ -1,0 +1,276 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.MapaAlmProdTermEWM.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f">
+		<Page title="Mapa Almacenamiento de Producto Terminado EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+				<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+					<content>
+						<!-- BOTONES SELECCION -->
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiLargeMarginBottom">
+							<f:GridList 
+								id="grid_list-botones_filtros" 
+								mode="SingleSelectMaster" 
+								width="28rem" 
+								class="sapUiSmallMarginBegin" 
+								items="{mFiltros>/}">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="3rem"/>
+								</f:customLayout>
+
+								<f:GridListItem>
+									<VBox height="35px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Button text="{mFiltros>value}" type="Emphasized" press="onSelectUbicacion(${mFiltros>value})"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+							</f:GridList>
+
+							<!-- LABEL DE ESTADOS -->
+							<f:GridList width="25rem" class="sapUiSmallMarginBegin">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="5rem"/>
+								</f:customLayout>
+
+								<!-- DISPONIBLE -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Disponible"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoVerde">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+
+								<!-- OCUPADO -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Ocupado"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoRojo">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+							</f:GridList>
+						</FlexBox>	
+
+						<Panel width="auto">
+							<headerToolbar>
+								<OverflowToolbar>
+									<Title text="Ubicación {scope>/ubicacion}"/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<content>
+								<!-- LISTAS -->
+								<FlexBox alignItems="Start" justifyContent="SpaceBetween">
+
+									<!-- LISTA IZQUIERDA -->
+									<f:GridList 
+										id="grid_list-items_izquierda" 
+										width="20rem" 
+										items="{dataIzq>/}">
+										<f:customLayout>
+											<grid:GridBoxLayout boxMinWidth="100%"/>
+										</f:customLayout>
+										<f:GridListItem class="">
+											<VBox width="20rem">
+												<FlexBox
+													alignItems="Center"
+													justifyContent="Center">
+													<Text text="{dataIzq>nameRACK}" class="font-text-bold-title"/>
+												</FlexBox>
+
+												<f:GridList 
+													width="20rem" 
+													items="{dataIzq>NIVEL/}" >
+													<f:customLayout>
+														<grid:GridBoxLayout boxMinWidth="100%"/>
+													</f:customLayout>
+													<f:GridListItem>
+														<HBox width="20rem">
+															<layoutData>
+																<FlexItemData growFactor="1" shrinkFactor="0" />
+															</layoutData>
+															<FlexBox
+																alignItems="Center"
+																justifyContent="Center">
+																<Text text="{dataIzq>nameNIVEL}" width="20px" class="sapUiTinyMarginBegin font-text-bold" />
+															</FlexBox>
+
+															<f:GridList 
+																width="18rem" 
+																items="{dataIzq>SUBDIVISION/}" >
+																<f:customLayout>
+																	<grid:GridBoxLayout boxMinWidth="2rem"/>
+																</f:customLayout>
+																<f:GridListItem type="Active" press="onShowUbicacion(${dataIzq>LADO},${dataIzq>RACK},${dataIzq>NIVEL},${dataIzq>SUBDIVISION})" class="sapUiTinyMarginTop">
+																	<VBox height="60px">
+																		<layoutData>
+																			<FlexItemData growFactor="1" shrinkFactor="0" />
+																		</layoutData>
+																		<FlexBox 
+																			height="100%" 
+																			alignContent="End" 
+																			alignItems="Center" 
+																			justifyContent="End" 
+																			direction="Column" 
+																			renderType="Bare">
+																			<customData>
+																				<core:CustomData 
+																					key="grid-list-color" 
+																					value="{dataIzq>COLOR}" 
+																					writeToDom="true"/>
+																			</customData>
+																			<Text text="{dataIzq>SUBDIVISION}" class="PaddingTopNumeroAlmacenamientoProducto">
+																				<layoutData>
+																					<l:GridData
+																						span="XL12 L12 M12 S12" />
+																				</layoutData>
+																			</Text>
+																		
+																			<Text width="10px" visible="{= ${dataIzq>color_semaforo} ? true : false }">
+																				<layoutData>
+																					<l:GridData
+																						span="XL2 L2 M2 S2" />
+																				</layoutData>
+																				<customData>
+																					<core:CustomData key="semaforo-almacenamiento-producto" value="{dataIzq>color_semaforo}" writeToDom="true" />
+																				</customData>
+																			</Text>
+																		</FlexBox>
+																	</VBox>
+																</f:GridListItem>								
+															</f:GridList>
+
+														</HBox>
+													</f:GridListItem>								
+												</f:GridList>
+
+											</VBox>
+										</f:GridListItem>								
+									</f:GridList>
+
+									<!-- LISTA DERECHA -->		
+									<f:GridList 
+										id="grid_list-items_derecha" 
+										width="24rem" 
+										items="{dataDer>/}">
+										<f:customLayout>
+											<grid:GridBoxLayout boxMinWidth="100%"/>
+										</f:customLayout>
+										<f:GridListItem class="">
+											<VBox width="24rem">
+												<FlexBox
+													alignItems="Center"
+													justifyContent="Center">
+													<Text text="{dataDer>nameRACK}" class="font-text-bold-title"/>
+												</FlexBox>
+
+												<f:GridList 
+													width="24rem" 
+													items="{dataDer>NIVEL/}" >
+													<f:customLayout>
+														<grid:GridBoxLayout boxMinWidth="100%"/>
+													</f:customLayout>
+													<f:GridListItem>
+														<HBox width="24rem">
+															<layoutData>
+																<FlexItemData growFactor="1" shrinkFactor="0" />
+															</layoutData>
+
+															<f:GridList 
+																class="sapUiTinyMarginBegin"
+																width="22rem" 
+																items="{dataDer>SUBDIVISION/}" >
+																<f:customLayout>
+																	<grid:GridBoxLayout boxMinWidth="2rem"/>
+																</f:customLayout>
+																<f:GridListItem type="Active" press="onShowUbicacion(${dataDer>LADO},${dataDer>RACK},${dataDer>NIVEL},${dataDer>SUBDIVISION})" class="sapUiTinyMarginTop">
+																	<VBox height="60px">
+																		<layoutData>
+																			<FlexItemData growFactor="1" shrinkFactor="0" />
+																		</layoutData>
+
+																		<FlexBox 
+																			height="100%" 
+																			alignContent="End" 
+																			alignItems="Center" 
+																			justifyContent="End" 
+																			direction="Column" 
+																			renderType="Bare">
+																			<customData>
+																				<core:CustomData 
+																					key="grid-list-color" 
+																					value="{dataDer>COLOR}" 
+																					writeToDom="true"/>
+																			</customData>
+																			<Text text="{dataDer>SUBDIVISION}" class="PaddingTopNumeroAlmacenamientoProducto">
+																				<layoutData>
+																					<l:GridData
+																						span="XL12 L12 M12 S12" />
+																				</layoutData>
+																			</Text>
+																		
+																			<Text width="10px" visible="{= ${dataDer>color_semaforo} ? true : false }">
+																				<layoutData>
+																					<l:GridData
+																						span="XL2 L2 M2 S2" />
+																				</layoutData>
+																				<customData>
+																					<core:CustomData key="semaforo-almacenamiento-producto" value="{dataDer>color_semaforo}" writeToDom="true" />
+																				</customData>
+																			</Text>
+																		</FlexBox>
+																	</VBox>
+																</f:GridListItem>								
+															</f:GridList>
+															
+															<FlexBox
+																alignItems="Center"
+																justifyContent="Center">
+																<Text text="{dataDer>nameNIVEL}" width="20px" class="sapUiTinyMarginBegin font-text-bold" />
+															</FlexBox>
+														</HBox>
+													</f:GridListItem>								
+												</f:GridList>
+
+											</VBox>
+										</f:GridListItem>								
+									</f:GridList>
+
+								</FlexBox>
+							</content>
+						</Panel>
+
+					</content>
+				</Panel>
+
+			</content>
+		</Page>
+</mvc:View>

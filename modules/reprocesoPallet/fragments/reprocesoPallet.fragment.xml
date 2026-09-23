@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Reproceso Palet" contentWidth="600px" type="Message" afterClose="onAfterCloseMasterDialog" afterOpen="onCreateMasterDialog">
+		<content>
+        
+            <Button width="100%" icon="sap-icon://duplicate" text="Transformar Pallet para reproceso" type="Emphasized" press="onShowTransformarPalletDialog"/>
+            <Button width="100%" icon="sap-icon://show" text="Visualizar Id de reproceso" type="Emphasized" press="onShowVisualizarIdReprocesoDialog"/>
+            <Button width="100%" icon="sap-icon://pushpin-on" text="Notificación producto terminado" type="Emphasized" press="onShowNotifProdTerminadoDialog"/>
+
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cancelar" press="onCloseMasterDialog"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

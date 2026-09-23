@@ -1,0 +1,168 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.verificacionCargaPt.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:tool="sap.ui.core.TooltipBase">
+		<Page title="VERIFICACION CARGA PT" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+			  <HBox
+		          alignItems="Stretch"
+		          class="sapUiSmallMargin nestedFlexboxes">
+		           <VBox>
+			            <layoutData>
+			              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+			            </layoutData>
+			            <Label text="Año" labelFor="txtInpFilter2" required="true" design="Bold"/>
+			            <Input editable="false"
+										width="100%"
+										value="{mFiltros>/Anio}"
+										change=".ResetFilterInputState"								
+										required="true" />
+		          </VBox>
+		          <VBox>
+		            <layoutData>
+		              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+		            </layoutData>
+		            <Label text="Fecha Despacho" labelFor="txtInpFilter" required="true" design="Bold"/>
+		            <DatePicker 
+		            change="handleChangeFecha"
+		            value="{
+						'path':'mFiltros>/fStart',
+						'type':'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'dd.MM.yyyy'
+						}
+					}"				
+					class="sapUiSmallMarginBottom"/>
+		          </VBox>          
+		         
+		          <VBox class="bsc-padding-top-20">
+		            <layoutData>
+		              <FlexItemData growFactor="2" styleClass="sapUiTinyMargin"/>
+		            </layoutData>
+		              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="onBuscar"/>
+		          </VBox>
+		          
+		          <VBox class="bsc-padding-top-20">
+		            <layoutData>
+		              <FlexItemData growFactor="2" styleClass="sapUiTinyMargin"/>
+		            </layoutData>
+		              <Button icon="sap-icon://clear-filter" text="Limpiar" press="onFilterClean"/>
+		          </VBox>
+		       </HBox>
+						
+
+				<!-- TABLA LISTADO -->
+				<FlexBox
+					direction="Column"
+					height="100%"
+					renderType="Bare"
+					justifyContent="Inherit"
+					alignItems="Center">
+					<items>
+						<Table  items="{mListaPrincipal>/}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<ToolbarSpacer/>
+										<SearchField placeholder="Buscar" width="15rem" search="onFiltrarTabla"/>        
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+							    <Column
+									width="3em"
+									hAlign="Right"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="N°" />
+								</Column>
+								<Column
+									width="6em"
+									hAlign="Right"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Ronda" />
+								</Column>
+								<Column
+									width="6em"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Zona" />
+								</Column>
+								
+								<Column>
+									<Text text="Orden" />
+								</Column>
+
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Viaje" />
+								</Column>
+
+								<Column
+									width="10em"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Expediente" />
+								</Column>
+								
+								<Column width="20em"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Inspeccion" />
+								</Column>
+								<Column
+									width="9em"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Estatus" />
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+									    <Text text="{mListaPrincipal>Item}"/>
+										<Text text="{mListaPrincipal>Ronda}"/>
+										<Text text="{mListaPrincipal>Zona}"/>
+										<Text text="{mListaPrincipal>Orden}"/>
+										<Text text="{mListaPrincipal>Viaje}"/>
+										<Text text="{mListaPrincipal>Expediente}"/>
+											<FlexBox alignItems="Start">
+														<Button text="Carga" press="onShowCarga" enabled="{= ${mListaPrincipal>InsCarga} ==='2' ? false: true}" type="Emphasized" class="sapUiSmallMarginEnd">
+															<layoutData>
+																<FlexItemData growFactor="1" />
+															</layoutData>
+														</Button>
+														<Button text="Despacho" enabled="{= ${mListaPrincipal>InsDesp} ==='2' ? false: true}" press="onShowDespacho" type="Emphasized" class="sapUiSmallMarginEnd">
+															<layoutData>
+																<FlexItemData growFactor="1" />
+															</layoutData>
+														</Button>	
+														<Button icon="sap-icon://add-activity-2"  
+														        tooltip="Datos Faltantes en Carga y Despacho"
+														        type="Emphasized" class="sapUiSmallMarginEnd" 
+														        press=".onDatosFaltantes(${mListaPrincipal>Entrega})">
+															<layoutData>
+																	<FlexItemData growFactor="1" />
+																</layoutData>
+														</Button>								
+													
+											</FlexBox>
+										<ObjectStatus
+												text="{ path: 'mListaPrincipal>Status', formatter: '.formatter.statusText' }"
+												state="{ path: 'mListaPrincipal>Status', formatter: '.formatter.statusState' }"
+												inverted="true"/>									
+									</cells>
+								</ColumnListItem>								
+							</items>
+						</Table>
+					</items>
+				</FlexBox>
+			</content>
+		</Page>
+</mvc:View>

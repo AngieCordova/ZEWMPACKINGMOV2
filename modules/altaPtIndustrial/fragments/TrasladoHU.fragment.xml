@@ -1,0 +1,250 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="Traslado de HUs entre Almacenes" contentHeight="100%" contentWidth="900px" type="Message" busy="{mBusy>/iniciar}">
+		<content>
+			
+            <!-- CABECERA -->
+            <form:Form id="form-cabecera_traslado_hu" width="100%" editable="false" visible="true" class="inputPaddingTopNull">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="4"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="4"
+                        columnsL="4"
+                        columnsM="4"
+                        singleContainerFullSize="false" />
+			    </form:layout>
+                <form:formContainers>
+                    <!--ALMACEN-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Almacen">
+                                <Input
+                                    editable="false"
+                                    value="{mTrasladoHU>/Almacen}"/>
+                            </form:FormElement>      
+                        </form:formElements>                        
+                    </form:FormContainer>
+                                      
+                    <!-- ALMACEN DESTINO -->
+                    <form:FormContainer>                        
+                        <form:formElements>
+                            <form:FormElement label="Almacén Destino">
+                                <form:fields>
+                                    <Input 
+                                        editable="false"
+                                        value="{mTrasladoHU>/AlmacenDestino}" >
+                                        <layoutData>
+                                            <l:GridData span="XL9 L9 M9 S9" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button id="btn-ayuda_almacen_destino" press="onButtonPressOpenMatchcode($event, 'AyudaAlmacenesDestino')" type="Emphasized" icon="sap-icon://add-product" width="18%">
+                                        <layoutData>
+                                            <l:GridData span="XL3 L3 M3 S3" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>       
+                        </form:formElements>                        
+                    </form:FormContainer>    
+
+                    
+                    <!-- FECHA CONTABILIDAD -->
+                    <form:FormContainer>                        
+                        <form:formElements>
+                            <form:FormElement label="Fecha Contab.">
+                                <form:fields>
+                                    <DatePicker
+                                        value="{path: 'mTrasladoHU>/Fecha'}"                                       
+                                        valueFormat="dd-MM-yyyy"
+                                        displayFormat="dd.MM.yyyy"  >                                        
+                                        <layoutData>
+                                            <l:GridData span="XL9 L9 M9 S9" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <Button 
+                                        id="btn-buscar_hus_disponibles_traslado" 
+                                        press="buscarHUDisponiblesTraslado" 
+                                        type="Emphasized" 
+                                        icon="sap-icon://search" width="18%">
+                                        <layoutData>
+                                            <l:GridData span="XL3 L3 M3 S3" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>       
+                        </form:formElements>                        
+                    </form:FormContainer>    
+                                                    
+                    <!-- BTN BUSCAR -->
+                    <!-- <form:FormContainer>                        
+                        <form:formElements>        
+                            <form:FormElement label="">
+                                <form:fields>
+                                    <Button class="sapUiSmallMarginTop" id="btn-buscar_hus_disponibles_traslado" press="buscarHUDisponiblesTraslado" type="Emphasized" icon="sap-icon://search" width="18%"/>
+                                </form:fields>
+                            </form:FormElement>     
+                        </form:formElements>                        
+                    </form:FormContainer> -->
+     
+                    <!-- ESCANEAR HU -->
+                    <form:FormContainer>                        
+                        <form:formElements>   
+                            <form:FormElement label="Escanear HU">
+                                <form:fields>
+                                    <Input id="input-escanear_hu_traslado"
+                                        value="{mAlmacenarHU>/IdHuEscaneado}" submit="onEscanearHU"/>
+                                </form:fields>
+                            </form:FormElement>     
+                        </form:formElements>                        
+                    </form:FormContainer>
+
+                </form:formContainers>
+            </form:Form>
+            
+
+            <Table id="table-hu_disponibles_traslado"  items="{mListaHUDisponiblesTraslado>/}">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="HU Disponibles ({mCantidadesHU>/disponibles})" level="H2"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="HU2" />
+                    </Column>
+
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="HU" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="Variedad" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="Módulo" />
+                    </Column>
+                    
+                    <Column
+                        demandPopin="true"
+                        minScreenWidth="Desktop"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="Peso" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{mListaHUDisponiblesTraslado>IdPalletV2}"/>
+                            <Text text="{mListaHUDisponiblesTraslado>IdPallet}"/>
+                            <Text text="{mListaHUDisponiblesTraslado>IdVariedad}"/>
+                            <Text text="{mListaHUDisponiblesTraslado>IdModulo}"/>
+                            <Text text="{mListaHUDisponiblesTraslado>Peso} {mListaHUDisponiblesTraslado>UdM}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+
+
+            <Table id=""  items="{mListaHUPreparadasTraslado>/}">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="HU Preparadas ({mCantidadesHU>/preparadas})" level="H2"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="HU2" />
+                    </Column>
+
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="HU" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="Variedad" />
+                    </Column>
+                    
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="Módulo" />
+                    </Column>
+                    
+                    <Column
+                        demandPopin="true"
+                        minScreenWidth="Desktop"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="Peso" />
+                    </Column>
+                    
+                    <!-- <Column
+                        demandPopin="true"
+                        minScreenWidth="1400px"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="HU Escaneadas" />
+                    </Column> -->
+                    
+                    <Column
+                        demandPopin="true"
+                        minScreenWidth="Desktop"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{mListaHUPreparadasTraslado>IdPalletV2}"/>
+                            <Text text="{mListaHUPreparadasTraslado>IdPallet}"/>
+                            <Text text="{mListaHUPreparadasTraslado>IdVariedad}"/>
+                            <Text text="{mListaHUPreparadasTraslado>IdModulo}"/>
+                            <Text text="{mListaHUPreparadasTraslado>Peso} {mListaHUPreparadasTraslado>UdM}"/>
+                            <!-- <Text text="{mListaHUPreparadasTraslado>HUEscaneadas}"/> -->
+                            <Button press="onEliminarHUTraslado" type="Emphasized" icon="sap-icon://decline" width="18%"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+		</content>
+
+        <beginButton>
+            <Button type="Ghost" text="Cancelar" press="onCerrarFragmento('TrasladoHU')" icon="sap-icon://sys-cancel"></Button>
+        </beginButton>
+		<endButton>
+			<Button type="Emphasized" text="Guardar" press="onGuardarTrasladoHu" icon="sap-icon://save"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

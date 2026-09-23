@@ -1,0 +1,46 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.asignarOrdenZonaEWM.controller.asignarOrdenZonaEWM" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Lista de Ordenes a Asignar Zona" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idPedidosTable" items="{detail>/results}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Lista de Ordenes" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://inspect-down" text="Desasignar" type="Emphasized" press="onDesasignar"/>
+              <SearchField placeholder="Filtrar Pedido o Referencia" id="txtSearchPEDIDO" search="handleFilterPedidos" width="15rem"/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="6rem">
+              <Text text="Número de Pedido"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="6rem">
+              <Text text="Número de Referencia"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+              <Text text="Cliente"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left">
+              <Text text="Destino"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="6rem">
+              <Text text="Cantidad de pallets"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="onShowPedido">
+              <cells>
+                <Text text="{detail>PEDIDO}"/>
+                <Text text="{detail>ORDEN} - {detail>VIAJE}"/>
+                <Text text="{detail>CLIENTE} - {detail>CLIENTE_DESC}"/>
+                <Text text="{detail>DEST1}, {detail>DEST3}, {detail>DEST2}"/>
+                <Text text="{detail>CANT_PALLETS}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

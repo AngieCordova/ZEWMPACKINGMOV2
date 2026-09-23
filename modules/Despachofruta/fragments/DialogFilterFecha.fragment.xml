@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    growingThreshold="10"
+    cancel="onCerrarFragmento('AyudaAlmacenOrigen')"
+    confirm="onAgregarValorMatchcode($event, 'AyudaAlmacenOrigen', [{'path':'/almacen_origen','campo':''}])"
+    search="onFiltrarDatosMatchcode($event, ['Lgort','Lgobe'])"
+    noDataText="SIN DATOS"
+    title="SELECCIONE ALMACEN"
+    items="{/}" >
+    <StandardListItem
+      title="{Lgort}"
+      description="{Lgobe}"
+      iconDensityAware="false"
+      iconInset="false"
+      type="Active" />
+  </SelectDialog>
+</core:FragmentDefinition>

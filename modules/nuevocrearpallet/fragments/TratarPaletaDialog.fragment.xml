@@ -1,0 +1,712 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog title="Pre registrar PALET" busy="{mBusy>/iniciarPost}" contentHeight="100%" contentWidth="100%" type="Message" afterClose="onCerrarFragmento('TratarPaletaDialog')">
+		<content>
+            <!-- CABECERA DE PALETA -->
+			<Panel headerText="Cabecera de la paleta" expandable="true" expanded="true" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                    <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                        <!-- <form:title/> -->
+                        <form:layout>
+                            <form:ResponsiveGridLayout
+                                labelSpanXL="12"
+                                labelSpanL="12"
+                                labelSpanM="12"
+                                labelSpanS="12"
+                                adjustLabelSpan="false"
+                                emptySpanXL="0"
+                                emptySpanL="0"
+                                emptySpanM="0"
+                                emptySpanS="0"
+                                columnsXL="3"
+                                columnsL="3"
+                                columnsM="3"
+                                singleContainerFullSize="false" />
+                        </form:layout>
+                        <form:formContainers>
+                            <form:FormContainer>                        
+                                <form:formElements>    
+                                    <!--NUMERO DE PALETA-->
+                                    <form:FormElement label="Numero de Paleta">                                
+                                        <Input editable="false" value="{mTratarPallet>/NRO_PALETA}" />
+                                    </form:FormElement>                        	
+                                </form:formElements>
+                            </form:FormContainer>
+
+                            <form:FormContainer>
+                                <form:formElements>                           
+                                <!-- PRODUCTO -->
+                                    <form:FormElement label="Producto">
+                                        <form:fields>
+                                            <Input editable="false" value="{mTratarPallet>/PRODUCTO}"/>
+                                        </form:fields>
+                                    </form:FormElement>                   
+                                </form:formElements>
+                            </form:FormContainer>                            
+                            
+                            <form:FormContainer>
+                                <form:formElements>                           
+                                <!-- CLIENTE / DESTINO -->
+                                    <form:FormElement label="Cliente / Destino">
+                                        <form:fields>
+                                            <Input editable="false" value="{mTratarPallet>/CONSIGNATARIO}"/>
+                                        </form:fields>
+                                    </form:FormElement>                   
+                                </form:formElements>
+                            </form:FormContainer>
+                        </form:formContainers>
+
+
+                        <form:formContainers>
+                            <form:FormContainer>                        
+                                <form:formElements>    
+                                    <!--CAJAS EN PALETA-->
+                                    <form:FormElement label="Cajas en paleta">                                
+                                        <Input editable="false" value="{mTratarPallet>/CAJAS_EN_PALETA}" />
+                                    </form:FormElement>                        	
+                                </form:formElements>
+                            </form:FormContainer>
+
+                            <form:FormContainer>
+                                <form:formElements>                           
+                                <!-- MAX PALETA -->
+                                    <form:FormElement label="Max. Paleta">
+                                        <form:fields>
+                                            <Input id="input-max_paleta" editable="false" value="{= Number(${mTratarPallet>/CAJAS_FALTANTES}) + Number(${mTratarPallet>/CAJAS_EN_PALETA}) }"/>
+                                        </form:fields>
+                                    </form:FormElement>                   
+                                </form:formElements>
+                            </form:FormContainer>                            
+                            
+                            <form:FormContainer>
+                                <form:formElements>                           
+                                <!-- CAJAS FALTANTES -->
+                                    <form:FormElement label="Cajas faltantes">
+                                        <form:fields>
+                                            <Input editable="false" value="{mTratarPallet>/CAJAS_FALTANTES}"/>
+                                        </form:fields>
+                                    </form:FormElement>                   
+                                </form:formElements>
+                            </form:FormContainer>
+                        </form:formContainers>
+
+
+                        <form:formContainers>
+                            <form:FormContainer>                        
+                                <form:formElements>    
+                                    <!--FECHA DE EMPAQUE-->
+                                    <form:FormElement label="Fecha de empaque">                                
+                                        <Input editable="false" value="{=
+                                            ${mTratarPallet>/FECHA_EMPAQUE}.substring(6,8) + '.' +
+                                            ${mTratarPallet>/FECHA_EMPAQUE}.substring(4,6) + '.' +
+                                            ${mTratarPallet>/FECHA_EMPAQUE}.substring(0,4)
+                                        }"/>
+                                    </form:FormElement>                        	
+                                </form:formElements>
+                            </form:FormContainer>
+
+                            <form:FormContainer>
+                                <form:formElements>                           
+                                <!-- EMPRESA AGRICOLA-->
+                                    <form:FormElement label="Empresa agrícola">
+                                        <form:fields>
+                                            <!-- <Input editable="false" value="{mTratarPallet>/PARTNER} - {mTratarPallet>/PARTNER_NAME}"/> -->
+                                            <Input editable="false" value="{mTratarPallet>/EMPRESA_MOSTRAR}"/>
+                                        </form:fields>
+                                    </form:FormElement>                   
+                                </form:formElements>
+                            </form:FormContainer>                            
+                            
+                            <form:FormContainer>
+                                <form:formElements>                           
+                                <!-- ORDEN / VIAJE -->
+                                    <form:FormElement label="Orden / Viaje">
+                                        <form:fields>
+                                            <Input editable="false" value="{mTratarPallet>/ORDEN} / {mTratarPallet>/VIAJE}"/>
+                                        </form:fields>
+                                    </form:FormElement>                   
+                                </form:formElements>
+                            </form:FormContainer>
+                        </form:formContainers>
+                    </form:Form>                    
+                </content>
+            </Panel>
+
+            <!-- AGREGAR DISMINUIR CAJA -->
+            <Panel id="panel-administrar_cajas" headerText="Agregar o disminuir cajas" expandable="true" expanded="false" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                    <Table id="table-tratar_pallet_cajas" items="{mTratarPallet>/ListaCajas/}" inset="false">
+                        <headerToolbar>
+                            <Toolbar>
+                                <SearchField placeholder="Filtrar empresas" width="15rem" search="onFiltrarListaStock"/>
+                            </Toolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column 
+                                width="4rem"
+                                visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}"
+                                minScreenWidth="Tablet" 
+                                demandPopin="true" 
+                                hAlign="Center" 
+                                vAlign="Middle">
+                                <Text text="Selec."/>
+                            </Column>
+                            <Column width="16rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Empresa agrícola"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Módulo"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Fecha de cosecha"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Guía"/>
+                            </Column>
+                            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Cantidad de cajas"/>
+                            </Column>
+                            <Column 
+                                width="4rem"
+                                visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}"
+                                minScreenWidth="Desktop" 
+                                demandPopin="true" 
+                                hAlign="Center" 
+                                vAlign="Middle">
+                                <Text text="Agregar"/>
+                            </Column>
+                            <Column 
+                                width="4rem"
+                                visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}"
+                                minScreenWidth="Desktop" 
+                                demandPopin="true" 
+                                hAlign="Center" 
+                                vAlign="Middle">
+                                <Text text="Quitar"/>
+                            </Column>
+                        </columns>
+                        <items>
+                        <ColumnListItem>
+                            <cells>
+                                <CheckBox select="onTratarCajaPosicion"/>
+                                <Text text="{mTratarPallet>EMPRESA_AGRICOLA}"/>
+                                <Text text="{mTratarPallet>MODULO} - {mTratarPallet>MODULO_DESCR}"/>
+                                <Text text="{=
+                                    ${mTratarPallet>FECHA_COSECHA}.substring(6,8) + '.' +
+                                    ${mTratarPallet>FECHA_COSECHA}.substring(4,6) + '.' +
+                                    ${mTratarPallet>FECHA_COSECHA}.substring(0,4)
+                                }"/>
+
+                                <FlexBox
+                                    visible="true"
+                                    height="100px"
+                                    alignItems="Center"
+                                    justifyContent="Center">
+                                    <items>
+                                        <Input editable="false" value="{mTratarPallet>GUIA}">
+                                            <layoutData>
+                                                <l:GridData span="XL10 L10 M10 S10" />
+                                            </layoutData>
+                                        </Input>
+                                        <Button press="onAbrirAyudaGuia" enabled="false" type="Emphasized" icon="sap-icon://subway-train" width="18%">
+                                            <layoutData>
+                                                <l:GridData span="XL2 L2 M2 S2" />
+                                            </layoutData>
+                                        </Button>                                                           
+                                    </items>
+                                </FlexBox>
+                                
+                                <Input value="{mTratarPallet>CANT_CAJAS}" enabled="false" type="Number" liveChange="_NoSuperaMaximo"/>
+                                <Button enabled="false" text="+" press="onAgregarCajas"/>
+                                <Button enabled="false" text="-" press="onQuitarCajas"/>
+                            </cells>
+                        </ColumnListItem>
+                        </items>
+                    </Table>
+
+                     <FlexBox
+                        visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}"
+                        height="100px"
+                        alignItems="Center"
+                        justifyContent="End">
+                        <items>
+                            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                                <!-- <form:title/> -->
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="12"
+                                        labelSpanL="12"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="1"
+                                        columnsL="1"
+                                        columnsM="1"
+                                        singleContainerFullSize="false" />
+                                </form:layout>
+                                <form:formContainers>
+                                    <form:FormContainer>
+                                        <form:formElements>                           
+                                            <!-- GRUPO DE IMPRESORAS -->
+                                            <form:FormElement label="Grupo de impresoras">
+                                                <form:fields>
+                                                    <Input editable="false" id="input-grupo_impresora_edicion_cajas">
+                                                        <layoutData>
+                                                            <l:GridData span="XL10 L10 M10 S10" />
+                                                        </layoutData>
+                                                    </Input>
+                                                    <Button enabled="{= ${mBusy>/iniciarPost} ? false : true}" press="onAbrirAyudaImpresora" type="Emphasized" icon="sap-icon://print" width="18%">
+                                                        <layoutData>
+                                                            <l:GridData span="XL2 L2 M2 S2" />
+                                                        </layoutData>
+                                                    </Button>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>                            
+                                </form:formContainers>
+                            </form:Form>                            
+                        </items>
+                    </FlexBox>
+                    
+                    <FlexBox
+                        visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}"
+                        height="100px"
+                        alignItems="Center"
+                        justifyContent="End">
+                        <items>
+                            <Button enabled="{= ${mBusy>/iniciarPost} ? false : true}" class="sapUiMediumMarginEnd" type="Emphasized" icon="sap-icon://save" text="GUARDAR" press="onActualizarPosicionesCajas"></Button>
+                        </items>
+                    </FlexBox>
+                </content>
+            </Panel>
+            
+            <!-- ASIGNAR ORDEN VIAJE -->
+            <Panel headerText="Asignar orden / viaje" expandable="true" expanded="false" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                    <Table items="{mListaOrdenViaje>/}" inset="false" id="table-tabla_asignar_orden_viaje">
+                        <columns>
+                            <Column 
+                                minScreenWidth="Tablet" 
+                                demandPopin="true" 
+                                hAlign="Center" 
+                                vAlign="Middle">
+                                <Text text="Numero de paleta"/>
+                            </Column>
+                            <Column width="20rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Empresa Agrícola"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Módulo"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Fecha de cosecha"/>
+                            </Column>
+                            <Column minScreenWidth="1700px" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Guía"/>
+                            </Column>
+                            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Cantidad de cajas"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{mListaOrdenViaje>NRO_PALETA}"/>
+                                    <Text text="{mListaOrdenViaje>EMPRESA_AGRICOLA}"/>
+                                    <Text text="{mListaOrdenViaje>MODULO} - {mListaOrdenViaje>MODULO_DESCR}"/>
+                                    <Text text="{=
+                                        ${mListaOrdenViaje>FECHA_COSECHA}.substring(6,8) + '.' +
+                                        ${mListaOrdenViaje>FECHA_COSECHA}.substring(4,6) + '.' +
+                                        ${mListaOrdenViaje>FECHA_COSECHA}.substring(0,4)
+                                    }"/>
+                                    <Label text="{mListaOrdenViaje>GUIA}" design="Bold"/>
+                                    <Label text="{mListaOrdenViaje>CANT_CAJAS}" design="Bold"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+
+                    <FlexBox
+                        visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}"
+                        height= "auto" 
+                        alignItems="Center"
+                        justifyContent="Start">
+                        <items>
+                            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                                <!-- <form:title/> -->
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="12"
+                                        labelSpanL="12"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="4"
+                                        columnsL="4"
+                                        columnsM="4"
+                                        singleContainerFullSize="false" />
+                                </form:layout>
+                                <form:formContainers>
+
+                                    <form:FormContainer>
+                                        <form:formElements>                           
+                                            <!-- CHECKBOX IMPRIMIR -->
+                                            <form:FormElement label="Imprimir Pallet Sheet">
+                                                <form:fields>
+                                                    <CheckBox id="checkBox-impresoraOrdViaje" select="onChkImpresoraOrdViaje()" enabled="{= ${mBusy>/iniciarPost} ? false : true}">
+                                                        <layoutData>
+                                                            <l:GridData span="XL2 L2 M2 S2" /> 
+                                                        </layoutData>
+                                                    </CheckBox>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    
+                                     <!-- Inicio TKT 8000024143 --> 
+                                     <form:FormContainer>
+                                        <form:formElements>                           
+                                            <!-- CHECKBOX Pallet CHEP -->
+                                            <form:FormElement label="Pallet CHEP(AZUL)">
+                                                <form:fields>                                                    
+                                                    <CheckBox id="checkBox-PalletChep" enabled="true">
+                                                        <layoutData>
+                                                            <l:GridData span="XL2 L2 M2 S2" /> 
+                                                        </layoutData>
+                                                    </CheckBox>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <!-- Fin TKT 8000024143 -->   
+
+                                    <form:FormContainer>
+                                        <form:formElements>                           
+                                            <!-- BTN IMPRESORA -->
+                                            <form:FormElement label="Impresora">
+                                                <form:fields>
+                                                    <Input editable="false" id="input-impresoraOrdViaje" enabled="{scope>/visibleImpresoraOrdViaje}">
+                                                        <layoutData>
+                                                            <l:GridData span="XL10 L10 M10 S10" />
+                                                        </layoutData>
+                                                    </Input>
+                                                    <Button enabled="{scope>/visibleImpresoraOrdViaje}" press="onAbrirAyudaImpresoraOrdViaje" type="Emphasized" icon="sap-icon://print" width="18%">
+                                                        <layoutData>
+                                                            <l:GridData span="XL2 L2 M2 S2" /> 
+                                                        </layoutData>
+                                                    </Button>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>
+
+                                    <form:FormContainer>
+                                        <form:formElements>                           
+                                            <!-- BTN ORDEN DE VIAJE -->
+                                            <form:FormElement label="Viaje">
+                                                <form:fields>
+                                                    <Input editable="false" id="input-orden_viaje">
+                                                        <layoutData>
+                                                            <l:GridData span="XL10 L10 M10 S10" />
+                                                        </layoutData>
+                                                    </Input>
+                                                    <Button enabled="{= ${mBusy>/iniciarPost} ? false : true}" press="onAbrirAyudaViaje" type="Emphasized" icon="sap-icon://travel-itinerary" width="18%">
+                                                        <layoutData>
+                                                            <l:GridData span="XL2 L2 M2 S2" />
+                                                        </layoutData>
+                                                    </Button>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>                               
+                                                 
+
+                                </form:formContainers>
+                            </form:Form>
+                        </items>
+                    </FlexBox>
+                    
+
+
+
+
+                            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                                <!-- <form:title/> -->
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="12"
+                                        labelSpanL="12"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="2"
+                                        columnsL="2"
+                                        columnsM="2"
+                                        singleContainerFullSize="false" />
+                                </form:layout>
+                                <form:formContainers>
+
+
+
+
+                                    <form:FormContainer>
+                                        <form:formElements>                           
+                                            <!-- INPUT COMENTARIO -->
+                                            <form:FormElement label="Comentario">
+                                                <form:fields>
+                                                    <Input enabled="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}" value="{scope>/comentarioOrdViaje}" id="input-comentarioOrdViaje">
+                                                    </Input>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>                         
+
+
+
+                                    <form:FormContainer visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}">
+                                        <form:formElements>                           
+                                            <!-- INPUT COMENTARIO -->
+                                            <form:FormElement label="">
+                                                <form:fields>
+                            <Button enabled="{= ${mBusy>/iniciarPost} ? false : true}" class="sapUiMediumMarginEnd" type="Emphasized" icon="sap-icon://save" text="GUARDAR" press="onGuardarOrdenViaje">
+                                <layoutData>
+                                    <l:GridData span="XL6 L6 M6 S6" />
+                                </layoutData>
+                            </Button>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>                         
+
+
+
+
+                                </form:formContainers>
+                            </form:Form>
+
+
+
+                </content>
+            </Panel>
+            
+            <!-- RE-EMPRIMIR ETIQUETA -->
+            <Panel headerText="Re imprimir etiquetas" expandable="true" expanded="false" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                    <Table items="{mListaReimprimirEtiqueta>/}" inset="false" id="table-reimprimir_etiquetas">
+                        <columns>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Número de paleta"/>
+                            </Column>
+                            <Column width="20rem" minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Empresa agrícola"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Módulo"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Fecha de producción"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Fecha de cosecha"/>
+                            </Column>
+                            <Column minScreenWidth="1700px" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Cantidad de cajas"/>
+                            </Column>
+                            <Column minScreenWidth="1700px" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Guía"/>
+                            </Column>
+                            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Cantidad de etiquetas"/>
+                            </Column>
+                            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="(Re) Impr. PTI"/>
+                            </Column>
+                            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="(Re) Impr. OGL"/>
+                            </Column>
+                            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Impr. SENSASA"/>
+                            </Column>
+                        </columns>
+                        <items>
+                        <ColumnListItem press="onTratarPaletSeleccionItem">
+                            <cells>
+                                <Text text="{mListaReimprimirEtiqueta>NRO_PALETA}"/>
+                                <Text text="{mListaReimprimirEtiqueta>EMPRESA_AGRICOLA}"/>
+                                <Text text="{mListaReimprimirEtiqueta>MODULO} - {mListaReimprimirEtiqueta>MODULO_DESCR}"/>
+                                <Text text="{=
+                                    ${mListaReimprimirEtiqueta>FECHA_PRODUCCION}.substring(6,8) + '.' +
+                                    ${mListaReimprimirEtiqueta>FECHA_PRODUCCION}.substring(4,6) + '.' +
+                                    ${mListaReimprimirEtiqueta>FECHA_PRODUCCION}.substring(0,4)
+                                }"/>
+                                <Text text="{=
+                                    ${mListaReimprimirEtiqueta>FECHA_COSECHA}.substring(6,8) + '.' +
+                                    ${mListaReimprimirEtiqueta>FECHA_COSECHA}.substring(4,6) + '.' +
+                                    ${mListaReimprimirEtiqueta>FECHA_COSECHA}.substring(0,4)
+                                }"/>
+                                <Label text="{mListaReimprimirEtiqueta>CANT_CAJAS}" design="Bold"/>
+                                <Label text="{mListaReimprimirEtiqueta>GUIA}" design="Bold"/>
+                                <Input value="{mListaReimprimirEtiqueta>CANTIDAD_ETIQUETAS}" liveChange="onlyNumberFormat"/>
+                                <CheckBox selected="{mListaReimprimirEtiqueta>PTI}"/>
+                                <CheckBox selected="{mListaReimprimirEtiqueta>OGL}"/>
+                                <CheckBox selected="{mListaReimprimirEtiqueta>SENASA}"/>
+                            </cells>
+                        </ColumnListItem>
+                        </items>
+                    </Table>
+
+                    <FlexBox
+                        height="100px"
+                        alignItems="Center"
+                        justifyContent="End">
+                        <items>
+                            <FlexBox
+                                height="100px"
+                                alignItems="Center"
+                                justifyContent="Center"
+                                direction="Column"
+                                class="sapUiLargeMarginEnd">
+                                <items>
+                                    <Label text="(Re) Impr. PaletTag:">
+                                        <layoutData>
+                                            <l:GridData span="XL10 L10 M10 S10" />
+                                        </layoutData>
+                                    </Label>
+                                    <CheckBox id="chk-reimprimir_marcar_todo">
+                                        <layoutData>
+                                            <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </CheckBox>
+                                </items>
+                            </FlexBox>
+
+                            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                                <!-- <form:title/> -->
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="12"
+                                        labelSpanL="12"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="1"
+                                        columnsL="1"
+                                        columnsM="1"
+                                        singleContainerFullSize="false" />
+                                </form:layout>
+                                <form:formContainers>
+                                    <form:FormContainer>
+                                        <form:formElements>                           
+                                            <!-- GRUPO DE IMPRESORAS -->
+                                            <form:FormElement label="Grupo de impresoras">
+                                                <form:fields>
+                                                    <Input editable="false" id="input-grupo_impresora_reimprimir">
+                                                        <layoutData>
+                                                            <l:GridData span="XL10 L10 M10 S10" />
+                                                        </layoutData>
+                                                    </Input>
+                                                    <Button press="onAbrirAyudaImpresora" type="Emphasized" icon="sap-icon://print" width="18%">
+                                                        <layoutData>
+                                                            <l:GridData span="XL2 L2 M2 S2" />
+                                                        </layoutData>
+                                                    </Button>
+                                                </form:fields>
+                                            </form:FormElement>                   
+                                        </form:formElements>
+                                    </form:FormContainer>                            
+                                </form:formContainers>
+                            </form:Form>
+                        </items>
+                    </FlexBox>                    
+
+                    <FlexBox
+                        height="100px"
+                        alignItems="Center"
+                        justifyContent="End">
+                        <items>
+                            <Button enabled="{= ${mBusy>/iniciarPost} ? false : true}" class="sapUiMediumMarginEnd" type="Emphasized" icon="sap-icon://save" text="GUARDAR"  press="onReeimprimirEtiquetas"></Button>
+                        </items>
+                    </FlexBox>
+
+                </content>
+            </Panel>
+            
+            <!-- ELIMINAR PALLET -->
+            <Panel headerText="Eliminar paleta" expandable="true" expanded="false" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                    <Table items="{mListaOrdenViaje>/}" inset="false">
+                        <columns>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Numero de paleta"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Módulo"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Fecha de cosecha"/>
+                            </Column>
+                            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Guía"/>
+                            </Column>
+                            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                                <Text text="Cantidad de cajas"/>
+                            </Column>
+                        </columns>
+                        <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{mListaOrdenViaje>NRO_PALETA}"/>
+                                <Text text="{mListaOrdenViaje>MODULO} - {mListaOrdenViaje>MODULO_DESCR}"/>
+                                <Text text="{=
+                                    ${mListaOrdenViaje>FECHA_COSECHA}.substring(6,8) + '.' +
+                                    ${mListaOrdenViaje>FECHA_COSECHA}.substring(4,6) + '.' +
+                                    ${mListaOrdenViaje>FECHA_COSECHA}.substring(0,4)
+                                }"/>
+                                <Label text="{mListaOrdenViaje>GUIA}" design="Bold"/>
+                                <Label text="{mListaOrdenViaje>CANT_CAJAS}" design="Bold"/>
+                            </cells>
+                        </ColumnListItem>
+                        </items>
+                    </Table>
+
+                    <FlexBox
+                        visible="{= ${mTratarPallet>/ORDEN} || ${mTratarPallet>/VIAJE} ? false : true}"
+                        height="100px"
+                        alignItems="Center"
+                        justifyContent="End">
+                        <items>
+                            <Button enabled="{= ${mBusy>/iniciarPost} ? false : true}" type="Reject" icon="sap-icon://delete" text="ELIMINAR" press="onEliminarPallet"></Button>
+                        </items>
+                    </FlexBox>
+                </content>
+            </Panel>
+		</content>
+
+		<beginButton>
+			<Button enabled="{= ${mBusy>/iniciarPost} ? false : true}" type="Ghost" icon="sap-icon://cancel" text="CANCELAR" press="onCerrarFragmento('TratarPaletaDialog')"></Button>
+		</beginButton>
+		<!-- <endButton>
+			<Button  type="Emphasized" icon="sap-icon://save" text="GUARDAR" id="btn-guardar_tratamiento_palet"></Button>
+		</endButton> -->
+	</Dialog>
+</core:FragmentDefinition>

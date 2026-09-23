@@ -1,0 +1,113 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.table" xmlns:t="sap.tnt">
+  <Page id="IdCrearPaletNuevo" title="Nuevo Crear pallets de producto terminado" showNavButton="true" class="sapUiStdPage"
+    navButtonPress="onPressInicion">
+    <content>
+      <Table id="idPaletTableNuevo" items="{oCreatePaletModel>/}" inset="false" visible="{oCreatePaletModelConfig>/ListaCrearPallet}">
+        <headerToolbar>
+          <Toolbar>
+            <!-- <Title text="Crear pallets de producto terminado" titleStyle="H3"/> -->
+            <Button type="Emphasized" text="Tratar Paleta" id="btn-tratar_pallet" icon="sap-icon://database"/>
+            <ToolbarSpacer/>
+            <Button type="Emphasized" text="Re-Habilitar" id="btn-rehabilitar_palet" icon="sap-icon://response"/>
+            <ToolbarSpacer/>
+            <Button type="Emphasized" text="Quitar" id="btn-quitar_pallet" icon="sap-icon://delete"/>
+            <SearchField placeholder="Filtrar Paletas" id="input-search_field_crear_pallet" width="15rem"/>
+          </Toolbar>
+        </headerToolbar>
+        <columns>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Seleccionar"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Fecha de cosecha"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Empresa Agrícola"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Módulo"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Estatus"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Navigation" press="onPreRegistrarPallet">
+            <cells>
+              
+              <CheckBox select="onSeleccionarProductoQuitar"/>
+              <Text text="{oCreatePaletModel>FCH_COSECHA}"/>
+              <Text text="{oCreatePaletModel>PARTNER_NAME}"/>
+              <Text text="{oCreatePaletModel>MODULO} - {oCreatePaletModel>MODULO_DESCR}"/>
+              <Label text="{oCreatePaletModel>STATUS_DESCR}" design="Bold"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+
+
+      <!-- TRATAR PALLET -->
+      <Table id="table-paletas_tratar" items="{ListaPalletsPreRegistradosModel>/}" inset="false" visible="{oCreatePaletModelConfig>/TratarPallet}">
+        <headerToolbar>
+          <Toolbar>
+            <Title text="TRATAR PALLET" titleStyle="H3"/>
+            <ToolbarSpacer/>
+            <Button type="Emphasized" text="CANCELAR" id="btn-crear_pallet" icon="sap-icon://database" class="sapUiMediumMarginEnd"/>
+            <SearchField placeholder="Filtrar Paletas" id="input-search_field_tratar_pallet" width="15rem"/>
+          </Toolbar>
+        </headerToolbar>
+        <columns>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Numero de paleta"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Producto"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Cliente / Destino"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Cajas de paleta"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Max. de paleta"/>
+          </Column>
+          <Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Cajas faltantes"/>
+          </Column>
+          <Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Fecha empaque"/>
+          </Column>
+          <Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Empresa agrícola"/>
+          </Column>
+          <Column minScreenWidth="1800px" demandPopin="true" hAlign="Center" vAlign="Middle">
+            <Text text="Orden viaje"/>
+          </Column>
+        </columns>
+        <items>
+          <!-- <ColumnListItem type="Navigation" press="onTratarPaletSeleccionItem"> -->
+          <ColumnListItem type="Navigation">
+            <cells>
+              <Text text="{ListaPalletsPreRegistradosModel>NRO_PALETA}"/>
+              <Text text="{ListaPalletsPreRegistradosModel>PRODUCTO}"/>
+              <Text text="{ListaPalletsPreRegistradosModel>CONSIGNATARIO}"/>
+              <Text text="{ListaPalletsPreRegistradosModel>CAJAS_EN_PALETA}"/>
+              
+              <Text text="{= Number(${ListaPalletsPreRegistradosModel>CAJAS_FALTANTES}) + Number(${ListaPalletsPreRegistradosModel>CAJAS_EN_PALETA}) }"/>
+              <Text text="{ListaPalletsPreRegistradosModel>CAJAS_FALTANTES}"/>
+              <Text text="{=
+                  ${ListaPalletsPreRegistradosModel>FECHA_EMPAQUE}.substring(6,8) + '.' +
+                  ${ListaPalletsPreRegistradosModel>FECHA_EMPAQUE}.substring(4,6) + '.' +
+                  ${ListaPalletsPreRegistradosModel>FECHA_EMPAQUE}.substring(0,4)
+                }"/>
+              <Text text="{ListaPalletsPreRegistradosModel>PARTNER} - {ListaPalletsPreRegistradosModel>PARTNER_NAME}"/>
+              <Text text="{ListaPalletsPreRegistradosModel>ORDEN} / {ListaPalletsPreRegistradosModel>VIAJE}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Page>
+</core:FragmentDefinition>

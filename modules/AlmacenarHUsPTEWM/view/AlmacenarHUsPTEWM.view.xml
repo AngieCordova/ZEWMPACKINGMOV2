@@ -1,0 +1,66 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.AlmacenarHUsPTEWM.controller.AlmacenarHUsPTEWM" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Almacenar HU'S PT EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idHUTable" items="{detail>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="MOVER PALETS DE PT DESDE PISO DE PLANTA ({scope>/totalTareasPallets} Tareas)" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <SearchField placeholder="Filtrar" id="txtSearchHU" search="handleFilterHU" width="15rem"/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Item"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="ID2"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Tipo Paleta"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Orden/Viaje"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Envase"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Exportador"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Categoria"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Destino"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Cajas"/>
+            </Column>
+
+
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="onShowHUs">
+              <cells>
+                <Text text="{detail>Item}"/>
+                <!--SCH-Inicio-Proyecto Guatemala -->
+                <!-- <Text text="{detail>Exidv2}"/> -->
+                 <Text text="{parts: [ {path: 'detail>Exidv2'} ], formatter: '.formatter.concatenateZero'}"/>
+                <!--SCH-Fin-Proyecto Guatemala -->
+                <Text text="{detail>TipoPal}"/>
+                <Text text="{detail>OrdenViaje}"/>
+                <Text text="{detail>Envase}"/>
+                <Text text="{detail>Exportador}"/>
+                <Text text="{detail>Categoria}"/>
+                <Text text="{detail>Destino}"/>
+                <Text text="{parts: [ {path: 'detail>Cajas'} ], formatter: '.formatter.parseInt'}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,85 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout">
+    <Dialog
+        title="Ubicacion: {dialogData>/UBICACION}"
+        contentWidth="600px"
+        stretchOnPhone="true">
+
+        <!-- Header con Número de Paleta y Exportador -->
+        <VBox visible="{= !${dialogData>/hideHeaderInfo} }" class="sapUiSmallMargin">
+            <HBox>
+                <Text text="Número de paleta:" class="sapUiSmallMarginEnd"/>
+                <Text text="{dialogData>/NRO_PALLET}"/>
+            </HBox>
+            <HBox>
+                <Text text="Exportador:" class="sapUiSmallMarginEnd"/>
+                <Text text="{dialogData>/EXPORTADOR_DESC}"/>
+            </HBox>
+        </VBox>
+
+        <!-- Tabla de productos -->
+        <Table items="{dialogData>/lista_productos}" class="sapUiResponsiveMargin">
+            <headerToolbar>
+                <Toolbar>
+                    <Title text="Detalle"/>
+                </Toolbar>
+            </headerToolbar>
+
+            <columns>
+                <!-- Columna NUM_PALLET visible solo si hay más de un pallet -->
+                <Column visible="{= ${dialogData>/TOTAL_PALLETS} > 1 }" width="160px">
+                    <Text text="Número de pallet"/>
+                </Column>
+                <Column width="200px">
+                    <Text text="Producto"/>
+                </Column>
+                <Column width="60px">
+                    <Text text="Días"/>
+                </Column>
+                <Column width="150px">
+                    <Text text="Cant. Cajas"/>
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <!-- NUM_PALLET -->
+                        <Text text="{dialogData>NRO_PALLET}" noWrap="true" visible="{= ${dialogData>/TOTAL_PALLETS} > 1 }"/>
+                        <!-- Producto -->
+                        <Text text="{dialogData>Maktx}"/>
+                        <!-- Días -->
+                        <Text text= "{path: 'dialogData>FechaProduccion',formatter: '.formatter.getDiasAlmacenamiento'}"/>
+                        <!-- Cant. Cajas -->
+                        <Text text="{path: 'dialogData>CajasAlmacenamiento',formatter: '.formatter.getCantidadCajas'}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+
+        <!-- TOTAL PALLETS -->
+        <VBox visible="{= ${dialogData>/TOTAL_PALLETS} > 1 }" class="sapUiSmallMargin">
+            <!-- Mostrar solo si hay más de un pallet -->
+            <HBox class="sapUiSmallMarginBegin">
+                <Text text="Total de pallets:"/>
+                <Text text="{dialogData>/TOTAL_PALLETS}" class="sapUiSmallMarginBegin"/>
+            </HBox>
+        </VBox>
+
+        <!-- TOTAL DE CAJAS -->
+        <VBox class="sapUiSmallMargin sapUiResponsiveMargin">
+    <HBox>
+        <Text text="Total de cajas:" class="sapUiSmallMarginEnd sapUiSmallMarginTop"/>
+        <Text text="{dialogData>/TOTAL_CAJAS}" class="sapUiSmallMarginTop"/>
+    </HBox>
+    </VBox>
+
+        <endButton>
+            <Button text="Cerrar" press=".onCloseDialog"/>
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

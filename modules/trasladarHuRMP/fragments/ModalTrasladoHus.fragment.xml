@@ -1,0 +1,199 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog 
+        title="Traslado de HUs en Cámara a Piso" 
+        contentHeight="100%" 
+        contentWidth="100%" 
+        type="Message" 
+        afterClose="onCerrarModal">
+		
+        <content>
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="4"
+                        columnsL="4"
+                        columnsM="4"
+                        singleContainerFullSize="false" />
+                </form:layout>
+                <form:formContainers>
+
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <!--ALMACEN-->
+                            <form:FormElement label="Almacén">
+                                <Input editable="false" value="{mInputs>/almacen_origen/Lgort} - {mInputs>/almacen_origen/Lgobe}">
+                                    <layoutData>
+                                        <l:GridData span="XL10 L10 M10 S10" />
+                                    </layoutData>
+                                </Input>
+
+                                <Button press="onAbrirAyudaAlmacenOrigen" type="Emphasized" icon="sap-icon://bar-code">
+                                    <layoutData>
+                                        <l:GridData span="XL2 L2 M2 S2" />
+                                    </layoutData>
+                                </Button>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--ALMACEN DESTINO-->
+                    <form:FormContainer>
+                        <form:formElements>
+                            <form:FormElement label="Almacén Destino">
+                                <Input editable="false" value="{mInputs>/almacen_destino/Lgort} - {mInputs>/almacen_destino/Lgobe}">
+                                    <layoutData>
+                                        <l:GridData span="XL10 L10 M10 S10" />
+                                    </layoutData>
+                                </Input>
+                                <Button press="onAbrirAyudaAlmacenDestino" type="Emphasized" icon="sap-icon://bar-code">
+                                    <layoutData>
+                                        <l:GridData span="XL2 L2 M2 S2" />
+                                    </layoutData>
+                                </Button>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!-- FECHA DE CONTAB-->
+                    <form:FormContainer>
+                        <form:formElements>
+                            <form:FormElement label="Fecha de Contab.">
+                                <DatePicker
+                                    value="{mInputs>/fecha}"
+                                    valueFormat="YYYYMMdd"
+                                    displayFormat="dd.MM.yyyy"
+                                    change="handleChange"
+                                    class="sapUiSmallMarginBottom">
+                                </DatePicker>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!-- ESCANEAR HU-->
+                    <form:FormContainer>
+                        <form:formElements>
+                            <form:FormElement label="Escanear HU">
+                                <!-- <Input editable="true" submit="onEscanearHU" value="1000141414"/> -->
+                                <Input 
+                                    id="input-escaneo_hu_traslado"
+                                    value="{mInputs>/escaneo_hu}" 
+                                    enabled="{mCampos>/HabilitarInputEscaneo}" 
+                                    editable="true" 
+                                    submit="onEscanearHU">
+                                    <layoutData>
+                                        <l:GridData span="XL10 L10 M10 S10" />
+                                    </layoutData>
+                                </Input>
+                                
+                                <Button type="Emphasized" icon="sap-icon://search" press="onEscanearHU(false)" enabled="{mCampos>/HabilitarInputEscaneo}" >
+                                    <layoutData>
+                                        <l:GridData span="XL2 L2 M2 S2" />
+                                    </layoutData>
+                                </Button>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                </form:formContainers>
+            </form:Form>
+
+
+            
+            <Table inset="false" items="{mListaEscaneados>/}">
+                <columns>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text="Codigo ID 2"/>
+                    </Column>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text="HU"/>
+                    </Column>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text="Productor"/>
+                    </Column>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text="Variedad"/>
+                    </Column>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text="Modulo"/>
+                    </Column>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text="Peso"/>
+                    </Column>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text="Ubicacion"/>
+                    </Column>
+                    <Column 
+                        minScreenWidth="Desktop" 
+                        demandPopin="true" 
+                        hAlign="Center" 
+                        vAlign="Middle">
+                        <Text text=""/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{mListaEscaneados>Exidv2}"/>
+                            <Text text="{mListaEscaneados>Exidv}"/>
+                            <Text text="{mListaEscaneados>Productor}"/>
+                            <Text text="{mListaEscaneados>Variedad}"/>
+                            <Text text="{mListaEscaneados>Modulo}"/>
+                            <Text text="{= parseFloat(${mListaEscaneados>Peso}).toFixed(2) }"/>
+                            <Text text="{mListaEscaneados>Ubicacion}"/>
+                            <Button icon="sap-icon://decline" press="onQuitarHUEscaneado"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+		</content>
+
+		<beginButton>
+			<Button  type="Ghost" icon="sap-icon://save" text="Guardar" press="onGuardar"></Button>
+		</beginButton>
+		<endButton>
+            <Button type="Ghost" icon="sap-icon://cancel" text="Cancelar" press="onCerrarModal"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,111 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog  
+        title="Detalle: {mDetalle>/Lgber} - {mDetalle>/Zlado} - {mDetalle>/Znro}" 
+        contentWidth="460px"
+        class="sapUiNoContentPadding" 
+        type="Message">
+		<content class="sapUiNoContentPadding">  
+
+            <!-- Pallets de Saldos -->
+            <l:VerticalLayout class="sapUiContentPadding" width="100%" id="element-pallet_saldos" visible="true">
+                <l:content>
+                    <Table
+                        items="{mListaPalletSaldos>/}">
+                        <columns>
+                            <Column vAlign="Middle" hAlign="Center">
+                                <Text text="Número de Paleta" />
+                            </Column>
+                            <Column vAlign="Middle" hAlign="Center">
+                                <Text text="Cajas" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{mListaPalletSaldos>NroPallet}" />
+                                    <Text
+                                        text="{=  Number(${mListaPalletSaldos>CantCajas}) }" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                        <layoutData>
+                            <l:GridData
+                                span="XL12 L12 M12 S12" />
+                        </layoutData>
+                    </Table>
+                </l:content>
+            </l:VerticalLayout>
+
+            <form:Form editable="false" class="sapUiNoContentPadding RemoverPaddingFormMapaTunelesEnfriamiento">
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="4"
+                        labelSpanL="4"
+                        labelSpanM="4"
+                        labelSpanS="4"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" />
+                </form:layout>
+                <form:formContainers class="sapUiNoContentPadding">
+                    <form:FormContainer>
+                        <form:formElements>
+                            <form:FormElement label="Cantidad de cajas" id="element-cantidad_cajas">
+                                <form:fields>
+                                    <Text text="{=  Number(${mDetalle>/CantCajas}) }" />
+                                </form:fields>
+                            </form:FormElement>
+                            
+                            <form:FormElement label="T. Enfriamiento" class="TiempoEnfriamientoSemaforoClass">
+                                <form:fields>
+                                    <Text text="{= ${mDetalle>/TEnfriamiento} ? ${mDetalle>/TEnfriamiento} : '0' }" >
+                                        <layoutData>
+                                            <l:GridData
+                                                span="XL6 L6 M6 S6" />
+                                        </layoutData>
+                                    </Text>
+                                    <Text width="17px">
+                                        <layoutData>
+                                            <l:GridData
+                                                span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                        <customData>
+                                            <core:CustomData 
+                                                key="semaforo-tunel-enfriamiento" 
+                                                value="{
+                                                    path: 'mDetalle>/TEnfriamiento',
+                                                    formatter: '.formatter.colorTiempoEnfriamiento'
+                                                }" 
+                                                writeToDom="true" />
+                                        </customData>
+                                    </Text>
+                                </form:fields>
+                            </form:FormElement>
+
+                        </form:formElements>
+                    </form:FormContainer>
+                </form:formContainers>
+            </form:Form>
+ 
+ 
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCerrarFragmentoSaldos"></Button>
+		</beginButton>
+
+        <!-- <endButton>
+            <Button icon="sap-icon://save" text="Guardar" press="guardarPuerta" type="Emphasized"></Button>
+        </endButton> -->
+	</Dialog>
+</core:FragmentDefinition>

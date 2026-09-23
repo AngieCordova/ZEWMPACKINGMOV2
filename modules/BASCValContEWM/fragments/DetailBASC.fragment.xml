@@ -1,0 +1,244 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+  <Dialog title="Validación de información de contenedor" contentWidth="750px" type="Message" afterClose="onAfterCloseDialogTransporte">
+    <content>
+
+      <l:VerticalLayout id="containerLayout" width="100%">
+        <l:BlockLayout id="BlockLayout" >
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding" title="{i18n>dialogTitleInformacion}">
+              <Label text="Nombre conductor" labelFor="label-forText-1-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-1-Contenedor" text="{contenedor>/Conductor}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding" title="{i18n>dialogTitleConforme}">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorConductor" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Conductor}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Conductor}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" title="{i18n>dialogTitleCorreccion}" >
+              <Input width="100%"  value="{scope>/noConformeFields/CorConductor}" editable="{scope>/noConforme/Conductor}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Contenedor" labelFor="label-forText-2-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-2-Contenedor" text="{contenedor>/Contenedor}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorContenedor" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Contenedor}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Contenedor}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%"  value="{scope>/noConformeFields/CorContenedor}" editable="{scope>/noConforme/Contenedor}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Booking" labelFor="label-forText-3-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-3-Contenedor" text="{contenedor>/Booking}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorBooking" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Booking}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Booking}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%"  value="{scope>/noConformeFields/CorBooking}" editable="{scope>/noConforme/Booking}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Precinto Senasa" labelFor="label-forText-4-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-4-Contenedor" text="{contenedor>/Senasa}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorSenasa" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Senasa}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Senasa}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorSenasa}" editable="{scope>/noConforme/Senasa}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Precinto Planta" labelFor="label-forText-5-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-5-Contenedor" text="{contenedor>/Planta}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorPlanta" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Planta}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Planta}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorPlanta}" editable="{scope>/noConforme/Planta}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Precinto Aduana" labelFor="label-forText-6-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-6-Contenedor" text="{contenedor>/Aduana}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorAduana" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Aduana}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Aduana}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorAduana}" editable="{scope>/noConforme/Aduana}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Precinto Línea" labelFor="label-forText-7-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-7-Contenedor" text="{contenedor>/Linea}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorLinea" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Linea}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Linea}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorLinea}" editable="{scope>/noConforme/Linea}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Precinto Operador" labelFor="label-forText-8-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-8-Contenedor" text="{contenedor>/Operador}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorOperador" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Operador}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Operador}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorOperador}" editable="{scope>/noConforme/Operador}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Placa Tracto" labelFor="label-forText-9-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-9-Contenedor" text="{contenedor>/PlacaTracto}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorPlacaTracto" columns="2" >
+                      <RadioButton selected="{scope>/conforme/PlacaTracto}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/PlacaTracto}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorPlacaTracto}" editable="{scope>/noConforme/PlacaTracto}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Placa Carreta" labelFor="label-forText-10-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-10-Contenedor" text="{contenedor>/PlacaCarreta}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorPlacaCarreta" columns="2" >
+                      <RadioButton selected="{scope>/conforme/PlacaCarreta}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/PlacaCarreta}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorPlacaCarreta}" editable="{scope>/noConforme/PlacaCarreta}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Certificado Inscripción" labelFor="label-forText-11-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-11-Contenedor" text="{contenedor>/CertifInscrip}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorCertifInscrip" columns="2" >
+                      <RadioButton selected="{scope>/conforme/CertifInscrip}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/CertifInscrip}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorCertifInscrip}" editable="{scope>/noConforme/CertifInscrip}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Licencia" labelFor="label-forText-12-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-12-Contenedor" text="{contenedor>/Licencia}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorLicencia" columns="2" >
+                      <RadioButton selected="{scope>/conforme/Licencia}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/Licencia}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorLicencia}" editable="{scope>/noConforme/Licencia}"/>
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="No. Despacho" labelFor="label-forText-14-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-14-Contenedor" text="{contenedor>/NroDespacho}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorNroDespacho" columns="2" >
+                      <RadioButton selected="{scope>/conforme/NroDespacho}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/NroDespacho}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorNroDespacho}" editable="{scope>/noConforme/NroDespacho}" />
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        <l:BlockLayoutRow accentCells="Accent1">
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+              <Label text="Marca Vehículo" labelFor="label-forText-13-Contenedor" design="Bold" displayOnly="true" wrapping="true" class="label-display-block" />
+              <Text id="label-forText-13-Contenedor" text="{contenedor>/MarcaVehiculo}" />
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="BlockLayoutCell-reduce-padding">
+            <RadioButtonGroup select="onChangeConformidad" app:propiedadRelacionada="CorMarcaVehiculo" columns="2" >
+                      <RadioButton selected="{scope>/conforme/MarcaVehiculo}" text="Si"/>
+                      <RadioButton selected="{scope>/noConforme/MarcaVehiculo}" class="radio-btn-error" text="No"/>
+            </RadioButtonGroup>
+          </l:BlockLayoutCell>
+          <l:BlockLayoutCell class="sapUiNoContentPadding" >
+              <Input width="100%" value="{scope>/noConformeFields/CorMarcaVehiculo}" editable="{scope>/noConforme/MarcaVehiculo}" />
+          </l:BlockLayoutCell>
+        </l:BlockLayoutRow>
+
+        </l:BlockLayout>
+      </l:VerticalLayout>
+
+    </content>
+
+    <buttons width="auto" class="sapUiNoMarginBegin sapUiNoMarginEnd">
+
+      <Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialogTransporte"></Button>
+      <Button icon="sap-icon://activity-2" text="Guardar"  press="onGuardarValidacion()"></Button>
+
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,246 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.MapaCamarasMMPPEWM.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f">
+		<Page title="Mapa de Camaras MMP" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+
+				<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiLargeMarginBottom">
+					<f:GridList width="28rem">
+						<f:customLayout>
+							<grid:GridBoxLayout boxMinWidth="5rem"/>
+						</f:customLayout>
+
+						<f:GridListItem>
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<Button text="R01" type="Emphasized" press="onSelectUbicacion('R1')"/>
+							</FlexBox>
+						</f:GridListItem>
+
+						<f:GridListItem>
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<Button text="R02" type="Emphasized" press="onSelectUbicacion('R2')"/>
+							</FlexBox>
+						</f:GridListItem>
+
+						<f:GridListItem>
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<Button text="R03" type="Emphasized" press="onSelectUbicacion('R3')"/>
+							</FlexBox>
+						</f:GridListItem>
+						
+						<f:GridListItem>
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<Button text="R04" type="Emphasized" press="onSelectUbicacion('R4')"/>
+							</FlexBox>
+						</f:GridListItem>
+
+						<f:GridListItem visible="{scope>/blnShowButton}">
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<Button text="R05" type="Emphasized" press="onSelectUbicacion('R5')" />
+							</FlexBox>
+						</f:GridListItem>
+
+						<f:GridListItem visible="{scope>/blnShowButton}"> 
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<Button text="R06" type="Emphasized" press="onSelectUbicacion('R6')"/>
+							</FlexBox>
+						</f:GridListItem>
+					</f:GridList>
+
+							<!-- LABEL DE ESTADOS -->
+							<f:GridList width="25rem" class="sapUiSmallMarginBegin">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="5rem"/>
+								</f:customLayout>
+
+								<!-- DISPONIBLE -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Disponible"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoVerde">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+
+								<!-- OCUPADO -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Ocupado"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoRojo">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+							</f:GridList>
+				</FlexBox>
+
+				<HBox
+				alignItems="Stretch"
+				class="sapUiSmallMargin nestedFlexboxes">
+					<VBox>
+						<layoutData>
+						<FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+						</layoutData>
+						<Label text="Empresa agrícola" labelFor="txtInpFilter" design="Bold"/>
+						<Input id="txtInpFilter" value="{scope>/filtrado/EmpAgricola}" submit="handleFilter"/>
+						<Label text="Modulo" labelFor="txtInpFilter1" design="Bold"/>
+						<Input id="txtInpFilter1" value="{scope>/filtrado/Modulo}" submit="handleFilter"/>
+						<Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="handleFilter"/>
+					</VBox>
+					<VBox>
+						<layoutData>
+						<FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+						</layoutData>
+						<Label text="Guía" labelFor="txtInpFilter2" design="Bold"/>
+						<Input id="txtInpFilter2" value="{scope>/filtrado/GuiaRemision}" submit="handleFilter"/>
+						<Label text="Código de bin" labelFor="txtInpFilter3" design="Bold"/>
+						<Input id="txtInpFilter3" value="{scope>/filtrado/CodigoBin}" submit="handleFilter"/>
+						<Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+					</VBox>
+				</HBox>
+
+				<Panel width="auto">
+					<headerToolbar>
+						<OverflowToolbar>
+							<Title text="Ubicación {scope>/ubicacion}"/>
+						</OverflowToolbar>
+					</headerToolbar>
+					<content>
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween">
+
+							<!-- LISTA IZQUIERDA -->
+							<f:GridList 
+								id="grid_list-items_izquierda" 
+								width="22rem" 
+								items="{camarasIzq>/}"
+								>
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="100%"/>
+								</f:customLayout>
+								<f:GridListItem>
+									<VBox width="22rem">
+										<FlexBox
+											alignItems="Center"
+											justifyContent="Center">
+											<Text text="{camarasIzq>name}" class="font-text-bold-title"/>
+										</FlexBox>
+											<f:GridList width="21rem" 
+												noDataText="-"
+												class="sapUiTinyMarginBegin"
+												items="{camarasIzq>rows/}" >
+												<f:customLayout>
+													<grid:GridBoxLayout boxWidth="3rem"/>
+												</f:customLayout>
+												<f:GridListItem type="Active" press="onShowUbicacion(${camarasIzq>Ubicacion},${camarasIzq>Posicion},${camarasIzq>Zlado})" visible="{camarasIzq>visible}">
+													<VBox height="60px">
+														<layoutData>
+															<FlexItemData growFactor="1" shrinkFactor="0" />
+														</layoutData>
+														<FlexBox height="100%" 
+															alignItems="Center"
+															justifyContent="Center">
+															<customData>
+																<core:CustomData 
+																	key="grid-list-color" 
+																	value="{camarasIzq>Zcolor}" 
+																	writeToDom="true"/>
+															</customData>
+															<customData>
+																<core:CustomData 
+																	key="blink-element-custom" 
+																	value="{camarasIzq>blink}" 
+																	writeToDom="true"/>
+															</customData>
+															<Text text="{camarasIzq>Posicion}"/>
+															<Text text="{parts: [ {path: 'camarasIzq>FECHA_HORA_RECEP'} ], formatter: '.formatter.horasRecepcion'}" visible="{parts: [ {path: 'camarasIzq>FECHA_HORA_RECEP'} ], formatter: '.formatter.visibleHorasRecepcion'}" class="mapCamMMP-HrsRecep"/>
+														</FlexBox>
+													</VBox>
+												</f:GridListItem>								
+											</f:GridList>
+									</VBox>
+								</f:GridListItem>								
+							</f:GridList>
+
+							<!-- LISTA DERECHA -->
+							<f:GridList 
+								id="grid_list-items_derecha" 
+								width="22rem" 
+								items="{camarasDer>/}"
+								>
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="100%"/>
+								</f:customLayout>
+								<f:GridListItem>
+									<VBox width="22rem">
+										<FlexBox
+											alignItems="Center"
+											justifyContent="Center">
+											<Text text="{camarasDer>name}" class="font-text-bold-title"/>
+										</FlexBox>
+											<f:GridList width="21rem" 
+												noDataText="-"
+												class="sapUiTinyMarginBegin"
+												items="{camarasDer>rows/}" >
+												<f:customLayout>
+													<grid:GridBoxLayout boxWidth="3rem"/>
+												</f:customLayout>
+												<f:GridListItem type="Active" press="onShowUbicacion(${camarasDer>Ubicacion},${camarasDer>Posicion},${camarasDer>Zlado})" visible="{camarasDer>visible}">
+													<VBox height="60px">
+														<layoutData>
+															<FlexItemData growFactor="1" shrinkFactor="0" />
+														</layoutData>
+														<FlexBox height="100%" 
+															alignItems="Center"
+															justifyContent="Center">
+															<customData>
+																<core:CustomData 
+																	key="grid-list-color" 
+																	value="{camarasDer>Zcolor}" 
+																	writeToDom="true"/>
+															</customData>
+															<customData>
+																<core:CustomData 
+																	key="blink-element-custom" 
+																	value="{camarasDer>blink}" 
+																	writeToDom="true"/>
+															</customData>
+															<Text text="{camarasDer>Posicion}"/>
+															<Text text="{parts: [ {path: 'camarasDer>FECHA_HORA_RECEP'} ], formatter: '.formatter.horasRecepcion'}" visible="{parts: [ {path: 'camarasDer>FECHA_HORA_RECEP'} ], formatter: '.formatter.visibleHorasRecepcion'}" class="mapCamMMP-HrsRecep"/>
+														</FlexBox>
+													</VBox>
+												</f:GridListItem>								
+											</f:GridList>
+									</VBox>
+								</f:GridListItem>								
+							</f:GridList>
+
+						</FlexBox>
+					</content>
+				</Panel>
+
+			</content>
+		</Page>
+</mvc:View>

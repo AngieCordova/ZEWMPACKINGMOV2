@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.table" xmlns:t="sap.tnt">
+    <Page id="IdAlmStage" title="Almacenar HU's" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idStageTable" items="{A>/ITAB}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Almacenar HU's" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <SearchField placeholder="Filtrar HU's" value="{ui>/filterValue}" search="handleFilterAlmacenar" width="15rem"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="9rem">
+              <Text text="Guía"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="7rem">
+              <Text text="Empresa Agrícola"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="4rem">
+              <Text text="Módulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5rem">
+              <Text text="Variedad"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="3rem">
+              <Text text="Bins"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="4rem">
+              <Text text="Jabas"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="4rem">
+              <Text text="Palets"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5rem">
+              <Text text="Estatus"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="oDialogStage">
+              <cells>
+                <Text text="{A>GUIA}"/>
+                <Text text="{A>TXT_EMP}"/>
+                <Text text="{A>MODULO}-{A>DESCOR}"/>
+                <Text text="{A>VARIEDAD}-{A>DESC_VAR}"/>
+                <Text text="{A>BINS}"/>
+                <Text text="{A>JABAS}"/>
+                <Text text="{A>PALLETS}"/>
+                <Text text="{A>TXT_STA}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</core:FragmentDefinition>

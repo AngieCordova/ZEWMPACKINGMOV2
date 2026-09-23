@@ -1,0 +1,154 @@
+{
+	"CamionColeccion": [
+	{
+		"NumLoop": "426",
+		"Guia": "HA000302760",
+		"Id": "00005",
+		"Empresa": "Hass Peru",
+		"Nombre": "ANGEL RUBIO PAREDES",
+		"Licencia": "D40589173",
+		"Empresat": "TRANSPORTES Y SERVICIOS EUSTAQUIO",
+		"Placa": "T1O809",
+		"Peso": "26100",
+		"Puerta": "2",
+		"Neto": "890",
+		"Estatus": "DOCKIN",
+		"Modulos":[{
+			"Modulo":23,
+			"Bins":6,
+			"Javas":0,
+			"Pallets":0,
+			"accion1": true,
+			"accion2": false,
+			"tipo": "Emphasized",
+			"BinsVector":[]
+		},{
+			"Modulo":24,
+			"Bins":25,
+			"Javas":242,
+			"Pallets":11,
+			"accion1": false,
+			"accion2": true,
+			"tipo": "Emphasized",
+			"BinsVector":[]
+		}
+			]
+		
+	},
+	{
+		"NumLoop": "427",
+		"Guia": "HA000302761",
+		"Id": "00006",
+		"Empresa": "Hass Peru",
+			"Nombre": "ANGEL RUBIO PAREDES",
+		"Licencia": "D40589173",
+		"Empresat": "TRANSPORTES Y SERVICIOS EUSTAQUIO",
+		"Placa": "T1O809",
+		"Peso": "26100",
+		"Puerta": "2",
+		"Neto": "890",
+		"Estatus": "DOCKIN",
+		"Modulos":[{
+			"Modulo":90,
+			"Bins":34,
+			"Javas":1,
+			"Pallets":5,
+			"accion": "si",
+			"tipo": "Emphasized"
+		},{
+			"Modulo":87,
+			"Bins":7,
+			"Javas":121,
+			"Pallets":30,
+			"accion": "si",
+			"tipo": "Emphasized"
+		}
+			],	"Bins":[]
+	}
+	],
+	"AlmacenColeccion": [
+	{
+		"Guia": "BE00070000787",
+		"Empresa": "Beggie",
+		"Modulo": "10",
+		"ConteoB": "9",
+		"ConteoJ": "0",
+		"Cantidad": "0",
+			"Estatus": "RECEIVED"
+	},
+	{
+	"Guia": "BE00070000787",
+		"Empresa": "Beggie",
+		"Modulo": "21",
+		"ConteoB": "33",
+		"ConteoJ": "0",
+		"Cantidad": "0",
+			"Estatus": "RECEIVED"
+	}
+	],
+	"StageColeccion": [
+	{
+		"Guia": "000302744",
+		"Id": "00005",
+		"Empresa": "Hass Peru",
+		"Modulo": "MP",
+		"Bins": "66",
+		"Pallets": "0"
+	},
+	{
+	"Guia": "000302745",
+		"Id": "00005",
+		"Empresa": "Hass Peru",
+		"Modulo": "MP",
+		"Bins": "59",
+		"Pallets": "0"
+	},
+		{
+	"Guia": "00070000622",
+		"Id": "00001",
+		"Empresa": "Arato",
+		"Modulo": "2",
+		"Bins": "0",
+		"Pallets": "5"
+	},
+		{
+	"Guia": "00070000650",
+		"Id": "00001",
+		"Empresa": "Arato",
+		"Modulo": "3",
+		"Bins": "45",
+		"Pallets": "0"
+	}
+	],
+	"BinsColeccion": [
+	{
+		"Guia": "000700000716",
+		"Empresa": "Beggie",
+		"Modulo": "15",
+		"Bins": "24",
+		"Jabas": "0",
+		"Pallets": "18"
+	}],
+		"PaletsColeccion": [
+	{
+		"Guia": "AR00070000752",
+		"Empresa": "Arato",
+		"Modulo": "6",
+		"Estatus": "PACKING"
+	},
+		{
+		"Guia": "AR00070000752",
+		"Empresa": "Arato",
+		"Modulo": "7",
+		"Estatus": "PACKING"
+	},
+		{
+		"Guia": "AR00070000820",
+		"Empresa": "Beggie",
+		"Modulo": "20",
+		"Estatus": "PACKING"
+	}]
+	
+	
+	
+}

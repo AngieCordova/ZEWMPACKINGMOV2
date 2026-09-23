@@ -1,0 +1,100 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.ReporteFCLs.controller.ReporteFCLs" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Reporte FCL'S" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Orden" labelFor="txtInpFilter" design="Bold"/>
+              <Input id="txtInpFilter" value="{scope>/filtrado/ZzNumorden}" showValueHelp="true" valueHelpRequest=".onFilterModal('ZzNumorden')"/>
+              <Label text="Contenedor" labelFor="txtInpFilter4" design="Bold"/>
+              <Input id="txtInpFilter4" value="{scope>/filtrado/Signi}" showValueHelp="true" valueHelpRequest=".onFilterModal('Signi')"/>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="handleFilter" width="100%"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Pedido" labelFor="txtInpFilter2" design="Bold"/>
+              <Input id="txtInpFilter2" value="{scope>/filtrado/Vbeln}"  showValueHelp="true" valueHelpRequest=".onFilterModal('Vbeln')"/>
+              <Label text="Booking" labelFor="txtInpFilter5" design="Bold"/>
+              <Input id="txtInpFilter5" value="{scope>/filtrado/Booking}"  showValueHelp="true" valueHelpRequest=".onFilterModal('Booking')"/>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter" width="100%"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Entrega" labelFor="txtInpFilter3" design="Bold"/>
+              <Input id="txtInpFilter3" value="{scope>/filtrado/Entrega}"  showValueHelp="true" valueHelpRequest=".onFilterModal('Entrega')"/>
+
+              <Label text="Fecha Despacho" labelFor="txtInpFilter6" design="Bold"/>
+              <Input id="txtInpFilter6" value="{scope>/inputFilterSupFecha}" placeholder="dd/MM/yyyy"  change=".onValDateFilter()" showValueHelp="true" valueHelpRequest=".onFilterModalFecha()"/>
+
+          </VBox>
+        </HBox>
+
+        <Table id="idContenedoresTable" items="{contenedores>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="FCLs ({scope>/totalRows})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadContenedores"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Contenedor"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Booking"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pedido"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Entrega"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Orden/Viaje"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Consignatario"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Destino"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Zona"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha Despacho"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha Contab."/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="onReporteShow">
+              <cells>
+                <Text text="{contenedores>Signi}"/>
+                <Text text="{contenedores>Booking}"/>
+                <Text text="{contenedores>Vbeln}"/>
+                <Text text="{contenedores>Entrega}"/>
+                <Text text="{contenedores>ZzNumorden} / {contenedores>ZzViaje}"/>
+                <Text text="{contenedores>KunnrName1}"/>
+                <Text text="{contenedores>Destino}"/>
+                <Text text="{contenedores>Ubicacion}"/>
+                <Text text="{path: 'contenedores>Lddat', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true, pattern: 'dd/MM/yyyy' }}"/>
+                <Text text="{path: 'contenedores>WadatIst', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true, pattern: 'dd/MM/yyyy' }}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

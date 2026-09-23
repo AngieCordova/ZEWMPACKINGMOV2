@@ -1,0 +1,144 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Recibir HU's a HU10" contentWidth="850px" type="Message" afterClose="onAfterCloseDialogTrasladarHU">
+		<content>
+
+        <Table items="{listMaterials>/}" inset="false">
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="HU"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="HU2"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Centro"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Almacén"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Material"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Módulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="20%">
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle" visible="{listMaterials>visible}">
+              <cells>
+                <Text text="{listMaterials>Exidv}"/>
+                <Text text="{listMaterials>Exidv2}"/>
+                <Text text="{listMaterials>Werks}"/>
+                <Text text="{listMaterials>Lgort}"/>
+                <Text text="{listMaterials>Maktx}"/>
+                <Text text="{listMaterials>ModuloDescr}"/>
+                <Button icon="sap-icon://add-activity-2" text="" width="100%" type="Emphasized" press=".onSelectTrasladarHU(${listMaterials>Exidv2},${listMaterials>Exidv})"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+        
+        <HBox
+          fitContainer="true"
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Escanear HU" labelFor="inpScanHU" design="Bold"/>
+              <Input id="inpScanHU" value="" submit="onScanHU"/>
+          </VBox>
+          <VBox justifyContent='End'>
+            <layoutData>
+              <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Button icon="sap-icon://initiative" text="Escanear" type="Emphasized" press="onScanHU"/>
+          </VBox>
+        </HBox>
+
+        <Table items="{trasladarHU>/}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Para trasladar" titleStyle="H3"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="HU"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="HU2"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Centro"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Almacén"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Material"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Módulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="20%">
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{trasladarHU>Exidv}"/>
+                <Text text="{trasladarHU>Exidv2}"/>
+                <Text text="{trasladarHU>Werks}"/>
+                <Text text="{trasladarHU>Lgort}"/>
+                <Text text="{trasladarHU>Maktx}"/>
+                <Text text="{trasladarHU>ModuloDescr}"/>
+                <Button icon="sap-icon://delete" text="Borrar" width="100%" type="Emphasized" press="onDeleteTrasladarHU"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+        <Table items="{HUTrasladado>/}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Trasladado" titleStyle="H3"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="HU"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="HU2"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{HUTrasladado>Exidv}"/>
+                <Text text="{HUTrasladado>Exidv2}"/>
+                <Text text="{HUTrasladado>msgResponse}"/>
+                <tnt:InfoLabel text="{HUTrasladado>msgStatus}" colorScheme="{HUTrasladado>colorScheme}" displayOnly= "true" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogTrasladarHU"></Button>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://activity-2" text="Trasladar" press="onTrasladarHU" enabled="{scope>/btnTrasladarHU}"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

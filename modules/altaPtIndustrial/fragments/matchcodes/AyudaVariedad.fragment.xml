@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<!-- , {'IdVariedad':'IdVariedad'} -->
+	<SelectDialog
+		title="SELECCIONE UNA VARIEDAD"
+		search="onFiltrarMatchcode($event, ['IdVariedad'])"
+		confirm="onAgregarValorMatchcode($event, 'AyudaVariedad')"
+		cancel="onCerrarFragmento('AyudaVariedad')"
+		noDataText="SIN DATOS"
+		items="{ZEWM_0011>/VariedadesSet}">
+		<StandardListItem
+			title="{ZEWM_0011>IdVariedad}"
+			description="{ZEWM_0011>Descripcion}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

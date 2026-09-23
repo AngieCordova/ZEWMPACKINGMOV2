@@ -1,0 +1,29 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.remontarPallet.controller.ListaPalletsRemontar" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.tnt">
+		<Page 
+            title="REMONTAR PALET" 
+            showNavButton="true"
+            class="sapUiStdPage sapUiResponsivePadding--header" 
+            navButtonPress="onPressInicion">
+			<content>
+                
+                <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.remontarPallet.fragments.CabeceraListaPalletsRemontar" type="XML"/>
+                <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.remontarPallet.fragments.TablaPalletsRemontar" type="XML"/>
+                <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.remontarPallet.fragments.TablaPalletsPreparados" type="XML"/>
+                
+			</content>
+
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button id="btn-aceptar_asignacion_contenedor" type="Accept" text="GUARDAR" press="onGuardarPalletsRemontar" enabled="true"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+</mvc:View>

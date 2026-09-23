@@ -1,0 +1,146 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+                         xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:form="sap.ui.layout.form"
+                         xmlns:tnt="sap.tnt"
+                         xmlns:l="sap.ui.layout">
+
+    <Dialog title="Reubicar HUs RMP EWM" contentWidth="80%" type="Message" afterClose="onAfterCloseMasterDialog" afterOpen="onCreateMasterDialog">
+
+        <content>
+
+            <HBox
+                fitContainer="true"
+                alignItems="Stretch"
+                class="sapUiSmallMargin nestedFlexboxes">
+
+                <VBox>
+                    <layoutData>
+                        <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                    </layoutData>
+
+                    <Label text="Escanear HU" labelFor="inpScanHU" design="Bold"/>
+                    <Input id="inpScanHU" value="{scope>/inpScanHU}" submit="onScanHU"/>
+                    <Button icon="sap-icon://bar-code" text="Escanear" width="100%" type="Emphasized" press="onScanHU"/>
+                </VBox>
+
+                <VBox>
+                    <layoutData>
+                        <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                    </layoutData>
+
+                    <Label text="Ubicación destino" labelFor="inpDestinoHU" design="Bold"/>
+                    <Input id="inpDestinoHU" submit="onReubicar" value="{scope>/inpDestinoHU}" enabled="{scope>/btnReubicar}"/>
+                    <Button icon="sap-icon://initiative" text="Reubicar" width="100%" press="onReubicar" enabled="{scope>/btnReubicar}"/>
+                </VBox>
+            </HBox>
+
+            <Table items="{ReubicarHU>/}" inset="false">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Reubicar" titleStyle="H3"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Pallet"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Descripción"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Tipo de Álmacen"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Ubicación origen"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Guía"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Fundo"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Módulo"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="20%">
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Text text="{ReubicarHU>I_HUIDENT}"/>
+                            <Text text="{ReubicarHU>MAKTX}"/>
+                            <Text text="{ReubicarHU>LGTYP}"/>
+                            <Text text="{ReubicarHU>LGPLA}"/>
+                            <Text text="{ReubicarHU>GUIA}"/>
+                            <Text text="{ReubicarHU>FUNDO_DESCRIP}"/>
+                            <Text text="{ReubicarHU>MODULO}"/>
+                            <Button icon="sap-icon://delete" text="Borrar" width="100%" type="Emphasized" press="onDeleteReubicarHU"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+            <Table items="{HUReubicado>/}" inset="false">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Reubicado" titleStyle="H3"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Pallet"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Descripción"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Origen"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Destino"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Text text="{HUReubicado>I_HUIDENT}"/>
+                            <Text text="{HUReubicado>MAKTX}"/>
+                            <Text text="{HUReubicado>I_UBICACION_ORIGEN}"/>
+                            <Text text="{HUReubicado>I_UBICACION_DESTINO}"/>
+                            <Text text="{HUReubicado>msgResponse}"/>
+                            <tnt:InfoLabel text="{HUReubicado>msgStatus}" colorScheme="{HUReubicado>colorScheme}" displayOnly="true"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+
+        <beginButton>
+            <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseMasterDialog"></Button>
+        </beginButton>
+
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<!-- , {'IdGuia':'IdGuia'} -->
+	<SelectDialog
+		title="SELECCIONE GUÍA"		
+		search="onFiltrarMatchcode($event, ['IdGuia'])"
+		confirm="onAgregarValorMatchcodeGuias"
+		cancel="onCerrarFragmento('AyudaGuia')"
+		noDataText="SIN DATOS"
+		items="{mAyudaGuias>/}">		
+		<StandardListItem
+			title="{mAyudaGuias>IdGuia}"
+			description="{mAyudaGuias>IdGuia}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

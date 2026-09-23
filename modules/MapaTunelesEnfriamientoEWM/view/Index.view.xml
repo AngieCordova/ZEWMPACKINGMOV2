@@ -1,0 +1,178 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.MapaTunelesEnfriamientoEWM.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f"
+    xmlns:core="sap.ui.core" 
+	>
+		<Page title="Mapa Tuneles de Enfriamiento EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+				<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+					<headerToolbar>
+						<OverflowToolbar>
+							<Title text="Mapa de Tuneles de Enfriamiento PT"/>
+						</OverflowToolbar>
+					</headerToolbar>
+					<content>
+
+						<!-- BOTONES SELECCION -->
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiLargeMarginBottom">
+							<f:GridList 
+								id="grid_list-botones_filtros" 
+								mode="SingleSelectMaster" 
+								width="28rem" 
+								class="sapUiSmallMarginBegin" 
+								items="{mFiltros>/}"
+								selectionChange="onChangeFilter">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="3rem"/>
+								</f:customLayout>
+
+								<f:GridListItem
+									press="onPress"
+									type="Active">
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="{mFiltros>value}"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+							</f:GridList>
+
+							<!-- LABEL DE ESTADOS -->
+							<f:GridList width="25rem" class="sapUiSmallMarginBegin">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="5rem"/>
+								</f:customLayout>
+
+								<!-- DISPONIBLE -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Disponible"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoVerde">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+
+								<!-- OCUPADO -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Ocupado"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoRojo">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+							</f:GridList>
+						</FlexBox>
+
+
+				
+
+						<!-- LISTAS -->
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween">
+
+							<!-- LISTA IZQUIERDA -->
+							<f:GridList 
+								id="grid_list-items_izquierda" 
+								width="14rem" 
+								class="sapUiLargeMarginBegin" 
+								items="{mItemsIzquierda>/}"
+								selectionChange="onPressItem($event,'mItemsIzquierda')">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="12rem"/>
+								</f:customLayout>
+
+								<!-- UNO -->
+								<f:GridListItem type="Active" press="onPressItem($event,'mItemsIzquierda')">
+									<VBox height="50px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center" renderType="Bare">
+											<Text text="{= Number(${mItemsIzquierda>Znro}) }" width="90%" textAlign="Center"/>
+											<Text>
+												<customData>
+													<core:CustomData 
+														key="semaforo-tunel-enfriamiento" 
+														value="{
+															path: 'mItemsIzquierda>TEnfriamiento',
+															formatter: '.formatter.colorTiempoEnfriamiento'
+														}"
+														writeToDom="true" />
+												</customData>
+											</Text>
+										</FlexBox>
+										<!-- <OverflowToolbar design="Transparent" class="sapContrast ToolbarItemMapa"> -->
+											<!-- <ToolbarSpacer /> -->
+										<!-- </OverflowToolbar> -->
+									</VBox>
+								</f:GridListItem>								
+							</f:GridList>
+
+
+							<!-- LISTA DERECHA -->		
+							<f:GridList 
+								id="grid_list-items_derecha" 
+								width="14rem" 
+								class="sapUiLargeMarginEnd" 
+								items="{mItemsDerecha>/}"
+								selectionChange="onPressItem($event,'mItemsDerecha')">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="12rem"/>
+								</f:customLayout>
+
+								<!-- UNO -->
+								<f:GridListItem type="Active" press="onPressItem($event,'mItemsDerecha')">
+									<VBox height="50px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center" renderType="Bare">
+											<Text text="{= Number(${mItemsDerecha>Znro}) }" width="90%" textAlign="Center"/>
+											<Text>
+												<customData>
+													<core:CustomData 
+														key="semaforo-tunel-enfriamiento" 
+														value="{
+															path: 'mItemsDerecha>TEnfriamiento',
+															formatter: '.formatter.colorTiempoEnfriamiento'
+														}"
+														writeToDom="true" />
+												</customData>
+											</Text>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>								
+							</f:GridList>
+						</FlexBox>
+					
+					</content>
+				</Panel>
+
+			</content>
+		</Page>
+</mvc:View>

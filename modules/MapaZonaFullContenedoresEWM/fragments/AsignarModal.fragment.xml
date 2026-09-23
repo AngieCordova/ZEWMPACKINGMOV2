@@ -1,0 +1,138 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog  
+        title="Fila: {dialogData>/Fila} | Ubicación: {dialogData>/Ubicacion}" 
+        contentWidth="460px" 
+        type="Message"
+        class="RemoverPaddingTopBottom">
+		<content>
+
+           <form:Form editable="false" class="sapUiNoContentPadding">
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="4"
+                        labelSpanL="4"
+                        labelSpanM="4"
+                        labelSpanS="4"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" />
+                </form:layout>
+                <form:formContainers class="sapUiNoContentPadding">
+
+                    <form:FormContainer>
+                        <form:formElements>
+                            <form:FormElement label="Exportador">
+                                <form:fields>
+                                <!-- {dialogData>/CodCliente} -  -->
+                                    <Text text="{dialogData>/NombreCliente}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <form:FormElement label="Zona" visible="false">
+                                <form:fields>
+                                    <Text text="{dialogData>/IZona}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <form:FormElement label="Contenedor">
+                                <form:fields>
+                                    <Text text="{dialogData>/CodContenedor}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <form:FormElement label="Booking">
+                                <form:fields>
+                                    <Text text="{dialogData>/Booking}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <form:FormElement label="Orden / Viaje">
+                                <form:fields>
+                                    <Text text="{dialogData>/Orden} / {dialogData>/Viaje}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <!-- <form:FormElement label="Número de Orden">
+                                <form:fields>
+                                    <Text text="{dialogData>/Orden}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <form:FormElement label="Número de viaje">
+                                <form:fields>
+                                    <Text text="{dialogData>/Viaje}"/>
+                                </form:fields>
+                            </form:FormElement> -->
+
+                            <form:FormElement label="Fecha de Ingreso">
+                                <form:fields>
+                                    <Text text="{parts: [ {path: 'dialogData>/FechaAlmacenaje'} ], formatter: '.formatter.formatDate'}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <form:FormElement label="Cultivo">
+                                <form:fields>
+                                    <Text text="{dialogData>/Cultivo}">
+                                        <layoutData>
+                                            <l:GridData
+                                                span="XL3 L3 M3 S3" />
+                                        </layoutData>
+                                    </Text>
+
+                                    <Label text="Destino: ">
+                                        <layoutData>
+                                            <l:GridData
+                                                span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Label>
+                                    <Text text="{dialogData>/Destino}">
+                                        <layoutData>
+                                            <l:GridData
+                                                span="XL3 L3 M3 S3" />
+                                        </layoutData>
+                                    </Text>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <!-- <form:FormElement label="Destino">
+                                <form:fields>
+                                    <Text text="{dialogData>/Destino}"/>
+                                </form:fields>
+                            </form:FormElement> -->
+
+                            <form:FormElement label="Cantidad de Cajas">
+                                <form:fields>
+                                    <Text text="{dialogData>/CantCajas}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                            <form:FormElement label="Días en Full">
+                                <form:fields>
+                                    <Text text="{dialogData>/DiasFull}"/>
+                                </form:fields>
+                            </form:FormElement>
+
+                        </form:formElements>
+                    </form:FormContainer>
+
+                </form:formContainers>
+            </form:Form>
+ 
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog"></Button>
+		</beginButton>
+
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,126 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.BASCValContEWM.controller.BASCValContEWM" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core">
+    <Page title="BASC Validación datos contenedor" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+
+        <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+            <Label text="Fecha desde" labelFor="txtInpFilter" design="Bold"/>
+            <DatePicker
+              id="txtInpFilter"
+              value="{path: 'scope>/filtrado/fechaDesde', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true }}"
+              displayFormat="dd/MM/YYYY"
+              >                   
+            </DatePicker>
+          </VBox>
+          
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+            <Label text="Fecha hasta" labelFor="txtInpFilter2" design="Bold"/>
+            <DatePicker
+              id="txtInpFilter2"
+              value="{path: 'scope>/filtrado/fechaHasta', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true }}"
+              displayFormat="dd/MM/YYYY"
+              >                   
+            </DatePicker>
+          </VBox>
+          
+          <VBox class="bsc-padding-top-20">
+            <layoutData>
+              <FlexItemData growFactor="2" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="onFilter"/>
+          </VBox>
+          
+          <VBox class="bsc-padding-top-20">
+            <layoutData>
+              <FlexItemData growFactor="2" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" press="onFilterClean"/>
+          </VBox>
+        </HBox>
+
+        <Table id="idContenedoresTable" items="{contenedores>/}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Contenedores ({scope>/filtrado/totalRows})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://save" text="Guardar" type="Emphasized" press="onDarSalida"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Puerta"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Exportador"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Contenedor"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Referencia"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pedido"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Entrega"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Status"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Salida"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="onOpenTransporte">
+              <cells>
+                <Text text="{ 
+                                parts: [
+                                    {'path':'contenedores>PuertaDif'},
+                                    {'path':'contenedores>PuertaEmbarq'}
+                                ],
+                                formatter: '.formatter.showPuerta'
+                            }"/>
+                <Text text="{contenedores>NombCliente}"/>
+                <Text text="{contenedores>Contenedor}"/>
+                <Text text="{contenedores>Referencia}"/>
+                <Text text="{contenedores>Pedido}"/>
+                <Text text="{contenedores>Enrega}"/>
+                <tnt:InfoLabel
+                  text="{
+                    parts: [
+                      {path: 'contenedores>StatusCl'}
+                    ],
+                    formatter: '.formatter.nombreStatus'
+                  }"
+                  displayOnly="true"
+                  colorScheme= "{
+                    parts: [
+                      {path: 'contenedores>StatusCl'}
+                    ],
+                    formatter: '.formatter.colorStatus'
+                  }" />
+                <CheckBox selected="{contenedores>DarSalida}" visible="{ 
+                                parts: [
+                                    {'path':'contenedores>StatusCl'}
+                                ],
+                                formatter: '.formatter.enabledCheckbox'
+                            }"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+      </content>
+    </Page>
+</mvc:View>

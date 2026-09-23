@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="Filtrar HU's" contentWidth="380px" type="Message">
+		<content>
+       
+        <Label text="Pallet" labelFor="txtPalletFilter" design="Bold"/>
+        <Input id="txtPalletFilter" value="{scope>/CodExt}"/>
+
+        <Label text="Fecha de recepción" labelFor="txtFechaFilter" design="Bold" visible="false"/>
+		<DateRangeSelection
+			id="txtFechaFilter"
+			dateValue="{path:'scope>/Budat'}"
+			secondDateValue="{path:'scope>/Budat2'}"
+            showFooter="true" />
+		</content>
+
+		<buttons>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogShowFilter"></Button>
+			<Button icon="sap-icon://clear-filter" text="Limpiar" press="onFiltrarHU(true)"></Button>
+			<Button icon="sap-icon://detail-view" text="Buscar" press="onFiltrarHU(false)"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

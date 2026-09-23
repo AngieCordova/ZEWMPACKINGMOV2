@@ -1,0 +1,79 @@
+<mvc:View
+    controllerName="AvocadoProyecto.AvocadoProyecto.modules.cargaPalletContEWM.controller.salidaCamionDespEWM"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:t="sap.tnt"
+    xmlns:l="sap.ui.layout">
+
+    <Page
+        title="Salida de Camión de Despacho"
+        showNavButton="true"
+        class="sapUiStdPage"
+        navButtonPress="onPressInicion">
+
+        <content>
+            <Table id="idCamionesTable" items="{camiones>/results}" inset="false">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Camiones para Despacho" titleStyle="H3"/>
+                        <ToolbarSpacer/>
+                        <SearchField
+                            placeholder="Filtrar Contenedor/Orden/Pedido"
+                            value=""
+                            id="txtSearchOrdenes"
+                            search="handleFilterOrdenes"
+                            width="15rem"/>
+                        <Button icon="sap-icon://filter" text="{scope>/filtroSalida}" press="handleFilterSalida"/>
+                        <Button icon="sap-icon://refresh" type="Transparent" press="onLoadCamiones"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Número de Loop"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Número de Booking"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Número de Contenedor"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Referencia"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Empresa de Transporte"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Puerta de Embarque"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Estado"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press="onReporteCamionShow">
+                        <cells>
+                            <Text text="{camiones>IdPedido}"/>
+                            <Text text="{camiones>Booking}"/>
+                            <Text text="{camiones>IdContenedor}"/>
+                            <Text text="{camiones>NroOrden} / {camiones>IdViaje}"/>
+                            <Text text="{camiones>IdEmpresa} - {camiones>Empresa}"/>
+                            <Text text="{camiones>Puerta}"/>
+                            <Text text="{camiones>Estado}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

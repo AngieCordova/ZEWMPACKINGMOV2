@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.table" xmlns:t="sap.tnt">
+    <Page id="IdCamConf" title="Recepcionar camión" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idCamConfTable" items="{R>/ITAB}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Recibir Camión de Campo" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <SearchField placeholder="Filtrar camión" value="{ui>/filterValue}" search="handleFilterRecibir" width="15rem"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Entrega"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Guía"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Código de empresa"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Empresa Agrícola"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Estatus"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="oDialogRecibir">
+              <cells>
+                <Text text="{R>VBELN}"/>
+                <Text text="{R>GUIA}"/>
+                <Text text="{R>PARTNER}"/>
+                <Text text="{R>TXT_EMP}"/>
+                <Label text="{R>TXT_STA}" design="Bold"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</core:FragmentDefinition>

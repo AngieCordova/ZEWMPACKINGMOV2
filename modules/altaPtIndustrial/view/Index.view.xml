@@ -1,0 +1,206 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.altaPtIndustrial.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form">
+		<Page title="ALTA DE PRODUCTO INDUSTRIAL" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+
+		  <!-- Filtros -->
+		  <Panel>
+		 <HBox justifyContent="SpaceBetween" alignItems="Center">
+			  <VBox>
+			  	<Label text="Centro" />
+			    <Input 
+								id="input-filter_centro"
+								editable="false"								
+								value="{mFiltros>/IdCentro}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								required="true"
+								showValueHelp="true"
+								valueHelpOnly="false"
+								valueHelpRequest=".onAbrirMatchcode($event, 'AyudaCentro')"/>
+			  </VBox>
+			  <VBox>
+			  	<Label text="Guía" />
+			    	<Input 
+								value="{mFiltros>/Guia}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								showValueHelp="true"
+								valueHelpOnly="false"
+								valueHelpRequest=".onAbrirMatchcode($event, 'AyudaGuia')"/>
+			  </VBox>
+			   <VBox>
+			  	<Label text="Empresa Agrícola" />
+			    	<Input 
+								value="{mFiltros>/IdEmpresaAgricola}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								showValueHelp="true"
+								valueHelpOnly="false"
+								valueHelpRequest=".onAbrirMatchcode($event, 'AyudaEmpresaAgricola')"/>	
+			  </VBox>
+			   <VBox>
+			  	<Label text="Almacén" />
+			    	<Input 
+								value="{mFiltros>/IdAlmacen}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								/>
+			  </VBox>
+			   <VBox>
+			  	<Label text="" />
+			  	<Button class="sapUiSizeCompact sapUiSmallMarginBottom" width="30%" type="Emphasized" icon="sap-icon://search" press="onBuscar"></Button>
+			    
+			  </VBox>
+	
+			    
+			  </HBox>
+			</Panel>
+	
+				<!-- FILTROS -->
+			<!-- 	<form:SimpleForm
+					editable="false"
+					layout="ColumnLayout"
+					title="Filtros"			
+					columnsXL="5"
+					columnsL="5"
+					columnsM="5"
+					singleContainerFullSize="false" >
+					<form:content>
+						<core:Title text="" />					
+						<Label text="Centro" />						
+						<Input 
+								id="input-filter_centro"
+								editable="false"								
+								value="{mFiltros>/IdCentro}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								required="true"
+								showValueHelp="true"
+								valueHelpOnly="false"
+								valueHelpRequest=".onAbrirMatchcode($event, 'AyudaCentro')"/>
+						
+						<core:Title text="" />
+						<Label text="Guía" />
+						<Input 
+								value="{mFiltros>/Guia}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								showValueHelp="true"
+								valueHelpOnly="false"
+								valueHelpRequest=".onAbrirMatchcode($event, 'AyudaGuia')"/>
+						
+						<core:Title text="" />
+						<Label text="Empresa Agrícola" />
+						<Input 
+								value="{mFiltros>/IdEmpresaAgricola}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								showValueHelp="true"
+								valueHelpOnly="false"
+								valueHelpRequest=".onAbrirMatchcode($event, 'AyudaEmpresaAgricola')"/>			
+					
+						<core:Title text="" />	
+						<Label text="Almacén" />
+						<Input 
+								value="{mFiltros>/IdAlmacen}"
+								change=".ResetFilterInputState"
+								class="sapUiSizeCompact"
+								/>
+						
+						<core:Title text="" />
+						<Label text="" />	
+						<Button class="sapUiSizeCompact sapUiTinyMarginTop" width="60px" type="Emphasized" icon="sap-icon://search" press="onBuscar"></Button>
+						
+					</form:content>
+				</form:SimpleForm>
+-->
+				<!-- TABLA LISTADO -->
+				<FlexBox
+					direction="Column"
+					height="100%"
+					renderType="Bare"
+					justifyContent="Inherit"
+					alignItems="Center">
+					<items>
+						<Table id="table-lista_principal_alta_industrial" items="{mListaPrincipal>/}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="Crear HU de Prod. Industrial" level="H2"/>
+										<ToolbarSpacer/>
+										<Button press="onAbrirRemontarHU" type="Emphasized" text="Remontar"/>
+										<Button type="Emphasized" text="Trasladar HU" press="onAbrirTrasladoHU"/>
+										<Button press="onAbrirAlmacenarHU" type="Emphasized" text="Almacenar HU EWM"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Guía" />
+								</Column>
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Empresa de Agrícola" />
+								</Column>
+								
+								<Column
+									hAlign="Center" vAlign="Middle"
+									width="12em">
+									<Text text="Módulo" />
+								</Column>
+
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Variedad" />
+								</Column>
+
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Lote" />
+								</Column>
+								
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Cantidad" />
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="Navigation" press="onAbrirCrearHU">
+									<cells>
+										<Text
+											text="{mListaPrincipal>Guia}"/>
+										<Text
+											text="{mListaPrincipal>EmpresaAgricola}"/>
+										<Text
+											text="{mListaPrincipal>Modulo}"/>
+										<Text
+											text="{mListaPrincipal>Variedad}"/>
+										<Text
+											text="{mListaPrincipal>IdLote}"/>
+										<Text
+											text="{mListaPrincipal>Cantidad}"/>
+									</cells>
+								</ColumnListItem>								
+							</items>
+						</Table>
+					</items>
+				</FlexBox>
+			</content>
+		</Page>
+</mvc:View>

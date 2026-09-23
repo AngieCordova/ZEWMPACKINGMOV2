@@ -1,0 +1,9 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.trasladarHuRMP.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+    <Page title="TRASLADAR HU RPM." showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+        <content>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{date:function(sDate){var date=eval("new "+sDate.replace(/\//gi,""));return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()},concatenateStrings:function(t,e){return`${t}\n${e}`},colorTiempoEnfriamiento:function(t){try{if(!t)return"SINCOLOR";var e=t.split(" ")[0];e=Number(e);e=isNaN(e)?0:e;return e<2.3?"VERDE":"ROJO"}catch(t){return"ROJO"}},sinCerosIzq:function(t){var e=isNaN(t);if(!e){return String(BigInt(t))}else{return t}}}});
+//# sourceMappingURL=formatter.js.map

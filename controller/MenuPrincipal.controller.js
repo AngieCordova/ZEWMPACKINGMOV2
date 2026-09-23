@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(o){"use strict";return o.extend("AvocadoProyecto.AvocadoProyecto.controller.MenuPrincipal",{})});
+//# sourceMappingURL=MenuPrincipal.controller.js.map

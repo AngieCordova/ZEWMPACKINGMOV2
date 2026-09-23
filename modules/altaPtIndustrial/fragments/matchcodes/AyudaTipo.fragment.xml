@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="SELECCIONE UN TIPO"
+		search="onFiltrarMatchcode($event, ['IdTipo','Descripcion'])"
+		confirm="onAgregarValorMatchcode($event, 'AyudaTipo', [{'/IdTipo':'IdTipo'}], 'mAyudaTipo')"
+		cancel="onCerrarFragmento('AyudaTipo')"
+		noDataText="SIN DATOS"
+		items="{mAyudaTipo>/}">
+		<StandardListItem
+			title="{mAyudaTipo>Descripcion}"
+			description="{mAyudaTipo>IdTipo}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

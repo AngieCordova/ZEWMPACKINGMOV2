@@ -1,0 +1,81 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Visualizar Id de reproceso" contentWidth="90%" type="Message" afterClose="onAfterCloseDialog('visualizarIDReproceso')">
+		<content>
+        
+        <HBox
+          fitContainer="true"
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Seleccionar ID" labelFor="inpSlcIdVIR" design="Bold"/>
+              <Input id="inpSlcIdVIR" value="" submit="onSlcIdVIR"/>
+          </VBox>
+          <VBox justifyContent='End'>
+            <layoutData>
+              <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Button icon="sap-icon://show" text="Visualizar" width="10em" type="Emphasized" press="onSlcIdVIR"/>
+          </VBox>
+        </HBox>
+
+        <Table id="idPalletsTable" items="{ReprocesadosIdVIR>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Relación de Producto terminados reprocesados por ID" titleStyle="H3"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Id Reproceso"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Orden Reproceso"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Material"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Lote"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Cantidad (CJ)"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Materia prima"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Lote"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Cantidad (KG)"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Indicador"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem press="onShowPallet">
+              <cells>
+                <Text text="{ReprocesadosIdVIR>ID_REPRO}"/>
+                <Text text="{ReprocesadosIdVIR>ORDEN_REPRO}"/>
+                <Text text="{ReprocesadosIdVIR>MATNR} - {ReprocesadosIdVIR>MAKTX}"/>
+                <Text text="{ReprocesadosIdVIR>LOTE}"/>
+                <Text text="{ReprocesadosIdVIR>CANTIDAD}"/>
+                <Text text="{ReprocesadosIdVIR>MATNR_MP} - {ReprocesadosIdVIR>MAKTX_MP}"/>
+                <Text text="{ReprocesadosIdVIR>LOTE_MP}"/>
+                <Text text="{ReprocesadosIdVIR>CANTIDAD_MP}"/>
+                <Text text="{ReprocesadosIdVIR>IND_REPRO}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+		</content>
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialog('visualizarIDReproceso')"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

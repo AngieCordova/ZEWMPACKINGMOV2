@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="SELECCIONE ALMACEN ORIGEN"
+		search="onFiltrarMatchcode($event, ['IdTipoAlmacen'])"
+		confirm="onAgregarValorMatchcodeAlmacenDestino"
+		cancel="onCerrarFragmento('AyudaAlmacenOrigen')"
+		noDataText="SIN DATOS"
+		items="{mAyudaAlmacenesDestino>/}">
+		<StandardListItem
+			title="{mAyudaAlmacenesDestino>IdTipoAlmacen}"
+			description=""
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

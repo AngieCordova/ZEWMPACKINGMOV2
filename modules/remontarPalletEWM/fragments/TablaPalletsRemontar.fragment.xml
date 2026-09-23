@@ -1,0 +1,144 @@
+<core:FragmentDefinition
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+    <!-- <Panel>
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="Paletas Incompletas Disponibles"/>
+			</OverflowToolbar>
+		</headerToolbar>
+        <content> -->
+            <Table items="{mLista>/}" id="table-lista_pallets_remontar">
+                <headerToolbar>
+                    <Toolbar>
+                        <Button press="onRemontarPallets" type="Emphasized" text="Remontar Palet"></Button>
+                        <ToolbarSpacer/>
+                        <SearchField placeholder="Filtrar Paletas" width="15rem" search="onFiltrarTabla"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Seleccionar" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Número de Paleta" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Producto"/>
+                    </Column>
+
+                    <Column
+                        width="5em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Id de Empresa Agrícola" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Empresa Agrícola" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Módulo" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Fecha de Empaque" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cajas en Paleta" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cajas Faltantes" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cantidad de cajas" />
+                    </Column>
+                    
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Max. Paleta" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <CheckBox select="onSelectPalletRemontar" selected="{mLista>Check}"/>  <!--TKT #31624-30.07.2024 -->
+                            <Text text="{mLista>NRO_PALLET}"/>
+                            <Text text="{mLista>PROD_DESCR}"/>
+                            <Text text="{mLista>KUNNR}"/>
+                            <Text text="{mLista>NAME_ORG1}"/>
+                            <Text text="{mLista>MODULO}"/>
+                            <Text text="{=
+                                ${mLista>FECHA_EMPAQUE}.substring(6,8) + '.' +
+                                ${mLista>FECHA_EMPAQUE}.substring(4,6) + '.' +
+                                ${mLista>FECHA_EMPAQUE}.substring(0,4)
+                            }"/>
+                            <Text text="{mLista>CAJAS_PALLET}"/>
+                            <Text text="{mLista>CJ_FALTANTES}"/>
+                            <Input liveChange="noSuperaMaximo" value="{mLista>CJ_FUSIONAR}"/> <!--TKT #31624-30.07.2024 -->
+                            <Text text="{mLista>MAX_PALLETS}"/>
+                        </cells>
+                    </ColumnListItem>								
+                </items>
+            </Table>
+        <!-- </content>
+    </Panel> -->
+</core:FragmentDefinition>

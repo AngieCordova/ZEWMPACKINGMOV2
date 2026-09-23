@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Seleccionar palet para reproceso" contentWidth="600px" type="Message" afterClose="onAfterCloseDialog('transformarPallet')">
+		<content>
+        
+        <HBox
+          fitContainer="true"
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Escanear Código ({scopeTPR>/numCodigo})" labelFor="inpScanCodTPR" design="Bold"/>
+              <Input id="inpScanCodTPR" value="" submit="onScanCodigoTPR"/>
+          </VBox>
+          <VBox justifyContent='End'>
+            <layoutData>
+              <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Button icon="sap-icon://add" text="Ingresar" width="100%" type="Emphasized" press="onScanCodigoTPR"/>
+          </VBox>
+        </HBox>
+
+        <Table items="{posTPR>/}" inset="false">
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="20%">
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="20%">
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{posTPR>NRO_PALLET}"/>
+                <Button icon="sap-icon://delete" text="" width="100%" type="Emphasized" press="onDeleteposTPR"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+		</content>
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialog('transformarPallet')"></Button>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://save" text="Trasladar" press="onSaveTPR" enabled="{scopeTPR>/btnGuardar}"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

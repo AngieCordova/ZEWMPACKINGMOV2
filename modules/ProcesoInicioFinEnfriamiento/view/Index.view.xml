@@ -1,0 +1,101 @@
+<mvc:View 
+  controllerName="AvocadoProyecto.AvocadoProyecto.modules.ProcesoInicioFinEnfriamiento.controller.Index" 
+  xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+  xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core"
+    height="100%">
+    <Page title="PROCESO INICIO-FIN ENFRIAMIENTO" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+        
+        <Table
+            busy="true"
+            id="table-lista_procesamiento_enfriamiento"
+            items="{ZEWM_0023>/ResumenEnfriamientoSet}"
+            inset="false">
+            <headerToolbar>
+                <OverflowToolbar>
+                    <ToolbarSpacer/>
+                    <Button text="Refrescar" press="onActualizarTabla" icon="sap-icon://refresh"/>
+                </OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <!-- COLUMNA CHECKBOX -->
+                <Column hAlign="Center" vAlign="Middle" width="6rem">
+                    <Text text=""/>
+                </Column>
+                
+                <!-- COLUMNA # -->
+                <Column hAlign="Center" vAlign="Middle">
+                    <Text text="#"/>
+                </Column>
+
+                <!-- COLUMNA PALLETS -->
+                <Column hAlign="Center" vAlign="Middle">
+                    <Text text="Ubicaciones"/>
+                </Column>
+
+                <!-- COLUMNA INICIO -->
+                <Column hAlign="Center" vAlign="Middle">
+                    <Text text=""/>
+                </Column>
+
+                <!-- COLUMNA FIN -->
+                <Column hAlign="Center" vAlign="Middle">
+                    <Text text=""/>
+                </Column>
+
+                <!-- COLUMNA HORA INICIO -->
+                <Column hAlign="Center" vAlign="Middle">
+                    <Text text="Hora inicio"/>
+                </Column>
+
+                <!-- COLUMNA TIEMPO HR -->
+                <Column hAlign="Center" width="8rem" vAlign="Middle">
+                    <Text text="Tiempo (HR)"/>
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem press="onCellClick" type="Active">
+                    <cells>
+                        <CheckBox select="onCheckInRow" />
+                        <Text text="{ZEWM_0023>Tunel}" wrapping="false" />
+                        <Text text="{ZEWM_0023>CantPallets}" />
+
+                        <ToggleButton 
+                            width="70px" 
+                            text="Inicio" 
+                            enabled="false"
+                            pressed="{ 
+                                parts: [
+                                    {'path':'ZEWM_0023>HoraInicio'},
+                                    {'path':'ZEWM_0023>FechaInicio'}
+                                ],
+                                formatter: '.formatter.getPresionadoBotonInicio'
+                            }" 
+                            press="onIniciar"/>
+
+                        <ToggleButton 
+                            width="70px" 
+                            text="Fin" 
+                            enabled="false"
+                            pressed="false" 
+                            press="onFinalizar"/>
+                        
+                        <Text text="{ 
+                                parts: [
+                                    {'path':'ZEWM_0023>HoraInicio'},
+                                    {'path':'ZEWM_0023>FechaInicio'}
+                                ],
+                                formatter: '.formatter.getEstadoHoraInicio'
+                            }" />
+                            
+                        <Input value="{ZEWM_0023>Duracion}" editable="false"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+        
+    </Page>
+</mvc:View>

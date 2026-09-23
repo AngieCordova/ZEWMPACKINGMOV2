@@ -1,0 +1,129 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+                         xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:form="sap.ui.layout.form"
+                         xmlns:tnt="sap.tnt"
+                         xmlns:l="sap.ui.layout">
+
+    <Dialog title="HU’s de PT para Trasladar desde Piso de Planta" contentWidth="1080px" type="Message" afterClose="onAfterCloseDialogTrasladarHU">
+        <content>
+
+            <Table items="{listMaterials>/}" inset="false">
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="ID2"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Producto"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Productor"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Modulo"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Variedad"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Calibre"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Fecha de Producción"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Cajas"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <!-- SCH-Inicio-Prooyecto Guatemala -->
+                            <!-- <Text text="{listMaterials>Exidv2}"/> -->
+                            <Text text="{parts: [ {path: 'listMaterials>Exidv2'} ], formatter: '.formatter.concatenateZero'}"/>
+                            <!-- SCH-Fin-Prooyecto Guatemala -->
+
+                            <Text text="{listMaterials>Maktx}"/>
+                            <Text text="{listMaterials>NameP}"/>
+                            <Text text="{listMaterials>Modulo}"/>
+                            <Text text="{listMaterials>Variedad}"/>
+                            <Text text="{listMaterials>Calibre}"/>
+
+                            <Text text="{path: 'listMaterials>FechaProd', type: 'sap.ui.model.type.Date', formatOptions: { source: {pattern: 'yyyy-MM-ddTHH:mm:ss.000Z'}, pattern: 'dd/MM/yyyy', strictParsing: true, UTC: true }, constraints: {displayFormat: 'Date'}}"/>
+
+                            <Text text="{parts: [ {path: 'listMaterials>Cajas'} ], formatter: '.formatter.parseInt'}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+            <MessageStrip
+                text="{parts: [
+                            {path: 'scope>/msgInfoHUs'}
+                          ],
+                          formatter: '.formatter.txtMsgInfoHUs'}"
+                visible="{parts: [
+                            {path: 'scope>/msgInfoHUs'}
+                          ],
+                          formatter: '.formatter.visibleMsgInfoHUs'}"
+                type="Warning"
+                showIcon="true"
+                showCloseButton="false"
+                class="sapUiSmallMargin">
+            </MessageStrip>
+
+            <HBox
+                fitContainer="true"
+                alignItems="Stretch"
+                class="sapUiSmallMargin nestedFlexboxes">
+
+                <VBox>
+                    <layoutData>
+                        <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                    </layoutData>
+
+                    <Label text="Escanear HU" labelFor="inpScanHU" design="Bold"/>
+                    <Input id="inpScanHU" value="" submit="onScanHU"/>
+                </VBox>
+
+                <VBox justifyContent="End">
+                    <layoutData>
+                        <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                    </layoutData>
+
+                    <Button icon="sap-icon://initiative" text="Escanear" type="Emphasized" press="onScanHU"/>
+                </VBox>
+
+                <!-- TKT 8000024143 PALLET CHEP -->
+                <VBox justifyContent="End">
+                    <layoutData>
+                        <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                    </layoutData>
+
+                    <Button text="PALLET CHEP" type="Emphasized" press="onShowPalletCHEP" enabled="{scope>/btnPalletCHEP}"/>
+                </VBox>
+                <!-- TKT 8000024143 PALLET CHEEP  press="onScanHU"-->
+
+            </HBox>
+
+        </content>
+
+        <beginButton>
+            <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogTrasladarHU"></Button>
+        </beginButton>
+
+        <endButton>
+            <!--TKT 8000022166 - Restricción aceptación de saldos-->
+            <Button icon="sap-icon://activity-2" text="Trasladar" press="onEvaluaTrasladoHU" enabled="{scope>/btnTrasladarHU}"></Button>
+            <!--<Button icon="sap-icon://activity-2" text="Trasladar" press="onTrasladarHU" enabled="{scope>/btnTrasladarHU}"></Button> -->
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

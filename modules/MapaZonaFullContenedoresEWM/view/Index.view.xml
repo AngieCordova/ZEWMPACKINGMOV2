@@ -1,0 +1,135 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.MapaZonaFullContenedoresEWM.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f">
+		<Page title="Mapa ZONA FULL Contenedores EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+				<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+					<headerToolbar>
+						<OverflowToolbar>
+							<Title text=""/>
+						</OverflowToolbar>
+					</headerToolbar>
+					<content>
+
+						<!-- BOTONES SELECCION -->
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiLargeMarginBottom">
+							<f:GridList 
+								id="grid_list-botones_filtros" 
+								mode="SingleSelectMaster" 
+								width="10rem" 
+								class="sapUiSmallMarginBegin" 
+								items="{mFiltros>/}">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="3rem"/>
+								</f:customLayout>
+
+								<f:GridListItem>
+									<VBox height="35px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Button text="{mFiltros>value}" type="Emphasized" press="onSelectUbicacion(${mFiltros>value})"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+							</f:GridList>
+
+							<!-- LABEL DE ESTADOS -->
+							<f:GridList width="28rem" class="sapUiSmallMarginBegin">
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="5rem"/>
+								</f:customLayout>
+
+								<!-- DISPONIBLE -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Disponible"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoVerde">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+
+								<!-- OCUPADO -->
+								<f:GridListItem>
+									<VBox height="25px">
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+										<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+											<Text text="Ocupado"/>
+										</FlexBox>
+									</VBox>
+								</f:GridListItem>
+								<f:GridListItem class="FondoRojo">
+									<VBox>
+										<layoutData>
+											<FlexItemData growFactor="1" shrinkFactor="0" />
+										</layoutData>
+									</VBox>
+								</f:GridListItem>
+							</f:GridList>
+						</FlexBox>				
+
+						<!-- LISTA -->
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween">
+							<f:GridList 
+								id="grid_list_ubicaciones" 
+								width="50rem" 
+								class="sapUiLargeMarginBegin grid-auto-rows-auto" 
+								items="{detail>/}"
+								>
+								<f:customLayout>
+									<grid:GridBoxLayout boxMinWidth="100%"/>
+								</f:customLayout>
+								<f:GridListItem class="custom-btw-2-2-cells-margin">
+									<VBox>
+										<f:GridList 
+											items="{detail>row/}" >
+											<f:customLayout>
+												<grid:GridBoxLayout boxMinWidth="5rem"/>
+											</f:customLayout>
+											<f:GridListItem type="Active" press="onShowUbicacion(${detail>Fila},${detail>Ubicacion})" class="sapUiTinyMarginTop">
+												<VBox height="50px">
+													<layoutData>
+														<FlexItemData growFactor="1" shrinkFactor="0" />
+													</layoutData>
+													<FlexBox height="100%"
+														alignItems="Center"
+														justifyContent="Center">
+														<customData>
+															<core:CustomData 
+																key="grid-list-color" 
+																value="{detail>Color}" 
+																writeToDom="true"/>
+														</customData>
+														<Text text="{detail>Ubicacion}"/>
+													</FlexBox>
+												</VBox>
+											</f:GridListItem>								
+										</f:GridList>
+									</VBox>
+								</f:GridListItem>								
+							</f:GridList>
+						</FlexBox>
+					
+					</content>
+				</Panel>
+
+			</content>
+		</Page>
+</mvc:View>

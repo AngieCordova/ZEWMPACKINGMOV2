@@ -1,0 +1,302 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="Remonte de HUs" contentHeight="100%" contentWidth="70%" type="Message" busy="{mBusy>/iniciar}">
+		<content>
+			
+            <!-- CABECERA -->
+            <f:Form editable="false">
+			<!-- <f:title>
+				<core:Title text="Asignar Orden A Contenedor" />
+			</f:title> -->
+			<f:layout>
+				<f:ResponsiveGridLayout
+							labelSpanXL="4"
+							labelSpanL="4"
+							labelSpanM="4"
+							labelSpanS="12"
+							adjustLabelSpan="false"
+							emptySpanXL="0"
+							emptySpanL="0"
+							emptySpanM="0"
+							emptySpanS="0"
+							columnsXL="2"
+							columnsL="2"
+							columnsM="2"
+					singleContainerFullSize="false" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer title="">
+					<f:formElements>
+						<!-- <f:FormElement label="Número de Orden"> -->
+						<f:FormElement label="ID2">
+							<f:fields>
+								<Input submit="getPalletRemonte"  value="{oRemonte>/I_ID2}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Peso Total">
+							<f:fields>
+								<Input enabled="false" value="{oRemonte>/PesoTotal}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+
+
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="Guía">
+							<f:fields>
+								<Input enabled="false" value="{oRemonte>/Guia}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Variedad">
+							<f:fields>
+								<Input enabled="false" value="{oRemonte>/Variedad}" />
+								<!-- <Input enabled="false" value="{ 
+									parts: [
+										{path: 'CABECERA>MAX_PALLETS'},
+										{path: 'CABECERA>CJ_FALTANTES'}
+									],
+									formatter: '.formatter.calcularCantidadCajasEnPaleta' 
+								}" /> -->
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+
+
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="Productor">
+							<f:fields>
+								<Input enabled="false" value="{oRemonte>/Productor}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Peso">
+							<f:fields>
+								<Input enabled="false" value="{oRemonte>/Peso}"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+
+
+				<f:FormContainer title="">
+					<f:formElements>
+						<f:FormElement label="Módulo">
+							<f:fields>
+								<Input enabled="false" value="{oRemonte>/Modulo}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Comentario">
+							<f:fields>
+								<Input enabled="false" value="{oRemonte>/Comentario}"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+            
+  <Table  items="{mListaRemonte>/}" id="table-lista_pallets_remontar" >
+                <headerToolbar>
+                    <Toolbar>
+                        <Button press="onRemontarPallets" type="Emphasized" text="Remontar Palet"></Button>
+                        <ToolbarSpacer/>
+                        <!-- <SearchField placeholder="Filtrar Paletas" width="15rem" search="onFiltrarTabla"/> -->
+                        <ToolbarSpacer/>
+					   <SearchField id="input-filtrar_lista_inicial_remontar_pallet" placeholder="Filtrar Paletas" width="15rem" search="onFiltrarTablaPrincipal"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Seleccionar" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Guía" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Empresa de Agrícola"/>
+                    </Column>
+                  
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Módulo" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Variedad" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Lote" />
+                    </Column>
+                    
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Cantidad" />
+                   </Column>
+                   <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Peso a Embalar" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <CheckBox select="onSelectPalletRemontar" selected="{mListaRemonte>Check}"/>  <!--TKT #31624-30.07.2024 -->
+                            <Text
+											text="{mListaRemonte>Guia}"/>
+										<Text
+											text="{mListaRemonte>EmpresaAgricola}"/>
+										<Text
+											text="{mListaRemonte>Modulo}"/>
+										<Text
+											text="{mListaRemonte>Variedad}"/>
+										<Text
+											text="{mListaRemonte>IdLote}"/>
+										<Text
+											text="{mListaRemonte>Cantidad}"/>
+                          <!--    <Input liveChange="noSuperaMaximo" enabled="false" value="{mListaRemonte>Peso}"/> -->
+                            <Input enabled="false" value="{mListaRemonte>Peso}"/>
+                            
+                        </cells>
+                    </ColumnListItem>								
+                </items>
+            </Table>
+
+                   <Table items="{HUDisp>/}">
+                	<headerToolbar>
+                    <Toolbar>
+                        <Title text="Combinar HU Detalles"></Title>
+                        <ToolbarSpacer/>
+                        <!-- <SearchField placeholder="Filtrar Paletas" width="15rem" search="onFiltrarTabla"/>-->                               
+                       <Input id="input-impresora_remontar_pallets"  width="200px" editable="false"/>  
+                       
+                      <!--  <Button press="onButtonPressOpenMatchcode($event, 'AyudaImpresora')" type="Emphasized" icon="sap-icon://print" width="18%"/> -->
+                         <Button press="onAbrirAyudaBusquedaImpresora" width="50px" type="Emphasized" icon="sap-icon://print"/>   
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Guía" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Empresa Agrícola" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Módulo" />
+                    </Column>
+  					 <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Variedad" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Lote" />
+                    </Column>
+                    
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Cantidad" />
+                   </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+            
+                       		<Text text="{HUDisp>Guia}"/>
+										<Text
+											text="{HUDisp>EmpresaAgricola}"/>
+										<Text
+											text="{HUDisp>Modulo}"/>
+										<Text
+											text="{HUDisp>Variedad}"/>	
+										<Text
+											text="{HUDisp>IdLote}"/>								
+										<Text
+											text="{HUDisp>Peso}"/>               
+                        </cells>
+                    </ColumnListItem>								
+                </items>
+            </Table>
+
+		</content>
+
+        <beginButton>
+            <Button type="Ghost" text="Cancelar" press="onCerrarFragmento('RemontarHU')" icon="sap-icon://sys-cancel"></Button>
+        </beginButton>
+		<endButton>
+			<Button type="Emphasized" text="Guardar" press="onGuardarRemonteHu" icon="sap-icon://save"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

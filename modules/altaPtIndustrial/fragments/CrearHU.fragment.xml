@@ -1,0 +1,271 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog id="dialog-crear_hu_alta" title="Crear HU de Prod. Industrial" contentHeight="100%" contentWidth="80%" type="Message" busy="{mBusy>/iniciar}">
+		<content>
+		
+            <!-- CABECERA -->
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="4"
+                        columnsL="4"
+                        columnsM="4"
+                        singleContainerFullSize="false" />
+			    </form:layout>
+                <form:formContainers>
+
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                        	<!--GUIA-->
+                            <form:FormElement label="Guía">     
+                                <Input
+                                    editable="false"
+                                    value="{mAlmacenarHU>/Guia}"/>
+                            </form:FormElement>      
+                        </form:formElements>                        
+                    </form:FormContainer>
+                                      
+                    <form:FormContainer>                        
+                        <form:formElements>                   
+                           <!-- MODULO -->
+                            <form:FormElement label="Módulo">
+                                <form:fields>
+                                    <Input
+                                        editable="false"
+                                        value="{mAlmacenarHU>/Modulo}" />
+                                </form:fields>
+                            </form:FormElement>       
+                        </form:formElements>                        
+                    </form:FormContainer>    
+                                        
+                    <form:FormContainer>                        
+                        <form:formElements>                    
+                           <!-- VARIEDAD -->
+                            <form:FormElement label="Variedad">
+                                <form:fields>
+                                    <Input
+                                        editable="false"
+                                        value="{mAlmacenarHU>/Variedad}" />
+                                </form:fields>
+                            </form:FormElement>     
+                        </form:formElements>                        
+                    </form:FormContainer>
+
+                    <form:FormContainer>                        
+                        <form:formElements>        
+                           <!-- LOTE -->
+                            <form:FormElement label="Lote">
+                                <form:fields>
+                                    <Input
+                                        editable="false"
+                                        value="{mAlmacenarHU>/IdLote}" />
+                                </form:fields>
+                            </form:FormElement>     
+                        </form:formElements>                        
+                    </form:FormContainer>
+
+                </form:formContainers>
+            </form:Form>
+
+            <!-- INPUTS OBLIGATORIOS -->
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="4"
+                        columnsL="4"
+                        columnsM="4"
+                        singleContainerFullSize="false" />
+			    </form:layout>
+                <form:formContainers>
+
+                    <!--TIPO-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Tipo">
+                                <Input
+                                    id="input-tipo_almacenar_hu"
+                                    editable="false">
+                                    <!-- value="{mAlmacenarHU>/IdTipo}" -->
+                                    <layoutData>
+                                        <l:GridData span="XL10 L10 M10 S10" />
+                                    </layoutData>
+                                </Input>
+                                <Button press="onButtonPressOpenMatchcode($event, 'AyudaTipo')" type="Emphasized" icon="sap-icon://add-product" width="18%">
+                                    <layoutData>
+                                        <l:GridData span="XL2 L2 M2 S2" />
+                                    </layoutData>
+                                </Button>
+                            </form:FormElement>   
+                        </form:formElements>                        
+                    </form:FormContainer>    
+                                                 
+                    <!-- MATERIAL EMBALAJE -->
+                    <form:FormContainer>                        
+                        <form:formElements>            
+                            <form:FormElement label="Material Embalaje">
+                                <form:fields>
+                                    <Input
+                                        id="input-material_embalaje_almacenar_hu"
+                                        editable="false">
+                                        <!-- value="{mAlmacenarHU>/MaterialEmbalaje}" -->
+                                        <layoutData>
+                                            <l:GridData span="XL10 L10 M10 S10" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button press="onButtonPressOpenMatchcode($event, 'AyudaMaterialEmbalaje')" type="Emphasized" icon="sap-icon://add-product" width="18%">
+                                        <layoutData>
+                                            <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>   
+                        </form:formElements>                        
+                    </form:FormContainer>    
+                                                       
+                    <!-- PESO -->
+                    <form:FormContainer>                        
+                        <form:formElements>     
+                            <form:FormElement label="Peso">
+                                <form:fields>
+                                    <Input
+                                        id="input-peso_almacenar_hu"
+                                        liveChange=".comprobarPesoNoExcedido"
+                                        value="{mAlmacenarHU>/Peso}"/>
+                                </form:fields>
+                            </form:FormElement> 
+                        </form:formElements>                        
+                    </form:FormContainer>
+
+                    <!-- CANT. DISPONIBLE -->
+                    <form:FormContainer>                        
+                        <form:formElements>        
+                            <form:FormElement label="Cant. Disponible">
+                                <form:fields>
+                                    <Input
+                                        editable="false"
+                                        value="{mAlmacenarHU>/Cantidad} {mAlmacenarHU>/UnidadDeMedida}"/>
+                                </form:fields>
+                            </form:FormElement> 
+                        </form:formElements>                        
+                    </form:FormContainer>
+
+                </form:formContainers>
+            </form:Form>
+        
+            <!-- COMENTARIO Y CODIGO -->
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="3"
+                        columnsL="3"
+                        columnsM="3"
+                        singleContainerFullSize="false" />
+			    </form:layout>
+                <form:formContainers>
+
+                    <!--CODIGO HU-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Código HU">
+                                <Input
+                                    value="{mAlmacenarHU>/IdHu}"/>
+                            </form:FormElement>
+                        </form:formElements>                        
+                    </form:FormContainer>  
+                                                   
+                    <!-- COMENTARIO -->
+                    <form:FormContainer>                        
+                        <form:formElements>     
+                            <form:FormElement label="Comentario">
+                                <form:fields>
+                                    <Input
+                                        id="input-comentario_embalaje_almacenar_hu"
+                                        value="{mAlmacenarHU>/Comentario}" />
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>                        
+                    </form:FormContainer>
+                                                   
+                    <!-- IMPRESORA -->
+                    <form:FormContainer>                        
+                        <form:formElements>     
+                            <form:FormElement label="Impresora">
+                                <form:fields>
+                                
+                                    <Input
+                                        value="{mAlmacenarHU>/IdImpresora}"
+                                        editable="false">
+                                        <layoutData>
+                                            <l:GridData span="XL10 L10 M10 S10" />
+                                        </layoutData>
+                                    </Input>
+                                    <Button press="onButtonPressOpenMatchcode($event, 'AyudaImpresora')" type="Emphasized" icon="sap-icon://print" width="18%">
+                                        <layoutData>
+                                            <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>                        
+                    </form:FormContainer>
+                </form:formContainers>
+            </form:Form>
+
+
+            <Table id="" inset="false" items="{mListaHUCreados>/}">
+                <columns>
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <Text text="HU's Creadas" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{mListaHUCreados>IdUnidadManipulacionExternoV2} - {mListaHUCreados>IdUnidadManipulacionExterno}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+		</content>
+
+        <beginButton>
+            <Button type="Ghost" text="Cancelar" press="onCerrarFragmento('CrearHU')" icon="sap-icon://sys-cancel"></Button>
+        </beginButton>
+		<endButton>
+			<Button type="Emphasized" text="Guardar" press="onCrearHU" icon="sap-icon://save"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

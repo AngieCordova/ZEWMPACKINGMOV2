@@ -1,0 +1,32 @@
+
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:tnt="sap.tnt" 
+                         xmlns:l="sap.ui.layout"
+                         xmlns:u="sap.ui.unified"
+                         xmlns:tab="sap.ui.table">
+
+    <Dialog title="INDICAR FECHA" 
+            type="Message" 
+            afterClose="onAfterCloseDialog('slcCalendarZF')"
+             >
+        <content>
+                <u:Calendar
+        id="dpSalidaZFDespacho"
+        minDate="{path: 'scopeZF>/fechaEntregaMinDate'}"
+        select="handleCalendarSelect" />
+        </content>
+      
+        <beginButton>          
+          <Button icon="sap-icon://save" text="Guardar" enabled="{scopeZF>/activeGuardar}" press="onSaveSalidaZFDespachoConfirm()"></Button>      
+        </beginButton>
+
+        <endButton>          
+          <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('slcCalendarZF')"></Button>      
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

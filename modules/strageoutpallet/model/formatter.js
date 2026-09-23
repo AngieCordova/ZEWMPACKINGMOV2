@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{date:function(sDate){var date=eval("new "+sDate.replace(/\//gi,""));return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()},concatenateStrings:function(t,e){if(t==e){return t}if(!e)return t;var n=e.toString().length;var r="0";e=r.repeat(20-n)+e.toString();return`${t} / ${e}`},concatenarOrdenViaje:function(t,e){if(t&&e){return`${t} - ${e}`}if(t){return t}if(e){return e}}}});
+//# sourceMappingURL=formatter.js.map

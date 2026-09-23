@@ -1,0 +1,24 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		growingThreshold="10"
+		cancel="onCerrarFragmento('AyudaGrupoImpresora')"
+		confirm="onAgregarValorMatchcode(
+			$event, 
+			'AyudaGrupoImpresora', 
+			'scopeNPT', 
+			{'ZZ_GRUPO': '/ordenProceso/GrupoImpresora'}
+		)"
+		search="onFiltrarDatosMatchcode($event, ['ZZ_GRUPO'])"
+		noDataText="SIN DATOS"
+		title="SELECCIONE GRUPO IMPRESORAS"
+		items="{/}" >
+		<StandardListItem
+			title="{ZZ_GRUPO}"
+			description=""
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

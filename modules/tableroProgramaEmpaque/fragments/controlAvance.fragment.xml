@@ -1,0 +1,674 @@
+
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:tnt="sap.tnt" 
+                         xmlns:l="sap.ui.layout"
+                         xmlns:tab="sap.ui.table"
+                         xmlns:micro="sap.suite.ui.microchart"
+                   
+                         >
+
+    <Dialog title="Avance en Línea del Programa de Empaque" 
+            contentWidth="90%" 
+            type="Message" 
+            afterClose="onAfterCloseDialog('controlAvance')"
+             >
+        <content>
+         
+            <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+             <Label text="Año" labelFor="txtInpFilter" design="Bold"/>
+              <ComboBox selectedKey="{filtro>/ZzYear}" items="{Years>/results}">
+        <core:Item key="{Years>ZzYear}" text="{Years>ZzYear}" />
+        </ComboBox>
+              <Label text="Org. Vtas" labelFor="txtInpFilter1" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Vkorg}" items="{Vkorg>/results}">
+                <core:ListItem key="{Vkorg>Vkorg}" text="{Vkorg>Vtext}" additionalText = "{Vkorg>Vkorg}"/>
+        </ComboBox>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="onFilterControlAvance"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+               <Label text="Semana" labelFor="txtInpFilter2" design="Bold"/>
+              <Input width="60%" value="{filtro>/Semana}" submit="handleFilter" showValueHelp="true" valueHelpRequest=".onFilterModal"/>             
+              <Label text="Clase" labelFor="txtInpFilter3" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Clase}" items="{Clase>/results}">
+        <core:ListItem key="{Clase>Clase}" text="{Clase>Bezei}" additionalText = "{Clase>Clase}"/>
+        </ComboBox>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Cultivo"  design="Bold"/>
+              <ComboBox showSecondaryValues= "true" change="onChangeCultivo"  selectedKey="{filtro>/Cultivo}" items="{Cultivo>/results}">
+              <core:ListItem key="{Cultivo>Codcult}" text="{Cultivo>Cultivo}" additionalText = "{Cultivo>Codcult}"/>
+        </ComboBox>
+              <Label text="Variedad"  design="Bold"/>
+               <ComboBox selectedKey="{filtro>/Variedad}" items="{Variedad>/results}">
+        <core:Item key="{Variedad>Variedad}" text="{Variedad>Variedad}" />
+        </ComboBox>
+              
+             <!--  <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>-->
+          </VBox>
+        </HBox>
+    <Panel visible="{=${scopeZF>/activeControlAvance}}" width="auto" class="sapUiResponsiveMargin" headerText="Avance a Nivel de Ordenes ">
+
+      <l:HorizontalLayout>
+      <HBox>
+        <Label text="{GraficoAvance>/results/0/ZzContinente}"></Label>
+          <micro:RadialMicroChart size="M" percentage="{GraficoAvance>/results/0/Poravance}"   press="press"/> 
+      </HBox>
+        <HBox visible="{= ${GraficoAvance>/results/1/Producido} !== '0.000' ? true : false}">
+              <Label text="{GraficoAvance>/results/1/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart size="M"  total="{= parseFloat(${GraficoAvance>/results/1/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/1/Requerido})}" color="Good" fractionScale="orders"/>
+        </micro:items>
+      </micro:HarveyBallMicroChart>
+        </HBox>
+      <HBox visible="{= ${GraficoAvance>/results/2/Producido} !== '0.000' ? true : false}">
+        <Label text="{GraficoAvance>/results/2/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart size="M" total="{= parseFloat(${GraficoAvance>/results/2/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/2/Requerido})}"  color="Critical" fractionScale="orders"/>
+        </micro:items>
+        </micro:HarveyBallMicroChart>
+      </HBox>
+      <HBox visible="{= ${GraficoAvance>/results/3/Producido} !== '0.000' ? true : false}">
+        <Label text="{GraficoAvance>/results/3/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart size="M"  total="{= parseFloat(${GraficoAvance>/results/3/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/3/Requerido})}" color="Neutral" fractionScale="orders"/>
+        </micro:items>
+        </micro:HarveyBallMicroChart>
+      </HBox>
+      <HBox visible="{= ${GraficoAvance>/results/4/Producido} !== '0.000' ? true : false}">
+        <Label text="{GraficoAvance>/results/4/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart size="M"  total="{= parseFloat(${GraficoAvance>/results/4/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/4/Requerido})}" color="Critical" fractionScale="orders"/>
+        </micro:items>
+        </micro:HarveyBallMicroChart>
+      </HBox>
+        <HBox visible="{= ${GraficoAvance>/results/5/Producido} !== '0.000' ? true : false}">
+        <Label text="{GraficoAvance>/results/5/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart  size="M" colorPalette="sapUiChartPaletteQualitativeHue1" total="{= parseFloat(${GraficoAvance>/results/5/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/5/Requerido})}" color="Good" fractionScale="orders"/>
+        </micro:items>
+        </micro:HarveyBallMicroChart>
+      </HBox>
+        <HBox visible="{= ${GraficoAvance>/results/5/Producido} !== '0.000' ? true : false}">
+        <Label text="{GraficoAvance>/results/5/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart size="M" total="{= parseFloat(${GraficoAvance>/results/5/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/5/Requerido})}"  color="Neutral" fractionScale="orders"/>
+        </micro:items>
+        </micro:HarveyBallMicroChart>
+      </HBox>
+      <HBox visible="{= ${GraficoAvance>/results/6/Producido} !== '0.000' ? true : false}">
+        <Label text="{GraficoAvance>/results/6/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart size="M" total="{= parseFloat(${GraficoAvance>/results/6/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/6/Requerido})}"  color="Critical" fractionScale="orders"/>
+        </micro:items>
+        </micro:HarveyBallMicroChart>
+      </HBox>
+        <HBox visible="{= ${GraficoAvance>/results/7/Producido} !== '0.000' ? true : false}">
+        <Label text="{GraficoAvance>/results/7/ZzContinente}"></Label>
+        <micro:HarveyBallMicroChart size="M" total="{= parseFloat(${GraficoAvance>/results/7/Producido})}" totalScale="orders" press="press">
+        <micro:items>
+          <micro:HarveyBallMicroChartItem fraction="{= parseFloat(${GraficoAvance>/results/7/Requerido})}" color="Error" fractionScale="orders"/>
+        </micro:items>
+        </micro:HarveyBallMicroChart>
+      </HBox>
+
+
+
+    </l:HorizontalLayout>
+    </Panel>
+    <IconTabBar visible="{=${scopeZF>/activeControlAvance}}"
+      headerMode="Inline"
+      expanded="{device>/isNoPhone}"
+      class="sapUiResponsiveContentPadding">
+      <items>
+        <IconTabFilter
+          text="Avance por Calibres"
+          key="iconCalibre"
+          count="{= ${ControlAvance>/results}.length}"
+          >
+            <VBox>
+            <Table id="tblAvance"
+                contextualWidth="Auto"
+                popinLayout="GridSmall"
+                items="{
+                path: 'ControlAvance>/results'
+              }">
+               <headerToolbar>
+                      <Toolbar>
+                        <!-- <Title text="Avance por Calibres ({= ${ControlAvance>/results}.length})" titleStyle="H3"/>-->
+                        <ToolbarSpacer/>
+                        <!-- <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>-->            
+                        <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTablaAvance"/>          
+                      </Toolbar>
+                    </headerToolbar>
+              <columns>
+                <Column>
+                <HBox>
+                          <Text text="Tipo"/>
+                          <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Tipo')"/>
+                       </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="phone"
+                  demandPopin="true">
+                  <HBox>
+                            <Text text="Calibre"/>
+                            <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Calibre')"/>
+                        </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="tablet"
+                  demandPopin="true"
+                  hAlign="Center">
+                  <HBox>
+                            <Text text="Requerido"/>
+                            <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Requerido')"/>
+                        </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="tablet"
+                  demandPopin="true"
+                  hAlign="Center">
+                  <HBox>
+                            <Text text="Tonelada REQ"/>
+                            <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Pendiente')"/>
+                        </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="Phone"
+                  demandPopin="true"
+                  hAlign="End">
+                  <HBox>
+                           <Text text="Producido"/>
+                           <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Producido')"/>
+                        </HBox> 
+                </Column>
+                <Column
+                  minScreenWidth="tablet"
+                  demandPopin="true"
+                  hAlign="Center">
+                  <HBox>
+                            <Text text="Tonelada PROD"/>
+                            <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Produc')"/>
+                        </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="Phone"
+                  demandPopin="true"
+                  hAlign="End">
+                  <HBox>
+                           <Text text="% Avance"/>
+                           <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Poravance')"/>
+                        </HBox>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Label
+                      text="{ControlAvance>Tipo}"/>
+                    <Label
+                      text="{ControlAvance>Calibre}" />
+                    <Label
+                      text="{ControlAvance>Requerido}" />
+                    <Label
+                      text="{ControlAvance>Pendiente}" />
+                    <Label
+                      text="{ControlAvance>Producido}" />
+                    <Label
+                      text="{ControlAvance>Produc}" />
+                    <Label
+                      text="{ControlAvance>Poravance}" />
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+            <!-- Pie pagina -->
+
+            <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+              <FlexBox alignItems="Start">
+                <Label text="Total" textAlign="Left" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Label text="{ControlAvance>/totalReq}" textAlign="Center" design="Bold" width="88%"> <!-- CML textAlign="Begin" -->
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Label text="{ControlAvance>/totalProdu}" textAlign="Center" design="Bold" width="160%"> <!-- CML textAlign="Center" -->
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Label text="{ControlAvance>/totalPorc}" textAlign="End" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+              </FlexBox>
+            </Panel>
+            </VBox>
+        </IconTabFilter>
+        <IconTabFilter
+          text="Avance por Órdenes"
+          key="iconOrdenes"
+          count="{= ${ControlAvance2>/}.length}">
+          <VBox>
+          <tb:TreeTable
+          id="TreeTable"
+          rows="{path:'ControlAvance2>/', parameters: {arrayNames:['Details']}}"
+          enableSelectAll="false"
+          threshold="40"
+          scrollThreshold="50"
+          selectionMode="None"
+          ariaLabelledBy="title">
+        <tb:extension>
+          <OverflowToolbar style="Clear">
+            <!-- <Title  text="Avance por Órdenes ({= ${ControlAvance2>/}.length})" titleStyle="H3"/>-->
+            <ToolbarSpacer/>                   
+              <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTablaAvance2"/>
+          </OverflowToolbar>
+        </tb:extension>
+        <tb:columns>
+          <tb:Column >
+            <Label text="Orden - Viaje"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field1}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column >
+            <Label text="Cliente"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field2}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column >
+            <Label text="Destino"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field3}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column>
+            <Label text="F.Propuesta Despacho" wrapping="true"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field4}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column >
+          <!-- <Label text="Prioridad Planificación" wrapping="true"/> -->
+            <Label text="Pallets por producir" wrapping="true"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field5}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column >
+            <Label text="% Avance"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field6}" wrapping="false"/>
+            </tb:template>
+          </tb:Column>
+        </tb:columns>
+      </tb:TreeTable>
+        <!-- Pie pagina -->
+      <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+              <FlexBox alignItems="Start">
+
+                <Label text="Total" textAlign="Left" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+
+                <ToolbarSpacer/>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Label text="{TotalControlAvance2>/countDestino}" textAlign="End" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <ToolbarSpacer/>
+                <Label text="{TotalControlAvance2>/totalPorc}" textAlign="End" design="Bold">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+
+              </FlexBox>
+      </Panel>
+      </VBox>
+        </IconTabFilter>
+
+      </items>
+    </IconTabBar>
+    <!-- <Panel visible="{=${scopeZF>/activeControlAvance}}" width="auto" class="sapUiResponsiveMargin">
+    <headerToolbar>
+      <OverflowToolbar>
+        <Title text="Avance a Nivel de Pallets" textAlign="Center"/>
+      </OverflowToolbar>
+    </headerToolbar>
+    <content>
+    <l:ResponsiveSplitter height="100%">
+    <l:PaneContainer>
+    <l:SplitPane requiredParentWidth="400">
+    <l:layoutData>
+      <l:SplitterLayoutData size="45%" />
+    </l:layoutData>
+          <VBox>
+            <Table id="tblAvance"
+                contextualWidth="Auto"
+                popinLayout="GridSmall"
+                items="{
+                path: 'ControlAvance>/results'
+              }">
+               <headerToolbar>
+                      <Toolbar>
+                        <Title text="Avance por Calibres ({= ${ControlAvance>/results}.length})" titleStyle="H3"/>
+                        <ToolbarSpacer/>                            
+                        <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTablaAvance"/>          
+                      </Toolbar>
+                    </headerToolbar>
+              <columns>
+                <Column>
+                <HBox>
+                          <Text text="Tipo"/>
+                          <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Tipo')"/>
+                       </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="phone"
+                  demandPopin="true">
+                  <HBox>
+                            <Text text="Calibre"/>
+                            <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Calibre')"/>
+                        </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="tablet"
+                  demandPopin="true"
+                  hAlign="Center">
+                  <HBox>
+                            <Text text="Requerido"/>
+                            <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Requerido')"/>
+                        </HBox>
+                </Column>
+                <Column
+                  minScreenWidth="Phone"
+                  demandPopin="true"
+                  hAlign="End">
+                  <HBox>
+                           <Text text="Producido"/>
+                           <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Producido')"/>
+                        </HBox> 
+                </Column>
+                <Column
+                  minScreenWidth="Phone"
+                  demandPopin="true"
+                  hAlign="End">
+                  <HBox>
+                           <Text text="% Avance"/>
+                           <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSortAvance('Poravance')"/>
+                        </HBox>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Label
+                      text="{ControlAvance>Tipo}"/>
+                    <Label
+                      text="{ControlAvance>Calibre}" />
+                    <Label
+                      text="{ControlAvance>Requerido}" />
+                    <Label
+                      text="{ControlAvance>Producido}" />
+                    <Label
+                      text="{ControlAvance>Poravance}" />
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+
+
+            <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+              <FlexBox alignItems="Start">
+                <Label text="Total" textAlign="Left" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Label text="{ControlAvance>/totalReq}" textAlign="End" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Label text="{ControlAvance>/totalProdu}" textAlign="End" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Label text="{ControlAvance>/totalPorc}" textAlign="End" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+              </FlexBox>
+            </Panel>
+            </VBox>
+      </l:SplitPane>
+    <l:SplitPane requiredParentWidth="600">
+      <l:layoutData>
+      <l:SplitterLayoutData size="55%" />
+    </l:layoutData>
+        <VBox>
+          <tb:TreeTable
+          id="TreeTable"
+          rows="{path:'ControlAvance2>/', parameters: {arrayNames:['Details']}}"
+          enableSelectAll="false"
+          threshold="40"
+          scrollThreshold="50"
+          selectionMode="None"
+          ariaLabelledBy="title">
+        <tb:extension>
+          <OverflowToolbar style="Clear">
+            <Title  text="Avance por Órdenes ({= ${ControlAvance2>/}.length})" titleStyle="H3"/>
+            <ToolbarSpacer/>                   
+              <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTablaAvance2"/>
+          </OverflowToolbar>
+        </tb:extension>
+        <tb:columns>
+          <tb:Column width="13rem">
+            <Label text="Orden - Viaje"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field1}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column width="13rem">
+            <Label text="Cliente"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field2}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column width="7rem">
+            <Label text="Destino"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field3}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column width="7rem">
+            <Label text="F.Propuesta Despacho" wrapping="true"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field4}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column width="6rem">
+            <Label text="Prioridad Planificación" wrapping="true"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field5}" wrapping="true"/>
+            </tb:template>
+          </tb:Column>
+          <tb:Column width="5rem">
+            <Label text="% Avance"/>
+            <tb:template>
+              <Text text="{ControlAvance2>Field6}" wrapping="false"/>
+            </tb:template>
+          </tb:Column>
+        </tb:columns>
+      </tb:TreeTable>
+
+      <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+              <FlexBox alignItems="Start">
+
+                <Label text="Total" textAlign="Left" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <ToolbarSpacer/>
+                <ToolbarSpacer/>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Label text="{TotalControlAvance2>/countDestino}" textAlign="End" design="Bold" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <Text  text="" width="100%">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Text>
+                <ToolbarSpacer/>
+                <Label text="{TotalControlAvance2>/totalPorc}" textAlign="End" design="Bold">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Label>
+
+              </FlexBox>
+      </Panel>
+      </VBox>
+    </l:SplitPane>
+    </l:PaneContainer>
+    </l:ResponsiveSplitter>
+    </content> 
+    </Panel>
+         -->
+        </content>      
+        
+       <!--  <beginButton>          
+          <Button icon="sap-icon://save" text="Guardar" enabled="{scopeZF>/activeGuardar}" press="onSaveSalidaZF()"></Button>      
+    </beginButton> -->
+
+        <endButton>          
+          <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('controlAvance')"></Button>      
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

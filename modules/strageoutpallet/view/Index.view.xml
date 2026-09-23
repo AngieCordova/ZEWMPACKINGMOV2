@@ -1,0 +1,81 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.strageoutpallet.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.tnt">
+		<Page title="STAGE OUT PALLET a DE PT A ZONA DE DESPACHO" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+
+				<FlexBox
+					direction="Column"
+					height="100%"
+					renderType="Bare"
+					justifyContent="Inherit"
+					alignItems="Center">
+					<items>
+						<Table width="70%" id="table-lista_pedidos" items="{ZEWM_0003>/PedidosSet}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="" level="H2"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column
+									width="12em"
+									hAlign="Center"
+									vAlign="Middle">
+									<Text text="Pedido" />
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Center"
+									vAlign="Middle">
+									<Text text="Zona de Despacho" />
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Center"
+									vAlign="Middle">
+									<Text text="Cantidad" />
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Center"
+									vAlign="Middle">
+									<Text text="Referencia" />
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="Navigation" press="onSelectItem">
+									<cells>
+										<Text
+											text="{ZEWM_0003>idPedido}"/>
+										<Text
+											text="{ZEWM_0003>ZonaDeDespacho}"/>
+										<Text
+											text="{ZEWM_0003>Cantidad}"/>
+										<Text
+											text="{
+												parts: [
+													{'path':'ZEWM_0003>NroOrden'},
+													{'path':'ZEWM_0003>NroViaje'}
+												],
+												formatter: '.formatter.concatenarOrdenViaje' 
+											}"/>
+									</cells>
+								</ColumnListItem>								
+							</items>
+						</Table>
+					</items>
+				</FlexBox>
+			</content>
+		</Page>
+</mvc:View>

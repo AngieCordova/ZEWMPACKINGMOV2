@@ -1,0 +1,58 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.stageModMMPPPrd.controller.stageModMMPPPrd" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Staging de Módulo de MMPP a Producción" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idGuiaTable" items="{guias>/results}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Reporte de Guías" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://response" text="Re-Habilitar Guías" type="Emphasized" press="onRehabilitarView"/>
+              <SearchField placeholder="Filtrar Guía" value="" id="txtSearchGuia" search="handleFilterGuia" width="15rem"/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadGuias"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Guía"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Entrega"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Empresa Agricola"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Modulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Variedad"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5em">
+              <Text text="Bins"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5em">
+              <Text text="Jabas"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5em">
+              <Text text="Pallets"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="onReporteStockShow">
+              <cells>
+                <Text text="{guias>Guia}"/>
+                <Text text="{guias>Vbeln}"/>
+                <Text text="{guias>NameOrg1}"/>
+                <Text text="{guias>Modulo}"/>
+                <Text text="{guias>Variedad}"/>
+                <Text text="{guias>Bins}"/>
+                <Text text="{guias>Jabas}"/>
+                <Text text="{guias>Pallets}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

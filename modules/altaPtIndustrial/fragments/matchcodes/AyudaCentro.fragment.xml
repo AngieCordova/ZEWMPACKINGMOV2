@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+		<!-- confirm="onAgregarValorMatchcode($event, 'AyudaCentro', {'IdCentro':'IdCentro'})" -->
+	<SelectDialog
+		title="SELECCIONE CENTRO"
+		search="onFiltrarMatchcode($event, ['IdCentro'])"
+		confirm="onAgregarValorMatchcode($event, 'AyudaCentro', false, 'mListaAyudaCentro')"
+		cancel="onCerrarFragmento('AyudaCentro')"
+		noDataText="SIN DATOS"
+		items="{mListaAyudaCentro>/}">
+		<StandardListItem
+			title="{mListaAyudaCentro>IdCentro}"
+			description=""
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

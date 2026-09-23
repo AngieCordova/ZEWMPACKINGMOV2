@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+                         xmlns="sap.m"
+                         xmlns:core="sap.ui.core">
+
+    <Dialog title="Detalle Pallet"
+            contentWidth="90%"
+            type="Message"
+            afterClose="onAfterCloseDialog('detallePallet')">
+        <content>
+            <Table inset="false"
+                   items="{CargaDetalleSel>/}"
+                   class="sapUiResponsiveMargin">
+                <columns>
+                    <Column>
+                        <Text text="Variedad" />
+                    </Column>
+                    <Column>
+                        <Text text="Codigo Productor" />
+                    </Column>
+                    <Column visible="{= ${CargaDetalleSel>/0/ValidMatseca} === 'X'}"><Text text="Materia seca" /></Column>
+                    <Column>
+                        <Text text="Global Gap Number" />
+                    </Column>
+                    <Column>
+                        <Text text="Fundo" />
+                    </Column>
+                    <Column>
+                        <Text text="Modulo" />
+                    </Column>
+                    <Column>
+                        <Text text="Descripción" />
+                    </Column>
+                    <Column>
+                        <Text text="Calibre" />
+                    </Column>
+                    <Column>
+                        <Text text="Fecha Producción" />
+                    </Column>
+                    <Column>
+                        <Text text="KGS Por caja" />
+                    </Column>
+                    <Column>
+                        <Text text="Cajas" />
+                    </Column>
+
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Text text="{CargaDetalleSel>Variedad}" />
+                            <Text text="{CargaDetalleSel>Codprod}" />
+                            <Text text="{CargaDetalleSel>Matseca}" />
+                            <Text text="{CargaDetalleSel>Ggn}" />
+                            <Text text="{CargaDetalleSel>Fundo}" />
+                            <Text text="{CargaDetalleSel>Modulo}" />
+                            <Text text="{CargaDetalleSel>Descrip}" />
+                            <Text text="{CargaDetalleSel>Calibre}" />
+                            <Text text="{path:'CargaDetalleSel>FechaProd', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC: true}}"/>
+                            <Text text="{CargaDetalleSel>KgXCaja}" />
+                            <Text text="{CargaDetalleSel>Cajas}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <endButton>
+            <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('detallePallet')" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

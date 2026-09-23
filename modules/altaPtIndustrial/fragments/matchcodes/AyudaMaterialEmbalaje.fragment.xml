@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="SELECCIONE UN MATERIAL DE EMBALAJE"
+		search="onFiltrarMatchcode($event, ['IdMaterial','Descripcion','GrupoMaterialEmbalaje','TipoMaterialEmbalaje'])"
+		confirm="onAgregarValorMatchcode($event, 'AyudaMaterialEmbalaje', [{'/IdMaterialEmbalaje':'IdMaterial'},{'/FlgHuInputOpc':'FlgHuInputOpc'}], 'mAyudaMaterialesEmbalaje')"
+		cancel="onCerrarFragmento('AyudaMaterialEmbalaje')"
+		noDataText="SIN DATOS"
+		items="{mAyudaMaterialesEmbalaje>/}">
+		<StandardListItem
+			title="{mAyudaMaterialesEmbalaje>Descripcion}"
+			description="{mAyudaMaterialesEmbalaje>IdMaterial}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

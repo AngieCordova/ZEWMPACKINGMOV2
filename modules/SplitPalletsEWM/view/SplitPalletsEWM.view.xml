@@ -1,0 +1,61 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.SplitPalletsEWM.controller.SplitPalletsEWM" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Split Pallets EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idPalletsTable" items="{detail>/results}" inset="false" growing="true" growingThreshold="10" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Pallets ({scope>/totalTareasPallets})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <SearchField placeholder="Filtrar" id="txtSearch" search="handleFilterPallets" width="15rem"/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Nº de Paleta"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Producto"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pedido"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Cajas en Paleta"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Max. Paleta"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Cajas Faltantes"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha de Empaque"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="onShowPallet">
+              <cells>
+										<Text text="{detail>NRO_PALLET}"/>
+										<Text text="{
+                      parts: [
+                        {path: 'detail>PROD_DESCR'},
+                        {path: 'detail>MATNR'}
+                      ],
+                      formatter: '.formatter.producto'}"/>
+										<Text text="{detail>PEDIDO}"/>
+										<Text text="{detail>CAJAS_PALLET}"/>
+										<Text text="{detail>MAX_PALLETS}"/>
+										<Text text="{detail>CJ_FALTANTES}"/>
+										<Text text="{
+											path: 'detail>FECHA_EMPAQUE',
+											formatter: '.formatter.formatDate'
+										}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

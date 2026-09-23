@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		growingThreshold="10"
+		cancel="onCerrarFragmento('AyudaGrupoImpresora')"
+		confirm="onAgregarValorMatchcodeGrupoImpresora"
+		search="onFiltrarDatosMatchcodeGrupoImpresora"
+		noDataText="SIN DATOS"
+		title="IMPRESORA"
+	 	items="{mAyudaImpresoras>/}" > 	     
+		<StandardListItem
+			title="{mAyudaImpresoras>IdImpresora}"
+			description="{mAyudaImpresoras>IdImpresora}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

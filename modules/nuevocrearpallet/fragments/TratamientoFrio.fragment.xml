@@ -1,0 +1,299 @@
+<core:FragmentDefinition 
+   xmlns="sap.m" 
+   xmlns:core="sap.ui.core"
+   xmlns:form="sap.ui.layout.form" 
+   xmlns:l="sap.ui.layout">
+  <Dialog title="Crear Paleta Tratamiento Frío" contentHeight="100%" contentWidth="80%" type="Message" busy="{mBusy>/iniciarPost}" afterClose="onCerrarFragmento('TratamientoFrio')">
+    <content>
+
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull bsc-form-padding-bottom-0" id="form_uno_nuevo_tratar_paleta">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="2"
+                        columnsL="2"
+                        columnsM="2"
+                        singleContainerFullSize="false" />
+          </form:layout>
+                <form:formContainers>
+
+                    <!--FECHA DE RECEPCION-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Fecha de recepción">     
+                                <form:fields>
+                                <DatePicker
+                                    change="onChangeDateTratamientoFrio"
+                                    id="inptTratamientoFrioFechaRecepcion"
+                                    displayFormat="dd.MM.yyyy"
+                                    valueFormat="yyyyMMdd"
+                                    value="{scope>/inptTratamientoFrio/fechaRecepcion}"
+                                    class="sapUiSmallMarginBottom"/>                           
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--ESPACIO EN BLANCO-->
+                    <form:FormContainer>                        
+                        <form:formElements> 
+                        <!--Inicio TKT 8000018858-->
+                         <!-- GRUPO DE IMPRESORAS -->
+                            <form:FormElement label="Grupo de impresoras">
+                                <form:fields>
+                                    <Input value="{mPreRegistro>/GRUPO_IMPRESORAS}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL10 L10 M10 S10" />
+                    </layoutData>
+                                    </Input>
+                                    <Button press="onAbrirAyudaBusquedaGrupoImpresora" type="Emphasized" icon="sap-icon://print" width="18%">
+                                        <layoutData>
+                      <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        <!--Fin TKT 8000018858-->
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--EMPRESA AGRICOLA-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Empresa Agrícola">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/empresaAgricola}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL10 L10 M10 S10" />
+                    </layoutData>
+                                    </Input>
+                                    <Button enabled="{ parts: [ {path: 'scope>/inptTratamientoFrio'}, {value: 'MCEmpresaAgricola'} ], formatter: '.formatter.existNoEmpty'}"  press="onAbrirMCTratamientoFrio($event, 'MCEmpresaAgricola')" type="Emphasized" icon="sap-icon://building" width="18%">
+                                        <layoutData>
+                      <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--MODULO-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Módulo">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/modulo}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL10 L10 M10 S10" />
+                    </layoutData>
+                                    </Input>
+                                    <Button enabled="{ parts: [ {path: 'scope>/inptTratamientoFrio'}, {value: 'MCModulo'} ], formatter: '.formatter.existNoEmpty'}" press="onAbrirMCTratamientoFrio($event, 'MCModulo')" type="Emphasized" icon="sap-icon://dimension" width="18%">
+                                        <layoutData>
+                      <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--CLIENTE-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Cliente">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/cliente}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL10 L10 M10 S10" />
+                    </layoutData>
+                                    </Input>
+                                    <Button enabled="{ parts: [ {path: 'scope>/inptTratamientoFrio'}, {value: 'MCCliente'} ], formatter: '.formatter.existNoEmpty'}" press="onAbrirMCTratamientoFrio($event, 'MCCliente')" type="Emphasized" icon="sap-icon://employee" width="18%">
+                                        <layoutData>
+                      <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--PRODUCTO-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Producto">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/producto}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL10 L10 M10 S10" />
+                    </layoutData>
+                                    </Input>
+                                    <Button enabled="{ parts: [ {path: 'scope>/inptTratamientoFrio'}, {value: 'MCProducto'} ], formatter: '.formatter.existNoEmpty'}" press="onAbrirMCTratamientoFrio($event, 'MCProducto')" type="Emphasized" icon="sap-icon://product" width="18%">
+                                        <layoutData>
+                      <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--VIAJE-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Viaje">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/viaje}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL10 L10 M10 S10" />
+                    </layoutData>
+                                    </Input>
+                                    <Button enabled="{ parts: [ {path: 'scope>/inptTratamientoFrio'}, {value: 'MCViaje'} ], formatter: '.formatter.existNoEmpty'}" press="onAbrirMCTratamientoFrio($event, 'MCViaje')" type="Emphasized" icon="sap-icon://travel-itinerary" width="18%">
+                                        <layoutData>
+                      <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--DESCRIPCIÓN DEL PRODUCTO-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Descripción del producto">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/descripcionProducto}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL12 L12 M12 S12" />
+                    </layoutData>
+                                    </Input>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--FECHA DE COSECHA-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Fecha de cosecha">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/fechaCosecha}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL12 L12 M12 S12" />
+                    </layoutData>
+                                    </Input>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--GUIA-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Guía">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/guia}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL10 L10 M10 S10" />
+                    </layoutData>
+                                    </Input>
+                                    <Button enabled="{ parts: [ {path: 'scope>/inptTratamientoFrio'}, {value: 'MCGuia'} ], formatter: '.formatter.existNoEmpty'}" press="onAbrirMCTratamientoFrio($event, 'MCGuia')" type="Emphasized" icon="sap-icon://course-book" width="18%">
+                                        <layoutData>
+                      <l:GridData span="XL2 L2 M2 S2" />
+                                        </layoutData>
+                                    </Button>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--MAX PALETA-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Máx. Paleta">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/maxPaleta}" editable="false">
+                                      <layoutData>
+                      <l:GridData span="XL12 L12 M12 S12" />
+                    </layoutData>
+                                    </Input>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <!--CANTIDAD-->
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                            <form:FormElement label="Cantidad">     
+                                <form:fields>
+                                    <Input value="{scope>/inptTratamientoFrio/cantidad}" placeholder="Ingrese cantidad (15) ..." liveChange="onDependMaxPaleta" editable="true">
+                                      <layoutData>
+                      <l:GridData span="XL12 L12 M12 S12" />
+                    </layoutData>
+                                    </Input>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+
+                </form:formContainers>
+            </form:Form>
+
+
+            <!-- COMENTARIO -->
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull bsc-form-padding-bottom-0" id="form_dos_nuevo_tratar_paleta">
+                <form:title/>
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" />
+          </form:layout>
+                <form:formContainers>
+                    <form:FormContainer>                        
+                        <form:formElements>
+                          <!--DESCRIPCION DEL PRODUCTO-->
+                            <form:FormElement label="Comentario">     
+                                <form:fields>
+                                    <TextArea value="{scope>/inptTratamientoFrio/comentario}" rows="3" placeholder="Añade un comentario (opcional)" width="100%" editable="true">
+                                      <layoutData>
+                      <l:GridData span="XL12 L12 M12 S12" />
+                    </layoutData>
+                                    </TextArea>
+                                </form:fields>
+                            </form:FormElement>                 
+                        </form:formElements>
+                    </form:FormContainer>
+                </form:formContainers>
+            </form:Form>
+
+    </content>
+
+        <beginButton>
+            <Button type="Ghost" text="CANCELAR" press="onCerrarFragmento('TratamientoFrio')"></Button>
+        </beginButton>
+    <endButton>
+      <Button type="Emphasized" text="GUARDAR" press="onGuardarTratamientoFrio" enabled="{ parts: [ {path: 'scope>/inptTratamientoFrio'}, {value: 'BTNSAVE'} ], formatter: '.formatter.existNoEmpty'}"></Button>
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

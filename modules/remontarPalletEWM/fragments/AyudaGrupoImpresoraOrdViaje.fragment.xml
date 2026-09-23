@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="Lname-"
+		growingThreshold="10"
+		cancel="onCerrarFragmento('AyudaGrupoImpresoraOrdViaje')"
+		confirm="onAgregarValorMatchcodeImprPSheet"		
+		search="onFiltrarDatosMatchcodeImprPSheet"		
+		noDataText="SIN DATOS"
+		title="SELECCIONE GRUPO IMPRESORAS"
+		items="{mListaImpresoraSheet>/}" >
+		<StandardListItem
+			title="{mListaImpresoraSheet>Lname}"
+			description=""
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+	
+</core:FragmentDefinition>

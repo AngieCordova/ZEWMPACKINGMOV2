@@ -1,0 +1,98 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Pallet" contentWidth="900px" type="Message" afterClose="onAfterCloseDialogReporte" id="modalReporteData">
+		<content>
+
+      <l:VerticalLayout width="100%" id="modalReporteDataPDF">
+        <l:BlockLayout>
+          <l:BlockLayoutRow accentCells="Accent1">
+            <l:BlockLayoutCell
+              id="Accent1"
+              title="{scope>/slcData/Name1}"
+              class="bsc-title-center" >
+
+                <HBox
+              alignItems="Stretch"
+              class="sapUiSmallMargin nestedFlexboxes">
+                  <VBox width="250px">
+                    <layoutData>
+                      <FlexItemData growFactor="4" />
+                    </layoutData>
+                      <Label text="Fecha de Despacho" labelFor="inptRep1" design="Bold"/>
+                      <Text	id="inptRep1" wrappingType="Hyphenated" text="{path: 'scope>/slcData/Lddat', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true, pattern: 'dd/MM/yyyy' }}"  class="sapUiSmallMarginBottom"/>
+                      <Label text="Fecha Contabilización" labelFor="inptRep2" design="Bold"/>
+                      <Text	id="inptRep2" wrappingType="Hyphenated" text="{path: 'scope>/slcData/WadatIst', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true, pattern: 'dd/MM/yyyy' }}"  class="sapUiSmallMarginBottom"/>
+                      <Label text="Número de Contenedor" labelFor="inptRep3" design="Bold"/>
+                      <Text	id="inptRep3" wrappingType="Hyphenated" text="{scope>/slcData/Signi}" class="sapUiSmallMarginBottom"/>
+                      <Label text="Booking" labelFor="inptRep4" design="Bold"/>
+                      <Text	id="inptRep4" wrappingType="Hyphenated" text="{scope>/slcData/Booking}"  class="sapUiSmallMarginBottom"/>
+                  </VBox>
+                  <VBox>
+                    <layoutData>
+                      <FlexItemData growFactor="4" />
+                    </layoutData>
+
+                    <VBox width="360px" class="CPCEWM-VBox-header" justifyContent="Center" alignItems="Center">
+                      <l:HorizontalLayout allowWrapping="true" id="tableReportPosicionesPrint" content="{posiciones>/results}">
+
+                        <GenericTile header="{posiciones>Correlativo}" class="bsc-title-RepFCLs CPCEWM-GenericTilePosiciones" subheader="{posiciones>Estado}" visible="true">
+
+                            <customData>
+                                <core:CustomData 
+                                    key="GenericTilePosiciones-color" 
+                                    value="{posiciones>Estado}" 
+                                    writeToDom="true"/>
+                                <core:CustomData 
+                                    key="break-for-pdf" 
+                                    value="{posiciones>salto}" 
+                                    writeToDom="true"/>
+                            </customData>
+
+                          <tileContent>
+                            <TileContent unit="" footer="">
+                              <content>
+                                <Text text="{
+                                  parts: [
+                                    {path: 'posiciones>Exidv2'},
+                                    {path: 'posiciones>Exidv2'}
+                                  ],
+                                  formatter: '.formatter.printPalletData'}"/>
+                              </content>
+                            </TileContent>
+                          </tileContent>
+                        </GenericTile>
+
+                      </l:HorizontalLayout>
+                    </VBox>
+
+                  </VBox>
+                  <VBox width="250px">
+                    <layoutData>
+                      <FlexItemData growFactor="4" />
+                    </layoutData>
+                      <Label text="Pedido" labelFor="inptRep5" design="Bold"/>
+                      <Text	id="inptRep5" wrappingType="Hyphenated" text="{scope>/slcData/Vbeln}"  class="sapUiSmallMarginBottom"/>
+                      <Label text="Consignatario" labelFor="inptRep6" design="Bold"/>
+                      <Text	id="inptRep6" wrappingType="Hyphenated" text="{scope>/slcData/KunnrName1}" class="sapUiSmallMarginBottom"/>
+                      <Label text="Destino" labelFor="inptRep7" design="Bold"/>
+                      <Text	id="inptRep7" wrappingType="Hyphenated" text="{scope>/slcData/Destino}" class="sapUiSmallMarginBottom"/>
+                      <Label text="Zona" labelFor="inptRep8" design="Bold"/>
+                      <Text	id="inptRep8" wrappingType="Hyphenated" text="{scope>/slcData/Ubicacion}"  class="sapUiSmallMarginBottom"/>
+                      <Label text="Orden / Viaje" labelFor="inptRep9" design="Bold"/>
+                      <Text	id="inptRep9" wrappingType="Hyphenated" text="{scope>/slcData/ZzNumorden} / {scope>/slcData/ZzViaje}" />
+                  </VBox>
+                </HBox>
+
+            </l:BlockLayoutCell>
+          </l:BlockLayoutRow>
+        </l:BlockLayout>
+      </l:VerticalLayout>
+
+		</content>
+    <endButton>
+      <Button icon="sap-icon://download" text="Descargar" press="onPrintReport" />
+    </endButton>
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogReporte"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

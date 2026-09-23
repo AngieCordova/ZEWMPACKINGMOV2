@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Filtrar" contentWidth="450px" type="Message" afterClose="onAfterCloseDialog('dialogFilter')">
+			<Panel expandable="true" headerText="Filtro por rango" width="100%">
+				<content>
+					<HBox alignItems="Stretch" class="sapUiSmallMargin nestedFlexboxes">
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="6" styleClass="sapUiTinyMargin" />
+							</layoutData>
+							<Label text="Desde" labelFor="inpDialogFilterDesde" design="Bold" />
+							<ComboBox placeholder="Desde"  selectedKey="{filtro>/SemanaDesde}" items="{Semana>/results}">
+							<core:Item key="{Semana>Semana}" text="{Semana>Semana}" />
+							</ComboBox>
+                            <Button icon="sap-icon://filter" text="Agregar" width="100%" type="Emphasized" press="handleRangoDialogFilter" />
+						</VBox>
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="6" styleClass="sapUiTinyMargin" />
+							</layoutData>
+							<Label text="Hasta" labelFor="inpDialogFilterHasta" design="Bold" />
+							<ComboBox placeholder="Hasta"  selectedKey="{filtro>/SemanaHasta}" items="{Semana>/results}">
+							<core:Item key="{Semana>Semana}" text="{Semana>Semana}" />
+							</ComboBox>
+						</VBox>
+					</HBox>
+				</content>
+			</Panel>		
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('dialogFilter')"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

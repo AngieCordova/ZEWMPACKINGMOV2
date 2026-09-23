@@ -1,0 +1,277 @@
+
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:tnt="sap.tnt" 
+                         xmlns:l="sap.ui.layout"
+                         xmlns:tab="sap.ui.table"
+                         xmlns:micro="sap.suite.ui.microchart">
+
+    <Dialog title="Avance en Línea del Programa de Empaque" 
+            contentWidth="80%" 
+            type="Message" 
+            afterClose="onAfterCloseDialog('avanceDiario')"
+             >
+        <content>
+          <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+             <Label text="Año" labelFor="txtInpFilter" design="Bold"/>
+              <ComboBox selectedKey="{filtro>/ZzYear}" items="{Years>/results}">
+				<core:Item key="{Years>ZzYear}" text="{Years>ZzYear}" />
+			  </ComboBox>
+			   <Label text="Org. Vtas" labelFor="txtInpFilter1" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Vkorg}" items="{Vkorg>/results}">
+              	<core:ListItem key="{Vkorg>Vkorg}" text="{Vkorg>Vtext}" additionalText = "{Vkorg>Vkorg}"/>				
+				</ComboBox>
+			          
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="onFilterAvanceDiario"/>
+          </VBox>
+       	  <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+               <Label text="Semana" labelFor="txtInpFilter2" design="Bold"/>
+              <Input width="60%" value="{filtro>/Semana}" submit="handleFilter" showValueHelp="true" valueHelpRequest=".onFilterModal"/>                           
+              <Label text="Clase" labelFor="txtInpFilter3" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Clase}" items="{Clase>/results}">				
+				<core:ListItem key="{Clase>Clase}" text="{Clase>Bezei}" additionalText = "{Clase>Clase}"/>	
+			   </ComboBox>
+			 
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Cultivo"  design="Bold"/>
+              <ComboBox showSecondaryValues= "true" change="onChangeCultivo"  selectedKey="{filtro>/Cultivo}" items="{Cultivo>/results}">
+              <core:ListItem key="{Cultivo>Codcult}" text="{Cultivo>Cultivo}" additionalText = "{Cultivo>Codcult}"/>			
+			  </ComboBox>
+              <Label text="Variedad"  design="Bold"/>
+               <ComboBox selectedKey="{filtro>/Variedad}" items="{Variedad>/results}">
+				<core:Item key="{Variedad>Variedad}" text="{Variedad>Variedad}" />
+			  </ComboBox>
+              
+             <!--  <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>-->
+          </VBox>
+        </HBox>      
+       	<l:ResponsiveSplitter height="100%">
+		<l:PaneContainer>
+		<l:SplitPane requiredParentWidth="450">
+					<tb:TreeTable						
+						rows="{path:'DestinoPallets>/', parameters: {arrayNames:['Details']}}"					
+						enableSelectAll="false"
+						threshold="40"						
+						selectionMode="None"
+						ariaLabelledBy="title">
+					<tb:extension>
+						<OverflowToolbar style="Clear">
+							<Title  text="Cumplimiento por Destino - Pallets ({= ${DestinoPallets>/}.length})" titleStyle="H5"/>
+							<ToolbarSpacer/>					         
+						    <SearchField  placeholder="Buscar" width="10rem" search="onFiltrarTablaDiario"/>
+						</OverflowToolbar>
+					</tb:extension>		
+					<tb:columns>
+						<tb:Column width="10rem">
+							<Label text="Market"/>
+							<tb:template>
+								<Text text="{DestinoPallets>Field1}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>
+						<tb:Column width="7rem">
+							<Label text="Phls Req."/>
+							<tb:template>
+								<Text text="{DestinoPallets>Field2}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>
+						<tb:Column width="7rem">
+							<Label text="Phls Prod."/>
+							<tb:template>
+								<Text text="{DestinoPallets>Field3}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>
+						<tb:Column width="7rem">
+							<Label text="%Avance" wrapping="true"/>
+							<tb:template>
+								<Text text="{DestinoPallets>Field4}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>						
+					</tb:columns>
+					<tb:footer>
+						<OverflowToolbar style="Clear">
+							<Label text="Total" textAlign="Left" design="Bold" >
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false" />
+								</layoutData>
+							</Label>
+								<ToolbarSpacer/>							
+							<Label text="{DestinoPallets>/TotalReq}" textAlign="Left" design="Bold">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false" />
+								</layoutData>
+							</Label>
+								<ToolbarSpacer/>
+							<Label text="{DestinoPallets>/TotalProd}" textAlign="Left" design="Bold" >
+									<layoutData>
+										<ToolbarLayoutData shrinkable="false" />
+									</layoutData>
+							</Label>
+								<ToolbarSpacer/>
+							<Label text="{DestinoPallets>/PromPorce}" textAlign="Left" design="Bold">
+									<layoutData>
+										<ToolbarLayoutData shrinkable="false" />
+									</layoutData>
+							</Label>				         
+						
+						</OverflowToolbar>
+					</tb:footer>
+				</tb:TreeTable>						
+			</l:SplitPane>
+			<l:SplitPane requiredParentWidth="470">
+					
+					<tb:TreeTable						
+						rows="{path:'DestinoOrders>/', parameters: {arrayNames:['Details']}}"					
+						enableSelectAll="false"
+						threshold="40"						
+						selectionMode="None"
+						ariaLabelledBy="title">
+					<tb:extension>
+						<OverflowToolbar style="Clear">
+							<Title  text="Cumplimiento por Destino - Orders ({= ${DestinoOrders>/}.length})" titleStyle="H5"/>
+							<ToolbarSpacer/>					         
+						    <SearchField  placeholder="Buscar" width="10rem" search="onFiltrarTablaDiario"/>
+						</OverflowToolbar>
+					</tb:extension>		
+					<tb:columns>
+						<tb:Column width="10rem">
+							<Label text="Market"/>
+							<tb:template>
+								<Text text="{DestinoOrders>Field1}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>
+						<tb:Column width="7rem">
+							<Label text="Orders Req."/>
+							<tb:template>
+								<Text text="{DestinoOrders>Field2}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>
+						<tb:Column width="7rem">
+							<Label text="Orders Prod."/>
+							<tb:template>
+								<Text text="{DestinoOrders>Field3}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>
+						<tb:Column width="7rem">
+							<Label text="% Avance" wrapping="true"/>
+							<tb:template>
+								<Text text="{DestinoOrders>Field4}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>						
+					</tb:columns>
+					<tb:footer>
+						<OverflowToolbar style="Clear">
+							<Label text="Total" textAlign="Left" design="Bold" >
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false" />
+								</layoutData>
+							</Label>
+								<ToolbarSpacer/>							
+							<Label text="{DestinoOrders>/TotalReq}" textAlign="Left" design="Bold">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false" />
+								</layoutData>
+							</Label>
+								<ToolbarSpacer/>
+							<Label text="{DestinoOrders>/TotalProd}" textAlign="Left" design="Bold" >
+									<layoutData>
+										<ToolbarLayoutData shrinkable="false" />
+									</layoutData>
+							</Label>
+								<ToolbarSpacer/>
+							<Label text="{DestinoOrders>/PromPorce}" textAlign="Left" design="Bold">
+									<layoutData>
+										<ToolbarLayoutData shrinkable="false" />
+									</layoutData>
+							</Label>				         
+							<ToolbarSpacer/>	
+						</OverflowToolbar>
+					</tb:footer>
+				</tb:TreeTable>			
+					
+				
+			</l:SplitPane>
+			<l:SplitPane requiredParentWidth="80">
+					
+					<tb:TreeTable						
+						rows="{path:'DestinoParticipacion>/', parameters: {arrayNames:['Details']}}"					
+						enableSelectAll="false"
+						threshold="40"						
+						selectionMode="None"
+						ariaLabelledBy="title">
+					<tb:extension>
+						<OverflowToolbar style="Clear">
+							<Title  text="% Participación Destino ({= ${DestinoParticipacion>/}.length})" titleStyle="H5"/>
+							<ToolbarSpacer/>					         
+						    <SearchField  placeholder="Buscar" width="10rem" search="onFiltrarTablaDiario"/>
+						</OverflowToolbar>
+					</tb:extension>		
+					<tb:columns>
+						<tb:Column width="10rem">
+							<Label text="Market"/>
+							<tb:template>
+								<Text text="{DestinoParticipacion>Field1}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>
+						<tb:Column width="7rem">
+							<Label text="% Part."/>
+							<tb:template>
+								<Text text="{DestinoParticipacion>Field2}" wrapping="true"/>
+							</tb:template>
+						</tb:Column>										
+					</tb:columns>
+					<tb:footer>
+						<OverflowToolbar style="Clear">
+							<Label text="Total" textAlign="Left" design="Bold" >
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false" />
+								</layoutData>
+							</Label>
+							<ToolbarSpacer/>								
+							<Label text="{DestinoParticipacion>/PromPorce}" textAlign="left" design="Bold">
+								<layoutData>
+									<ToolbarLayoutData shrinkable="false" />
+								</layoutData>
+							</Label>
+							<ToolbarSpacer/>	
+										         
+						
+						</OverflowToolbar>
+					</tb:footer>
+				</tb:TreeTable>			
+					
+			</l:SplitPane>
+			
+		</l:PaneContainer>
+	</l:ResponsiveSplitter>
+ 
+         
+     
+        </content>      
+        
+       <!--  <beginButton>          
+			    <Button icon="sap-icon://save" text="Guardar" enabled="{scopeZF>/activeGuardar}" press="onSaveSalidaZF()"></Button>      
+		</beginButton> -->
+
+        <endButton>          
+			    <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('avanceDiario')"></Button>      
+		    </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

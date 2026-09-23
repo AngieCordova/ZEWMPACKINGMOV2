@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<!-- , {'IdModulo':'IdModulo'} -->
+	<SelectDialog
+		title="SELECCIONE UN MÓDULO"
+		search="onFiltrarMatchcode($event, ['IdModulo'])"
+		confirm="onAgregarValorMatchcode($event, 'AyudaModulo')"
+		cancel="onCerrarFragmento('AyudaModulo')"
+		noDataText="SIN DATOS"
+		items="{ZEWM_0011>/ModulosSet}">
+		<StandardListItem
+			title="{ZEWM_0011>IdModulo}"
+			description="{ZEWM_0011>DescripcionCorta} - {ZEWM_0011>Descripcion}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,228 @@
+
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:tnt="sap.tnt" 
+                         xmlns:l="sap.ui.layout"
+                         xmlns:tab="sap.ui.table">
+
+    <Dialog title="Resumen Diario de Avance de cajas - Stock de Seguridad" 
+            contentWidth="80%" 
+            type="Message" 
+            afterClose="onAfterCloseDialog('cuadroDiarioStockSeguridad')"
+             >
+        <content>
+         
+            <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+              <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Año" labelFor="txtInpFilter" design="Bold"/>
+              <ComboBox selectedKey="{filtro>/ZzYear}" items="{Years>/results}">
+				<core:Item key="{Years>ZzYear}" text="{Years>ZzYear}" />
+				</ComboBox>
+              <Label text="Org. Vtas" labelFor="txtInpFilter1" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Vkorg}" items="{Vkorg>/results}">
+              	<core:ListItem key="{Vkorg>Vkorg}" text="{Vkorg>Vtext}" additionalText = "{Vkorg>Vkorg}"/>				
+				</ComboBox>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="onFilterCumplimientoCajas"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Semana" labelFor="txtInpFilter2" design="Bold"/>
+              <ComboBox selectedKey="{filtro>/Semana}" items="{Semana>/results}">
+				<core:Item key="{Semana>Semana}" text="{Semana>Semana}" />
+				</ComboBox>
+              <Label text="Tipo Pedido" labelFor="txtInpFilter3" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Clase}" items="{Clase>/results}">				
+				<core:ListItem key="{Clase>Clase}" text="{Clase>Bezei}" additionalText = "{Clase>Clase}"/>	
+				</ComboBox>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+             <Label text="Formato" labelFor="txtInpFilter5" design="Bold"/>
+              <ComboBox selectedKey="{filtro>/Formato}" items="{Formato>/results}">
+				<core:Item key="{Formato>Codigo}" text="{Formato>Tipo}" />
+			  </ComboBox>
+              <Label text="Cultivo" labelFor="txtInpFilter4" design="Bold"/>
+              <ComboBox showSecondaryValues= "true"  selectedKey="{filtro>/Cultivo}" items="{Cultivo>/results}">
+              <core:ListItem key="{Cultivo>Codcult}" text="{Cultivo>Cultivo}" additionalText = "{Cultivo>Codcult}"/>			
+			  </ComboBox>
+             
+              
+             <!--  <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>-->
+          </VBox>
+        </HBox>
+
+        <Table items="{CumplimientoCajas>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Control de Armada de Cajas ({= ${CumplimientoCajas>/results}.length})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+               <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTabla"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Descripción"/>
+               <!--  <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('FECHA_ALMACENAJE')"/>-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Requerimiento"/>
+               <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('COD_CONTENEDOR')"/>-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+              <Text text="Cant Stock"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('NRO_PEDIDO_SAP')"/>-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Alm.Armado"/>
+               <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('COD_CLIENTE')"/>-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Alm.Embalajes"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('DESTINO')"/> -->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Alm.General"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('UBICACION')"/> -->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="% Cumplimiento"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('NRO_PALLET')"/> -->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="% Armado"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('MATNR')"/> -->
+              </HBox>              
+            </Column>
+             <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Stock Seg"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('MATNR')"/> -->
+              </HBox>              
+            </Column>
+              <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Stock Seg"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('MATNR')"/> -->
+              </HBox>              
+            </Column>          
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+              	<Text text="{CumplimientoCajas>Tipo}"/>
+                <Text text="{CumplimientoCajas>Pallfaltan}"/>
+                <Text text="{CumplimientoCajas>Cajfaltan}"/>
+                <Text text="{CumplimientoCajas>Avanceorder}"/>
+                <Text text="{CumplimientoCajas>Requerido}"/>
+                <Text text="{CumplimientoCajas>Producido}"/>
+                <Text text="{CumplimientoCajas>Poravance}"/>
+                <Text text="{CumplimientoCajas>Armado}"/>
+          		<Text text="{CumplimientoCajas>Stockseg}"/>
+          		<Text text="{CumplimientoCajas>Stocksegper}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+         <VBox>
+     	<!-- Pie pagina -->
+		<Panel class="sapUiDemoFlexBoxSizeAdjustments">
+			<FlexBox alignItems="Start">
+				<Label text="Total" textAlign="Left" design="Bold">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Label>
+				<Label text="" textAlign="Left" design="Bold">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Label>
+				<Text  text="{CumplimientoCajas>/totalReq}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>
+				<Text  text="{CumplimientoCajas>/totalProdu}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>
+				<Text  text="{CumplimientoCajas>/totalStock}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>
+				<Text  text="{CumplimientoCajas>/totalAlmArm}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>
+				<Text  text="{CumplimientoCajas>/totalAlmGen}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>
+				<Text  text="{CumplimientoCajas>/totalCumpl}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>
+				<Text  text="{CumplimientoCajas>/totalArm}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>	
+					<Text  text="{CumplimientoCajas>/totalStockSeg}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>	
+					<Text  text="{CumplimientoCajas>/totalStockPer}" >
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Text>	
+				
+			</FlexBox>
+		</Panel>
+		</VBox>
+        </content>      
+        
+       <!--  <beginButton>          
+			    <Button icon="sap-icon://save" text="Guardar" enabled="{scopeZF>/activeGuardar}" press="onSaveSalidaZF()"></Button>      
+		</beginButton> -->
+
+        <endButton>          
+			    <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('cuadroDiarioStockSeguridad')"></Button>      
+		    </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

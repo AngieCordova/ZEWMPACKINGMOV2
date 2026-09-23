@@ -1,0 +1,331 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:f="sap.ui.layout.form"
+                         xmlns:tnt="sap.tnt"
+                         xmlns:l="sap.ui.layout"
+                         xmlns:tab="sap.ui.table"
+                         xmlns:micro="sap.suite.ui.microchart">
+
+    <Dialog title="Carga PT"
+            stretch="true"
+            class="sapUiNoContentPadding"
+            afterClose="onAfterCloseDialog('carga')">
+        <content>
+
+          <HBox class="sapUiSmallMargin sapUiSmallMarginBottom" alignItems="Center">
+            <VBox class="sapUiMediumMarginEnd">
+              <Label text="Entrega" design="Bold"/>
+              <Text text="{CargaCab>/Entrega}" class="sapUiSmallMarginTop"/>
+            </VBox>
+            <VBox class="sapUiMediumMarginEnd">
+              <Label text="Orden" design="Bold"/>
+              <Text text="{CargaCab>/Orden}" class="sapUiSmallMarginTop"/>
+            </VBox>
+            <VBox class="sapUiMediumMarginStart">
+              <Button text="Inicio" press="onPressHourInicio"
+                      enabled="{= ${CargaCab>/_guardado} ? false : true}"/>
+              <Input enabled="false"
+                      width="15rem"
+                      value="{parts: [{path: 'CargaCab>/FechaIni'}, {path: 'CargaCab>/HoraIni'}, {path: 'mPholder>/iniCarga'}], formatter: '.formatFechaHora'}"
+                      class="sapUiSmallMarginTop"/>
+            </VBox>
+          </HBox>
+
+          <IconTabBar id="iconTabBarCarga" expanded="true" class="sapUiNoContentPadding">
+            <items>
+
+              <IconTabFilter icon="sap-icon://detail-view" text="General" key="general">
+
+                <f:Form editable="{= ${CargaCab>/_guardado} ? false : true}">
+                  <f:layout>
+                    <f:ResponsiveGridLayout
+                      labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                      adjustLabelSpan="false"
+                      emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                      columnsXL="2" columnsL="2" columnsM="2"
+                      singleContainerFullSize="false" />
+                  </f:layout>
+                  <f:formContainers>
+                    <f:FormContainer title="">
+                      <f:formElements>
+                        <f:FormElement label="Viaje">
+                          <f:fields><Text text="{CargaCab>/Viaje}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Exportador">
+                          <f:fields><Text text="{CargaCab>/Export}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Cliente">
+                          <f:fields><Text text="{CargaCab>/Client}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Consignatario">
+                          <f:fields><Text text="{CargaCab>/Consigna}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Tipo Transporte">
+                          <f:fields><Text text="{CargaCab>/TipTransp}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Puerto de Carga">
+                          <f:fields><Text text="{CargaCab>/PortCarga}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Destino">
+                          <f:fields><Text text="{CargaCab>/Destino}"/></f:fields>
+                        </f:FormElement>
+                      </f:formElements>
+                    </f:FormContainer>
+                    <f:FormContainer title="">
+                      <f:formElements>
+                        <f:FormElement label="Zona">
+                          <f:fields><Text text="{CargaCab>/Zona}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Fecha mas antigua">
+                          <f:fields>
+                            <Text text="{path:'CargaCab>/FrutAnt', type:'sap.ui.model.type.Date', formatOptions : { pattern:'dd/MM/yyyy', UTC: true}}"/>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Días transcurridos">
+                          <f:fields><Text text="{CargaCab>/DiasTr}"/></f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Responsable de la liberación / Rechazo">
+                          <f:fields>
+                          <ComboBox required="false" selectedKey="{CargaCab>/RespLib}" items="{Aux>/}" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <core:Item key="{Aux>Auxturno}" text="{Aux>Auxturno}" />
+                            </ComboBox></f:fields>
+                        </f:FormElement>
+                      </f:formElements>
+                    </f:FormContainer>
+                    <f:FormContainer title="">
+                      <f:formElements>
+                        <f:FormElement label="T° Zona despacho">
+                          <f:fields>
+                            <Input required="true" value="{CargaCab>/TempDespacho}" editable="{= ${CargaCab>/_guardado} ? false : true}"/>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Auxiliar Turno">
+                          <f:fields>
+                            <ComboBox required="true" selectedKey="{CargaCab>/Auxili}" items="{Aux>/}" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <core:Item key="{Aux>Auxturno}" text="{Aux>Auxturno}" />
+                            </ComboBox>
+                          </f:fields>
+                        </f:FormElement>
+                      </f:formElements>
+                    </f:FormContainer>
+                    <f:FormContainer title="">
+                      <f:formElements>
+                        <f:FormElement label="Booking">
+                          <f:fields>
+                            <Input required="true" value="{CargaCab>/Booking}" editable="{= ${CargaCab>/_guardado} ? false : true}"/>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Supervisor Turno">
+                          <f:fields>
+                            <ComboBox required="true" selectedKey="{CargaCab>/Superv}" items="{Sup>/}" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <core:Item key="{Sup>Auxturno}" text="{Sup>Auxturno}" />
+                            </ComboBox>
+                          </f:fields>
+                        </f:FormElement>
+                      </f:formElements>
+                    </f:FormContainer>
+                  </f:formContainers>
+                </f:Form>
+
+                <f:Form editable="{= ${CargaCab>/_guardado} ? false : true}" class="sapUiSmallMarginTop">
+                  <f:layout>
+                    <f:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+                  </f:layout>
+                  <f:formContainers>
+                    <f:FormContainer title="">
+                      <f:formElements>
+                        <f:FormElement label="Parihuelas">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtPari" columns="3" selectedIndex="{=${CargaCab>/Parihuelas} === 'NC' ? 1 : ${CargaCab>/Parihuelas} === 'C' ? 0 : -1 }" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C"/>
+                              <RadioButton text="NC" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Etiquetas">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtEti" selectedIndex="{=${CargaCab>/Etiquetas} === 'NC' ? 1 : ${CargaCab>/Etiquetas} === 'C' ? 0 : -1 }" columns="3" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Malla">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtMalla" selectedIndex="{=${CargaCab>/Malla} === 'NC' ? 1 : ${CargaCab>/Malla} === 'NA' ? 2 : ${CargaCab>/Malla} === 'C' ? 0 : -1 }" columns="3" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                              <RadioButton text="NA" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Zunchos">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtZuncho" selectedIndex="{=${CargaCab>/Zunchos} === 'NC' ? 1 : ${CargaCab>/Zunchos} === 'C' ? 0 : -1 }" columns="3" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Esquineros">
+                          <f:fields>
+                            <RadioButtonGroup columns="3" id="rbtEsqui" selectedIndex="{=${CargaCab>/Esquineros} === 'NC' ? 1 : ${CargaCab>/Esquineros} === 'C' ? 0 : -1 }" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Caja">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtCaja" columns="3" selectedIndex="{=${CargaCab>/StatCajas} === 'NC' ? 1 : ${CargaCab>/StatCajas} === 'C' ? 0 : -1 }" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Packing List">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtPackingList" columns="3" selectedIndex="{=${CargaCab>/StatPackList} === 'NC' ? 1 : ${CargaCab>/StatPackList} === 'C' ? 0 : -1 }" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Hoja A4">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtHojaA4" columns="3" selectedIndex="{=${CargaCab>/StatHojaA4} === 'NC' ? 1 : ${CargaCab>/StatHojaA4} === 'NA' ? 2 : ${CargaCab>/StatHojaA4} === 'C' ? 0 : -1 }" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                              <RadioButton text="NA" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement>
+                          <f:label>
+                            <Label text="{= 'Sticker ' + (${mModeloCentro>/Werks} === '2401' ? 'MAGA' : 'Senasa')}"/>
+                          </f:label>
+                          <f:fields>
+                            <RadioButtonGroup id="rbtStickerSenasa" columns="3" selectedIndex="{=${CargaCab>/StatSenasa} === 'NC' ? 1 : ${CargaCab>/StatSenasa} === 'NA' ? 2 : ${CargaCab>/StatSenasa} === 'C' ? 0 : -1 }" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                              <RadioButton text="NA" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Alveolo">
+                          <f:fields>
+                            <RadioButtonGroup id="rbtAlveolo" columns="3" selectedIndex="{=${CargaCab>/StatAlveolos} === 'NC' ? 1 : ${CargaCab>/StatAlveolos} === 'NA' ? 2 : ${CargaCab>/StatAlveolos} === 'C' ? 0 : -1 }" valueState="Information" enabled="{= ${CargaCab>/_guardado} ? false : true}">
+                              <RadioButton text="C" />
+                              <RadioButton text="NC" />
+                              <RadioButton text="NA" />
+                            </RadioButtonGroup>
+                          </f:fields>
+                        </f:FormElement>
+                      </f:formElements>
+                    </f:FormContainer>
+                  </f:formContainers>
+                </f:Form>
+
+              </IconTabFilter>
+
+              <IconTabFilter icon="sap-icon://table-view" text="Detalle Pallets" key="detallePallets">
+
+                <Table inset="false" items="{CargaDetalle>/}" >
+                   <headerToolbar>
+                    <OverflowToolbar >
+                      <SearchField placeholder="Buscar por N° Pallet" width="15rem"
+                                   search="onSearchPalletM" liveChange="onSearchPalletM"/>
+                    </OverflowToolbar>
+                  </headerToolbar>
+                  <columns>
+                    <Column width="2.5rem"><Text text="N°" /></Column>
+                    <Column width="10rem"><Text text="N° Pallet" /></Column>
+                    <Column width="5rem"><Text text="T°" /></Column>
+                    <Column width="4rem"><Text text="Chep" /></Column>
+                    <Column width="6rem"><Text text="Val.Chep" /></Column>
+                    <Column width="5rem"><Text text="Detalle" /></Column>
+                    <Column width="6rem"><Text text="Validación" /></Column>
+                    <Column width="8rem"><Text text="Envase" /></Column>
+                    <Column width="8rem"><Text text="{= 'Precinto ' + (${mModeloCentro>/Werks} === '2401' ? 'MAGA' : 'Senasa')}" /></Column>
+                    <Column width="12rem"><Text text="Observación" /></Column>
+                    <Column width="12rem"><Text text="Levantamiento Observación" /></Column>
+                  </columns>
+                  <items>
+                    <ColumnListItem vAlign="Middle">
+                      <cells>
+                        <Text text="{CargaDetalle>Item}" wrapping="false"/>
+                        <Text text="{CargaDetalle>NumPallet}" wrapping="false"/>
+                        <Input value="{CargaDetalle>Temperatura}" type="Number"
+                               liveChange="validateTemperatura"
+                               editable="{= ${CargaCab>/_guardado} ? false : true}"
+                               submit="onSubmitTemperatura"/>
+                        <CheckBox selected="{=${CargaDetalle>ValChep} === 'X' ? true : false}" select="onCheck" enabled="false"/>
+                        <CheckBox selected="{=${CargaDetalle>Chep} === 'X' ? true : false}" select="onCheck" enabled="{= ${CargaCab>/_guardado} ? false : true}"/>
+                        <Button icon="sap-icon://product" press="onOpenDetallePallet"
+                                type="Transparent" tooltip="Ver detalle del pallet"/>
+                        <CheckBox selected="{= ${CargaDetalle>Validacion} === 'X' ? true : false}"
+                                  select="onCheckValidacion"
+                                  enabled="{= ${CargaCab>/_guardado} ? false : true}"/>
+                        <Text text="{CargaDetalle>Envase}" wrapping="false"/>
+                        <Input value="{CargaDetalle>PrecSenasa}" editable="{= ${CargaCab>/_guardado} ? false : true}"/>
+                        <TextArea value="{CargaDetalle>Observ}" rows="2" editable="{= ${CargaCab>/_guardado} ? false : true}"/>
+                        <TextArea value="{CargaDetalle>Levant}" rows="2" editable="{= ${CargaCab>/_guardado} ? false : true}"/>
+                      </cells>
+                    </ColumnListItem>
+                  </items>
+                </Table>
+
+              </IconTabFilter>
+
+                <IconTabFilter icon="sap-icon://notes" text="Datos Adicionales" key="datosAdicionales">
+
+                  <FlexBox class="sapUiSmallMargin" alignItems="Start" justifyContent="Start">
+                    <Button text="Fin" press="onPressHoraFin" type="Emphasized"
+                            enabled="{= ${CargaCab>/_guardado} ? false : true}"
+                            class="sapUiSmallMarginEnd" />
+                     <Input enabled="false"
+                            width="15rem"
+                            value="{parts: [{path: 'CargaCab>/FechaFin'}, {path: 'CargaCab>/HoraFin'}, {path: 'mPholder>/finCarga'}], formatter: '.formatFechaHora'}"/>
+                  </FlexBox>
+
+                    <VBox class="sapUiSmallMargin sapUiSmallMarginTop" width="70%">
+                        <HBox alignItems="Center" width="100%">
+                          <Label text="Comentarios:" width="10rem" textAlign="Center"/>
+                          <TextArea value="{CargaCab>/Observ2}" rows="3" width="100%" editable="{= ${CargaCab>/_guardado} ? false : true}">
+                            <layoutData><FlexItemData growFactor="1"/></layoutData>
+                          </TextArea>
+                        </HBox>
+                        <HBox alignItems="Center" width="100%">
+                          <Label text="Observaciones:" width="10rem" textAlign="Center"/>
+                          <TextArea value="{CargaCab>/Observ}" rows="3" width="100%" editable="{= ${CargaCab>/_guardado} ? false : true}">
+                            <layoutData><FlexItemData growFactor="1"/></layoutData>
+                          </TextArea>
+                        </HBox>
+                        <HBox alignItems="Center" width="100%">
+                          <Label text="Acciones correctivas:" width="10rem" textAlign="Center"/>
+                          <TextArea value="{CargaCab>/Accion}" rows="3" width="100%" editable="{= ${CargaCab>/_guardado} ? false : true}">
+                            <layoutData><FlexItemData growFactor="1"/></layoutData>
+                          </TextArea>
+                        </HBox>
+                    </VBox>
+
+                </IconTabFilter>
+
+            </items>
+          </IconTabBar>
+
+        </content>
+
+        <buttons>
+          <Button  text="Habilitar Insp." press="onActualizarCarga"
+                  enabled="{= ${CargaCab>/_guardado} === true &amp;&amp; ${myParam>/puedeAnularFechaFin} === true ? true : false}"/>
+          <Button icon="sap-icon://save" text="Guardar"
+                type="Emphasized" press="onSaveCarga"
+                enabled="{= ${CargaCab>/_finalizado} ? false : true}"/>
+          <Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialog('carga')"/>
+        </buttons>
+
+    </Dialog>
+</core:FragmentDefinition>

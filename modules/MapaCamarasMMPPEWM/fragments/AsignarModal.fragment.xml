@@ -1,0 +1,93 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog  
+        title="{dialogData>/Ubicacion} | {parts: [ {path: 'dialogData>/Zlado'} ], formatter: '.formatter.izqDer'} | {dialogData>/Posicion}" 
+        contentWidth="250px" 
+        type="Message">
+		<content>
+            <l:VerticalLayout id="containerLayout" width="100%">
+                <l:BlockLayout id="BlockLayout" >
+                    <l:BlockLayoutRow accentCells="Accent1">
+                        <l:BlockLayoutCell title="">
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="12"
+                                        labelSpanL="12"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="2"
+                                        columnsL="2"
+                                        columnsM="2"
+                                        singleContainerFullSize="false" />
+                                </form:layout>
+                                <form:formContainers>
+
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Empresa agrícola">
+                                                <form:fields>
+                                                    <Text text="{dialogData>/EmpAgricola}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Modulo">
+                                                <form:fields>
+                                                    <Text text="{dialogData>/Modulo}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Cultivo">
+                                                <form:fields>
+                                                    <Text text="{dialogData>/Cultivo}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Variedad">
+                                                <form:fields>
+                                                    <Text text="{dialogData>/Variedad}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Guía">
+                                                <form:fields>
+                                                    <Text text="{dialogData>/GuiaRemision}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Código de bin">
+                                                <form:fields>
+                                                    <Text text="{=Number(${dialogData>/CodigoBin}) }" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Peso">
+                                                <form:fields>
+                                                    <Text text="{=Number(${dialogData>/Peso}) } {dialogData>/Unit}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Fecha de cosecha ">
+                                                <form:fields>
+                                                    <Text text="{parts: [ {path: 'dialogData>/FEC_COSECHA'} ], formatter: '.formatter.fechaCosecha'}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+
+                                </form:formContainers>
+
+                            </form:Form>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </l:VerticalLayout>
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog"></Button>
+		</beginButton>
+
+	</Dialog>
+</core:FragmentDefinition>

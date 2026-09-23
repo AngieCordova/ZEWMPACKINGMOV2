@@ -1,0 +1,138 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog 
+        title="Asignar Puerta" 
+        contentWidth="80%" 
+        type="Message">
+		<content>
+            <l:VerticalLayout id="containerLayout" width="100%">
+                <l:BlockLayout id="BlockLayout" >
+                    <l:BlockLayoutRow accentCells="Accent1">
+                        <l:BlockLayoutCell title="">
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="12"
+                                        labelSpanL="12"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="2"
+                                        columnsL="2"
+                                        columnsM="2"
+                                        singleContainerFullSize="false" />
+                                </form:layout>
+                                <form:formContainers>
+
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Número de Contenedor">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/IdContenedor}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Nombre del Conductor">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/Conductor}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Número de Booking">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/Booking}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Licencia de Conducir">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/Licencia}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Empresa de Transportes">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/IdEmpresa} - {mCABECERA>/Empresa}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Puerta de Embarque">
+                                                <form:fields>
+                                                    <!-- <Input enabled="false" value="3" /> -->
+                                                    <Input
+                                                        showValueHelp="true"
+                                                        valueHelpOnly="false"
+                                                        valueHelpRequest="onAbrirMatchcodePuerta"
+                                                        liveChange="onComprobarReemplazoPuerta"
+                                                        value="{mCABECERA>/Puerta}"
+                                                    />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Placa de Tracto">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/PlacaTracto}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="Placa de Carreta">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/PlacaCarreta}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+									<form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Zona de Despacho">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/Ubicacion}" />
+                                                </form:fields>
+                                            </form:FormElement>
+                                           
+                                        </form:formElements>
+                                    </form:FormContainer>
+
+                                    <!-- REFERENCIA -->
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Referencia">
+                                                <form:fields>
+                                                    <Input enabled="false" value="{mCABECERA>/NroOrden} - {mCABECERA>/NroViaje}" />
+                                                </form:fields>
+                                            </form:FormElement>                                           
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                </form:formContainers>
+
+                            </form:Form>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </l:VerticalLayout>
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="cerrarModalAsignarPuerta"></Button>
+		</beginButton>
+
+        <endButton>
+            <Button icon="sap-icon://save" text="Guardar" press="guardarPuerta" type="Emphasized"></Button>
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>

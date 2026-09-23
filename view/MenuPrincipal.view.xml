@@ -1,0 +1,93 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.controller.MenuPrincipal"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:mvc="sap.ui.core.mvc"
+          displayBlock="true"
+          xmlns="sap.m"
+          xmlns:t="sap.tnt"
+          xmlns:l="sap.ui.layout">
+
+    <App id="idAppControl">
+        <pages>
+            <Page title="{i18n>title}">
+                <content>
+
+                    <l:BlockLayout id="BlockLayout">
+                        <l:BlockLayoutRow accentCells="Accent1">
+                            <l:BlockLayoutCell id="blMenu">
+                                <t:NavigationList id="navigationList" width="320px" selectedItem="subItemThree">
+                                    <t:NavigationListItem text="Inicqqio" icon="sap-icon://home"/>
+
+                                    <t:NavigationListItem text="Inicio de Recepción De Materia Prima" icon="sap-icon://shipping-status">
+                                        <t:NavigationListItem text="Ingreso de bus"/>
+                                        <t:NavigationListItem text="Confirmar bus"/>
+                                        <t:NavigationListItem text="Recepcionar ccamión"/>
+                                        <t:NavigationListItem text="Almacenar Bins"/>
+                                        <t:NavigationListItem text="Almacenar Bins"/>
+                                        <t:NavigationListItem text="Cargar Javas y/o Bins vacíos"/>
+                                        <t:NavigationListItem text="Salida de camión"/>
+                                    </t:NavigationListItem>
+
+                                    <t:NavigationListItem text="Inicio de Producción" icon="sap-icon://product">
+                                        <t:NavigationListItem text="Stage Módulo"/>
+                                        <t:NavigationListItem text="Completar Módulo"/>
+                                        <t:NavigationListItem text="Crear Pallets de producto terminado"/>
+                                        <t:NavigationListItem text="Manejo de Pallets parciales"/>
+                                    </t:NavigationListItem>
+
+                                    <t:NavigationListItem text="Inicio Línea de empaque" icon="sap-icon://database">
+                                        <t:NavigationListItem text="Bins a línea de empaque"/>
+                                    </t:NavigationListItem>
+                                </t:NavigationList>
+                            </l:BlockLayoutCell>
+
+                            <l:BlockLayoutCell id="blContent" width="2">
+                                <GenericTile
+                                    class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                                    header="{i18n>MenuSanidad}"
+                                    subheader="{i18n>MenuSanidadDetalle}"
+                                    press="BusquedaFundo3">
+                                    <tileContent>
+                                        <TileContent>
+                                            <content>
+                                                <ImageContent src="imagenes/lupa.fw.png"/>
+                                            </content>
+                                        </TileContent>
+                                    </tileContent>
+                                </GenericTile>
+
+                                <GenericTile
+                                    class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                                    header="{i18n>MenuJornal}"
+                                    subheader="{i18n>MenuJornalDetalle}"
+                                    press="BusquedaFundo">
+                                    <tileContent>
+                                        <TileContent>
+                                            <content>
+                                                <ImageContent src="imagenes/Trabajadoricono.fw.png"/>
+                                            </content>
+                                        </TileContent>
+                                    </tileContent>
+                                </GenericTile>
+
+                                <GenericTile
+                                    class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                                    header="{i18n>MenuAjustes}"
+                                    subheader="{i18n>MenuAjustesDetalle}"
+                                    press="pressTareoConfig">
+                                    <tileContent>
+                                        <TileContent>
+                                            <content>
+                                                <ImageContent src="imagenes/configuracion.png"/>
+                                            </content>
+                                        </TileContent>
+                                    </tileContent>
+                                </GenericTile>
+                            </l:BlockLayoutCell>
+                        </l:BlockLayoutRow>
+                    </l:BlockLayout>
+
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

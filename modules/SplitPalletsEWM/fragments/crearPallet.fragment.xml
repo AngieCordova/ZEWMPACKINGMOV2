@@ -1,0 +1,378 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Posiciones" contentWidth="100%" type="Message" afterClose="onAfterCloseDialogCrearPallet">
+		<content>
+        
+        <form:Form visible="{scope>/activarCabecera}"
+			editable="false">
+			<form:title>
+				<core:Title text="Pallet" />
+			</form:title>
+			<form:layout>
+				<form:ResponsiveGridLayout
+					labelSpanXL="4"
+					labelSpanL="4"
+					labelSpanM="4"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="0"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsXL="3"
+					columnsL="3"
+					columnsM="3"
+					singleContainerFullSize="false" />
+			</form:layout>
+			<form:formContainers>
+				<form:FormContainer>
+					<form:formElements>
+						<form:FormElement label="Número de Paleta">
+							<form:fields>
+								<Text text="{scope>/palletSelected/NRO_PALLET}" />
+							</form:fields>
+						</form:FormElement>
+						<form:FormElement label="Pedido">
+							<form:fields>
+								<Text text="{scope>/palletSelected/PEDIDO}" />
+							</form:fields>
+						</form:FormElement>
+						<form:FormElement label="Max. Paleta">
+							<form:fields>
+								<Text text="{scope>/palletSelected/MAX_PALLETS}" />
+							</form:fields>
+						</form:FormElement>
+					</form:formElements>
+				</form:FormContainer>
+				<form:FormContainer title="">
+					<form:formElements>
+						<form:FormElement label="Producto">
+							<form:fields>
+								<Text text="{scope>/palletSelected/PROD_DESCR}" />
+							</form:fields>
+						</form:FormElement>
+						<form:FormElement label="Cajas en paleta">
+							<form:fields>
+								<Text text="{scope>/palletSelected/CAJAS_PALLET}" />
+							</form:fields>
+						</form:FormElement>
+					</form:formElements>
+				</form:FormContainer>
+				<form:FormContainer title="">
+					<form:formElements>
+						<form:FormElement label="Fecha de producción">
+							<form:fields>
+								<Text text="{
+											path: 'scope>/palletSelected/FECHA_EMPAQUE',
+											formatter: '.formatter.formatDate'
+										}" />
+							</form:fields>
+						</form:FormElement>
+						<form:FormElement label="Cajas faltantes">
+							<form:fields>
+								<Text text="{scope>/palletSelected/CJ_FALTANTES}" />
+							</form:fields>
+						</form:FormElement>
+					</form:formElements>
+				</form:FormContainer>
+			</form:formContainers>
+		</form:Form>
+
+            <Table items="{posiciones>/}" id="idPalletsPosicionesTable">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Posiciones" titleStyle="H3"/>
+                        <Button press="onAgregarPosiciones" enabled="{scope>/btnAgregarPosiciones}" type="Emphasized" text="Agregar posiciones"></Button>
+                        <ToolbarSpacer/>
+                        <SearchField placeholder="Filtrar" id="txtPosicionesSearch" search="handleFilterPosiciones" width="15rem"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Seleccionar" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Número de Paleta" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Producto"/>
+                    </Column>
+
+                    <Column
+                        width="5em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Id de Empresa Agrícola" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Empresa Agrícola" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Módulo" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Fecha de Empaque" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cajas en Paleta" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cajas Faltantes" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cantidad de cajas" />
+                    </Column>
+                    
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Max. Paleta" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle" visible="{posiciones>visible}">
+                        <cells>
+                            <CheckBox selected="{posiciones>check}" select="onSelectPosicion"/>
+                            <Text text="{posiciones>NRO_PALLET}"/>
+                            <Text text="{posiciones>PROD_DESCR}"/>
+                            <Text text="{posiciones>KUNNR}"/>
+                            <Text text="{posiciones>NAME_ORG1}"/>
+                            <Text text="{posiciones>MODULO}"/>
+                            <Text text="{
+                              path: 'posiciones>FECHA_EMPAQUE',
+                              formatter: '.formatter.formatDate'
+                            }"/>
+                            <Text text="{posiciones>CAJAS_PALLET}"/>
+                            <Text text="{posiciones>CJ_FALTANTES}"/>
+                            <Input value="{posiciones>cant}" enabled="{posiciones>check}" liveChange="noSuperaMaximo"/>
+                            <Text text="{posiciones>MAX_PALLETS}"/>
+                        </cells>
+                    </ColumnListItem>								
+                </items>
+            </Table>
+
+            <HBox
+              fitContainer="true"
+              alignItems="Stretch"
+              class="sapUiSmallMargin nestedFlexboxes">
+              <VBox>
+                <layoutData>
+                  <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+                </layoutData>
+                  <Label text="Seleccionar impresora" labelFor="inpSlcImprt" design="Bold"/>
+                  <Input id="inpSlcImprt" value="{scope>/SlcImprt}" editable="false"/>
+                  <Button icon="sap-icon://print" text="" type="Emphasized" press="onAbrirAyudaBusquedaGrupoImpresora"/>
+              </VBox>
+              <VBox>
+                <layoutData>
+                  <FlexItemData growFactor="8" styleClass="sapUiTinyMargin"/>
+                </layoutData>
+                  <Label text="Fecha de empaque" labelFor="inpSlcFecha" design="Bold" visible="false"/>
+                  <DatePicker visible="false"
+                    id="inpSlcFecha"
+                    value="{scope>/SlcFecha}"
+                    displayFormat="dd-MM-YYYY"
+                    valueFormat="YYYYMMdd"
+                    class="sapUiSmallMarginBottom"/> 
+              </VBox>
+            </HBox>
+
+            <Table items="{agregarPosiciones>/}" id="idAgregarPosicionesTable">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Posiciones para Crear Pallet" titleStyle="H3"/>
+                        <ToolbarSpacer/>
+                        <SearchField placeholder="Filtrar" id="txtAgregarPosicionesSearch" search="handleFilterAgregarPosiciones" width="15rem"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Número de Paleta" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Producto"/>
+                    </Column>
+
+                    <Column
+                        width="5em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Id de Empresa Agrícola" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Empresa Agrícola" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Módulo" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Fecha de Empaque" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cajas en Paleta" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cajas Faltantes" />
+                    </Column>
+
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Desktop"
+                        demandPopin="true">
+                        <Text text="Cantidad de cajas" />
+                    </Column>
+                    
+                    <Column
+                        width="10em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="1480px"
+                        demandPopin="true">
+                        <Text text="Max. Paleta" />
+                    </Column>
+
+                    <Column
+                        width="6em"
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Phone"
+                        demandPopin="true">
+                        <Text text="Borrar" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Text text="{agregarPosiciones>NRO_PALLET}"/>
+                            <Text text="{agregarPosiciones>PROD_DESCR}"/>
+                            <Text text="{agregarPosiciones>KUNNR}"/>
+                            <Text text="{agregarPosiciones>NAME_ORG1}"/>
+                            <Text text="{agregarPosiciones>MODULO}"/>
+                            <Text text="{
+                              path: 'agregarPosiciones>FECHA_EMPAQUE',
+                              formatter: '.formatter.formatDate'
+                            }"/>
+                            <Text text="{agregarPosiciones>CAJAS_PALLET}"/>
+                            <Text text="{agregarPosiciones>CJ_FALTANTES}"/>
+                            <Text text="{agregarPosiciones>cant}"/>
+                            <Text text="{agregarPosiciones>MAX_PALLETS}"/>
+
+                            <Button icon="sap-icon://delete" text="" width="100%" type="Emphasized" press="onDeleteAgregarPosiciones"/>
+                            
+                        </cells>
+                    </ColumnListItem>								
+                </items>
+            </Table>
+
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogCrearPallet"></Button>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://activity-2" text="Crear Pallet" press="onCrearPallet" enabled="{scope>/btnCrearPallet}"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

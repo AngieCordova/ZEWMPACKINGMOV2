@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{date:function(sDate){console.log("sDate");console.log(sDate);var date=eval("new "+sDate.replace(/\//gi,""));return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()},txtMsgInfoHUs:function(t){return t!=""?"Comentario: "+t:""},visibleMsgInfoHUs:function(t){return t!=""?true:false},parseInt:function(t){return parseInt(t)},concatenateZero:function(t){if(t!==null){var e=t.toString().length;var n="0";t=n.repeat(20-e)+t.toString();return t}}}});
+//# sourceMappingURL=formatter.js.map

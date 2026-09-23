@@ -1,0 +1,50 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.stageModMMPPPrd.controller.rehabilitarMMPPPrd" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Staging de Módulo de MMPP a Producción" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idReHabilitarTable" items="{rehabilitar>/results}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Re-Habilitar Guías" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://accept" text="Re-Habilitar" type="Emphasized" press="onRehabilitar"/>
+              <Button icon="sap-icon://filter" type="Transparent" press="onShowFilter"/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadRehabilitar"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+              <Text text="Seleccionar"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pallet"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha de recepción"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Empresa Agricola"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Modulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Estatus"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <CheckBox selected="{rehabilitar>rehabilitar}"/>
+                <Text text="{rehabilitar>CodExt}"/>
+                <Text text="{path: 'rehabilitar>Budat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy', strictParsing: true , UTC: true }, constraints: {displayFormat: 'Date'}}"/>
+                <Text text="{rehabilitar>NameOrg1}"/>
+                <Text text="{rehabilitar>Modulo}"/>
+                <Text text="{rehabilitar>Estatus}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

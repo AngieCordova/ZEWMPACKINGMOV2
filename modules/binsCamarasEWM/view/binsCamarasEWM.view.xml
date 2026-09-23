@@ -1,0 +1,126 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.binsCamarasEWM.controller.binsCamarasEWM" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="BINS en Camaras EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+
+        <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Empresa Agrícola" labelFor="txtInpFilter" design="Bold"/>
+              <Input id="txtInpFilter" value="{scope>/filtrado/EMP_AGRICOLA}" submit="handleFilter"/>
+              <Label text="Variedad" labelFor="txtInpFilter1" design="Bold"/>
+              <Input id="txtInpFilter1" value="{scope>/filtrado/VARIEDAD}" submit="handleFilter"/>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="handleFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Modulo" labelFor="txtInpFilter2" design="Bold"/>
+              <Input id="txtInpFilter2" value="{scope>/filtrado/MODULO}" submit="handleFilter"/>
+              <Label text="Código de BIN" labelFor="txtInpFilter3" design="Bold"/>
+              <Input id="txtInpFilter3" value="{scope>/filtrado/CODIGO_BIN}" submit="handleFilter"/>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Guía" labelFor="txtInpFilter4" design="Bold"/>
+              <Input id="txtInpFilter4" value="{scope>/filtrado/GUIA}" submit="handleFilter"/>
+              <Label text="Ubicación" labelFor="txtInpFilter5" design="Bold"/>
+              <Input id="txtInpFilter5" value="{scope>/filtrado/UBICACION}" submit="handleFilter"/>
+              <Button icon="sap-icon://print" text="Imprimir" type="Emphasized" press="onPrintReport" visible="false"/>
+              <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>
+          </VBox>
+        </HBox>
+
+        <Table id="idReportTable" items="{detail>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="BINS EN CAMARA EWM ({scope>/totalRows})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Empresa Agrícola"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha de Cosecha"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha de Recepción"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Hora de Recepción"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Modulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Guía"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Variedad"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Código BIN"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="HU SAP"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Ubicación"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Peso"/>
+            </Column> 
+            <!-- 
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Observación"/>
+            </Column> 
+             -->             
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Hora Inicio Enfriamiento EWM"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Hora Final Enfriamiento"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Estado"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Observación"/>
+            </Column>  
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{detail>EMP_AGRICOLA}"/>
+                <Text text="{parts: [ {path: 'detail>FECHA_COSECHA'} ], formatter: '.formatter.formatDate'}"/>
+                <Text text="{parts: [ {path: 'detail>FECHA_RECEPCION'} ], formatter: '.formatter.formatDate'}"/>
+                <Text text="{detail>HORA_RECEPCION}"/>
+                <Text text="{detail>MODULO}"/>
+                <Text text="{detail>GUIA}"/>
+                <Text text="{detail>VARIEDAD}"/>
+                <Text text="{detail>CODIGO_BIN}"/>
+                <Text text="{detail>HU_SAP}"/>
+                <Text text="{detail>UBICACION}"/>
+                <Text text="{detail>PESO}"/>
+                <Text text="{detail>HORA_INICIO_ENF}"/>
+                <Text text="{detail>HORA_FIN_ENF}"/>
+                <Text text="{detail>ESTADO}"/>
+                <Text text="{detail>INHALT}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

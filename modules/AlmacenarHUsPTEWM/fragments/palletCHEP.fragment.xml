@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+                         xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:form="sap.ui.layout.form"
+                         xmlns:tnt="sap.tnt"
+                         xmlns:l="sap.ui.layout">
+
+    <Dialog title="PALLET CHEP (AZUL)" contentWidth="800px" type="Message" afterClose="onAfterCloseDialogTrasladarHU">
+        <content>
+
+            <Table id="tablePCHEP" items="{palletCHEP>/}" inset="false">
+                <columns>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="ID2"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Tipo Paleta"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Pallet CHEP"/>
+                    </Column>
+
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <!--SCH-Inicio-Proyecto Guatemala -->
+                            <!--<Text text="{palletCHEP>ID2}"/> -->
+                            <Text text="{parts: [ {path: 'palletCHEP>ID2'} ], formatter: '.formatter.concatenateZero'}"/>
+                            <!--SCH-Fin-Proyecto Guatemala -->
+
+                            <Text text="{palletCHEP>TIPO_PALETA}"/>
+
+                            <!-- <Text text="{palletCHEP>IND_PALLET_CHEP}"/> -->
+                            <CheckBox selected="{= ${palletCHEP>IND_PALLET_CHEP} === 'X' ? true : false}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+
+        <beginButton>
+            <Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialogPalletCHEP"></Button>
+        </beginButton>
+
+        <endButton>
+            <Button icon="sap-icon://save" text="Grabar" press="onGuardarPalletCHEP"></Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

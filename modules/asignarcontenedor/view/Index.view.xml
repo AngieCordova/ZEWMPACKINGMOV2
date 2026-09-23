@@ -1,0 +1,96 @@
+<mvc:View 
+  controllerName="AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.controller.Index" 
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:grid="sap.ui.layout.cssgrid"
+  xmlns:f="sap.f"
+  xmlns:core="sap.ui.core"
+  xmlns:t="sap.tnt">
+    <Page title="ASIGNAR ORDEN A CONTENEDOR" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Panel width="auto" class="sapUiResponsiveMargin">
+          <content>
+            <Table items="{mListaContenedoresAsignar>/}" id="table-pedidos_despacho">
+              <headerToolbar>
+                <Toolbar>
+                  <ToolbarSpacer/>
+                  <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTabla"/>
+                </Toolbar>
+              </headerToolbar>
+              <columns>
+                <Column
+                  width="6em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Número de Pedido" />
+                </Column>
+                <Column
+                  width="12em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Clientes" />
+                </Column>
+                <Column
+                  width="18em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Destino" />
+                </Column>
+                <Column
+                  width="8em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Tablet"
+                  demandPopin="true">
+                  <Text text="Conteo de Paletas" />
+                </Column>
+                <Column
+                  width="12em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Desktop"
+                  demandPopin="true">
+                  <Text text="Ubicación" />
+                </Column>
+                <Column
+                  width="10em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Estado" />
+                </Column>
+                <Column
+                  width="10em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Referencia" />
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem type="Navigation" press="onSelectItem">
+                  <cells>
+                    <Text text="{mListaContenedoresAsignar>IdPedido}"/>
+                    <Text text="{mListaContenedoresAsignar>Cliente}"/>
+                    <Text text="{mListaContenedoresAsignar>Destino}"/>
+                    <Text text="{mListaContenedoresAsignar>CntPallets}"/>
+                    <Text text="{mListaContenedoresAsignar>Zona}"/>
+                    <Text text="{mListaContenedoresAsignar>Estado}"/>
+                    <Text text="{mListaContenedoresAsignar>NroOrden} / {mListaContenedoresAsignar>NroViaje}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+      </content>
+    </Page>
+</mvc:View>

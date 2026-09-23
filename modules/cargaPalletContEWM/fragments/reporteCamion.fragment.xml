@@ -1,0 +1,120 @@
+<core:FragmentDefinition xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:form="sap.ui.layout.form"
+                         xmlns:tnt="sap.tnt"
+                         xmlns:l="sap.ui.layout">
+
+    <Dialog title="Salida de Camión de Despacho" contentWidth="680px" type="Message" afterClose="onAfterCloseDialogReporteCamion">
+        <content>
+
+            <l:VerticalLayout id="containerLayout" width="100%">
+                <l:BlockLayout id="BlockLayout">
+                    <l:BlockLayoutRow accentCells="Accent1">
+
+                        <l:BlockLayoutCell title="Datos">
+                            <form:Form editable="false">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="2"
+                                        columnsL="2"
+                                        columnsM="2"
+                                        singleContainerFullSize="false"/>
+                                </form:layout>
+
+                                <form:formContainers>
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Referencia">
+                                                <form:fields>
+                                                    <!-- <Text text="{scope>/NroOrden} / {scope>/IdViaje}" /> -->
+                                                    <Text text="{path: 'scope>/NroOrden', formatter: '.formatter.sinCerosIzq'} / {scope>/IdViaje}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+
+                                            <form:FormElement label="Empresa de Transporte">
+                                                <form:fields>
+                                                    <Text text="{scope>/IdEmpresa} {scope>/Empresa}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+
+                                            <form:FormElement label="Puerta de embarque">
+                                                <form:fields>
+                                                    <Text text="{scope>/Puerta}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                </form:formContainers>
+                            </form:Form>
+                        </l:BlockLayoutCell>
+
+                        <l:BlockLayoutCell title="">
+                            <form:Form editable="false">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="2"
+                                        columnsL="2"
+                                        columnsM="2"
+                                        singleContainerFullSize="false"/>
+                                </form:layout>
+
+                                <form:formContainers>
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="Nombre del Conductor">
+                                                <form:fields>
+                                                    <Text text="{scope>/Conductor}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+
+                                            <form:FormElement label="Licencia del conductor">
+                                                <form:fields>
+                                                    <Text text="{scope>/Licencia}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+
+                                            <form:FormElement label="Placa del vehículo">
+                                                <form:fields>
+                                                    <Text text="{scope>/Placa}"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                </form:formContainers>
+                            </form:Form>
+                        </l:BlockLayoutCell>
+
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </l:VerticalLayout>
+
+        </content>
+
+        <buttons>
+            <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogReporteCamion"/>
+            <Button icon="sap-icon://activity-2" text="Dar Salida" press="onSalidaCamion('')"/>
+            <Button icon="sap-icon://activity-2" text="Zona Full" press="onSalidaCamion('X')"/>
+
+            <!-- <Button icon="sap-icon://activity-2" text="Dar Salida" enabled="{= ${scope>/Estado} === 'Cargado' ? true : false}" press="onSalidaCamion('')"/> -->
+            <!-- <Button icon="sap-icon://activity-2" text="Zona Full" enabled="{= ${scope>/Estado} === 'Cargado' ? true : false}" press="onSalidaCamion('X')"/> -->
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

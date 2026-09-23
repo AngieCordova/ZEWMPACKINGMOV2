@@ -1,0 +1,112 @@
+<mvc:View 
+  controllerName="AvocadoProyecto.AvocadoProyecto.modules.Despachofruta.controller.Index" 
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:grid="sap.ui.layout.cssgrid"
+  xmlns:f="sap.f"
+  xmlns:core="sap.ui.core"
+  xmlns:t="sap.tnt">
+    <Page title="DESPACHO DE FRUTA : DOCUMENTOS" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Panel width="auto" class="sapUiResponsiveMargin">
+          <content>
+
+            <Table items="{myParam>/mListaPedAsignar}"  id="table-pedidos_despachof">
+              <headerToolbar>
+                <Toolbar>
+
+                  <ToolbarSpacer/>
+                  <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTabla"/>
+                  <OverflowToolbarButton text="Filter" type="Transparent" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onFiltros"/>
+                  <OverflowToolbarButton text="refresh" type="Transparent" icon="sap-icon://refresh" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onRefresh"/>
+                </Toolbar>
+              </headerToolbar>
+              <columns>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Documento" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Tipo" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Cliente" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Cultivo" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Tablet"
+                  demandPopin="true">
+                  <Text text="Destino" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Desktop"
+                  demandPopin="true">
+                  <Text text="Kgs documento" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Kgs cargado" />
+                </Column>
+
+
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Estado" />
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem type="Navigation" length="6" press="onCellClick">
+                  <cells>
+                    <Text text="{myParam>NRO_DOC}"/>
+                    <Text text="{myParam>TIP_DOC_DES}"/>
+                    <Text text="{myParam>NAME1}"/>
+                    <Text text="{myParam>DES_CULTIVO}"/>
+                    <Text text="{myParam>DESTINO}"/>
+                    <Text text="{myParam>PESO_VENTA}"/>
+                    <Text text="{myParam>PESO_CARGA}"/>
+
+                    <Text text="{myParam>EST_DOC_DES}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+      </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+  <Dialog title="Zona Full" contentWidth="600px" type="Message" afterClose="onAfterCloseMasterDialog" afterOpen="onCreateMasterDialog">
+    <content>
+        
+            <Button width="100%" icon="sap-icon://duplicate" text="Dar Ingreso o Reubicar en ZF" type="Emphasized" press="onShowVisualizarIngresoSalZF"/>
+            <Button width="100%" icon="sap-icon://duplicate" text="Dar Salida de ZF a Despacho" type="Emphasized" press="onShowVisualizarSalidaZFaDesp"/>
+            
+    </content>
+
+    <beginButton>
+      <Button icon="sap-icon://cancel" text="Cancelar" press="onCloseMasterDialog"></Button>
+    </beginButton>
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,97 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.inventarioContenedoresEWM.controller.inventarioContenedoresEWM" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Inventario de Contenedores EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+
+        <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Número de Pallet" labelFor="txtInpFilter" design="Bold"/>
+              <Input id="txtInpFilter" value="{scope>/filtrado/NRO_PALLET}" submit="handleFilter"/>
+              <Label text="Código de Cliente" labelFor="txtInpFilter1" design="Bold"/>
+              <Input id="txtInpFilter1" value="{scope>/filtrado/COD_CLIENTE}" submit="handleFilter"/>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="handleFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Código de Producto" labelFor="txtInpFilter2" design="Bold"/>
+              <Input id="txtInpFilter2" value="{scope>/filtrado/MATNR}" submit="handleFilter"/>
+              <Label text="Código de Contenedor" labelFor="txtInpFilter3" design="Bold"/>
+              <Input id="txtInpFilter3" value="{scope>/filtrado/COD_CONTENEDOR}" submit="handleFilter"/>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Número de Pedido" labelFor="txtInpFilter4" design="Bold"/>
+              <Input id="txtInpFilter4" value="{scope>/filtrado/NRO_PEDIDO_SAP}" submit="handleFilter"/>
+              <Label text="Ubicación" labelFor="txtInpFilter5" design="Bold"/>
+              <Input id="txtInpFilter5" value="{scope>/filtrado/UBICACION}" submit="handleFilter"/>
+              <Button icon="sap-icon://print" text="Imprimir" type="Emphasized" press="onPrintReport" visible="false"/>
+              <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>
+          </VBox>
+        </HBox>
+
+        <Table id="idReportTable" items="{detail>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="(Nuevo) INVENTARIO DE CONTENEDORES EWM ({scope>/totalRows})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha de almacenaje"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Código de Contenedor"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Número de Pedido"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Cliente"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Destino"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Ubicación"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Número de Pallet"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Código de Producto"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Número de HU"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{parts: [ {path: 'detail>FECHA_ALMACENAJE'} ], formatter: '.formatter.formatDate'}"/>
+                <Text text="{detail>COD_CONTENEDOR}"/>
+                <Text text="{detail>NRO_PEDIDO_SAP} - {detail>POS_PEDIDO_SAP}"/>
+                <Text text="{detail>COD_CLIENTE} - {detail>NOMBRE_CLIENTE}"/>
+                <Text text="{detail>DESTINO}"/>
+                <Text text="{detail>UBICACION}"/>
+                <Text text="{detail>NRO_PALLET}"/>
+                <Text text="{detail>MATNR} - {detail>MAKTX}"/>
+                <Text text="{detail>NRO_HU}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

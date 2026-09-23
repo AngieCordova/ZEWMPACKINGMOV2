@@ -1,0 +1,109 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.remontarPallet.controller.Index" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.tnt">
+		<Page title="PALETAS INCOMPLETAS DE PRODUCTO TERMINADO" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+				<!-- <Panel width="auto" class="sapUiResponsiveMargin">
+					<content> -->
+						<Table items="{mListaPalletsIncompletos>/}" id="table-lista_palets_incompletos" growing="true" growingThreshold="10">
+							<headerToolbar>
+								<Toolbar>
+              						<Title text="Paletas Incompletas de producto terminado" titleStyle="H3"/>
+									<!-- <Text text="Paletas incompletas de producto terminado"/> -->
+									<ToolbarSpacer/>
+									<SearchField id="input-filtrar_lista_inicial_remontar_pallet" placeholder="Filtrar Paletas" width="15rem" search="onFiltrarTablaPrincipal"/>
+									<Button icon="sap-icon://synchronize" press="cargarListadoPalletsPantallaInicial" />
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column
+									width="6em"
+									hAlign="Center"
+									vAlign="Middle"
+									minScreenWidth="Phone"
+									demandPopin="true">
+									<Text text="Nº de Paleta" />
+								</Column>
+								<Column
+									width="18em"
+									hAlign="Center"
+									vAlign="Middle"
+									minScreenWidth="Phone"
+									demandPopin="true">
+									<Text text="Producto" />
+								</Column>
+								<Column
+									width="6em"
+									hAlign="Center"
+									vAlign="Middle"
+									minScreenWidth="Phone"
+									demandPopin="true">
+									<Text text="Pedido" />
+								</Column>
+								<Column
+									width="8em"
+									hAlign="Center"
+									vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Cajas en Paleta" />
+								</Column>
+								<Column
+									width="6em"
+									hAlign="Center"
+									vAlign="Middle"
+									minScreenWidth="1480px"
+									demandPopin="true">
+									<Text text="Max. Paleta" />
+								</Column>
+								<Column
+									width="10em"
+									hAlign="Center"
+									vAlign="Middle"
+									minScreenWidth="1480px"
+									demandPopin="true">
+									<Text text="Cajas Faltantes" />
+								</Column>
+								<Column
+									width="10em"
+									hAlign="Center"
+									vAlign="Middle"
+									minScreenWidth="1480px"
+									demandPopin="true">
+									<Text text="Fecha de Empaque" />
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="Navigation" press="onSelectItem">
+									<cells>
+										<Text text="{mListaPalletsIncompletos>NRO_PALLET}"/>
+										<Text text="{mListaPalletsIncompletos>PROD_DESCR}"/>
+										<Text text="{mListaPalletsIncompletos>PEDIDO}"/>
+										<Text text="{mListaPalletsIncompletos>CAJAS_PALLET}"/>
+										<!-- <Text text="{ 
+													parts: [
+														{path: 'mListaPalletsIncompletos>MAX_PALLETS'},
+														{path: 'mListaPalletsIncompletos>CJ_FALTANTES'}
+													],
+						            				formatter: '.formatter.calcularCantidadCajasEnPaleta' 
+												}"/> -->
+										<Text text="{mListaPalletsIncompletos>MAX_PALLETS}"/>
+										<Text text="{mListaPalletsIncompletos>CJ_FALTANTES}"/>
+										<Text text="{
+											path: 'mListaPalletsIncompletos>FECHA_EMPAQUE',
+											formatter: '.formatter.formatDate'
+										}"/>
+									</cells>
+								</ColumnListItem>								
+							</items>
+						</Table>
+					<!-- </content>
+				</Panel> -->
+			</content>
+		</Page>
+</mvc:View>

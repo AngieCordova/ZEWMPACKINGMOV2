@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		growingThreshold="10"
+		cancel="onCloseDialog('busquedaOrdenNPT')"
+		confirm="onSelectElementOrden"
+		search="onFiltrarListaOrdenes"
+		noDataText="No hay datos de ordenes"
+		title="Lista de Ordenes"
+		items="{posNPT>/results}" >
+		<StandardListItem
+            icon="sap-icon://course-book"
+            description="Viaje : {posNPT>VIAJE} - {posNPT>VBELN}"
+            title="Orden : {posNPT>AUFNR} - {posNPT>PLNBEZ}"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

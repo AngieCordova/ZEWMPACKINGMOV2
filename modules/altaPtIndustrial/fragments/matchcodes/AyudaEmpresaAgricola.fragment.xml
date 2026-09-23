@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<!-- , {'IdEmpresaAgricola':'IdEmpresa'} -->
+	<SelectDialog
+		title="SELECCIONE LA EMPRESA AGRÍCOLA"
+		search="onFiltrarMatchcode($event, ['IdEmpresa'])"
+		confirm="onAgregarValorMatchcode($event, 'AyudaEmpresaAgricola')"
+		cancel="onCerrarFragmento('AyudaEmpresaAgricola')"
+		noDataText="SIN DATOS"
+		items="{ZEWM_0011>/EmpresasAgricolasSet}">
+		<StandardListItem
+			title="{ZEWM_0011>NombreUno}"
+			description="{ZEWM_0011>IdEmpresa}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

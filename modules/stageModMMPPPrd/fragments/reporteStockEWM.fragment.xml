@@ -1,0 +1,136 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Reporte de stock de Pallets - Almacén EWAP" contentWidth="80%" type="Message" afterClose="onAfterCloseDialogReporteStock">
+		<content>
+        <Table items="{pallets>/results}" inset="false">
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pallet"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Producto"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Guía"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Módulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Tipo Almacén"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Área"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Ubicación"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="7em" visible="false">
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle" visible="{pallets>visible}">
+              <cells>
+                <Text text="{pallets>CodExt}"/>
+                <Text text="{pallets>Maktx}"/>
+                <Text text="{pallets>Guia}"/>
+                <Text text="{pallets>ModuloDescr}"/>
+                <Text text="{pallets>Lgtyp}"/>
+                <Text text="{pallets>Lgber}"/>
+                <Text text="{pallets>Lgpla}"/>
+                <Button icon="sap-icon://add-activity-2" text="" width="100%" type="Emphasized" press=".onSelectTrasladarStock(${pallets>CodExt})" visible="false"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+        
+        <Label text="Escanear HU" labelFor="inpScanStock" design="Bold"/>
+        <Input id="inpScanStock" value="" submit="onScanStock"/>
+        <Button icon="sap-icon://initiative" text="Escanear" type="Emphasized" press="onScanStock"/>
+
+        <Table items="{trasladarStock>/}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Para trasladar" titleStyle="H3"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pallet"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Producto"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Guía"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Módulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Tipo Almacén"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Área"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Ubicación"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5rem">
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{trasladarStock>CodExt}"/>
+                <Text text="{trasladarStock>Maktx}"/>
+                <Text text="{trasladarStock>Guia}"/>
+                <Text text="{trasladarStock>ModuloDescr}"/>
+                <Text text="{trasladarStock>Lgtyp}"/>
+                <Text text="{trasladarStock>Lgber}"/>
+                <Text text="{trasladarStock>Lgpla}"/>
+                <Button icon="sap-icon://delete" text="" width="100%" type="Emphasized" press="onDeleteTrasladarStock"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+        <Table items="{HUTrasladado>/}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Trasladado" titleStyle="H3"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pallet"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Producto"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{HUTrasladado>CodExt}"/>
+                <Text text="{HUTrasladado>Maktx}"/>
+                <Text text="{HUTrasladado>msgResponse}"/>
+                <tnt:InfoLabel text="{HUTrasladado>msgStatus}" colorScheme="{HUTrasladado>colorScheme}" displayOnly= "true" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogReporteStock"></Button>
+		</beginButton>
+		<endButton>
+			<Button icon="sap-icon://activity-2" text="Trasladar" press="onTrasladarTrasladarStock" enabled="{scope>/btnTrasladar}"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

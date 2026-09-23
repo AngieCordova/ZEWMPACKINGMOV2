@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Tablero Programa" contentWidth="600px" type="Message" afterClose="onAfterCloseMasterDialog" afterOpen="onCreateMasterDialog">
+		<content>
+        
+            <Button width="100%" icon="sap-icon://duplicate" text="Control de Producción" type="Emphasized" press="onShowControlIngreso"/>
+            <Button width="100%" icon="sap-icon://duplicate" text="Control de Avance" type="Emphasized" press="onShowControlAvance"/>
+             <Button width="100%" icon="sap-icon://duplicate" text="Avance Diario" type="Emphasized" press="onShowAvanceDiario"/>
+            
+		</content>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cancelar" press="onCloseMasterDialog"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

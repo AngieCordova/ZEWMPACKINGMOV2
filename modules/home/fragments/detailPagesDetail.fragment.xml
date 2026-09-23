@@ -1,0 +1,795 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.table" xmlns:t="sap.tnt">
+  <Page id="detail" title="Inicio" showNavButton="{device>/isPhone}" class="sapUiStdPage" navButtonPress="onPressInicion">
+    <customHeader>
+      <Bar>
+        <contentMiddle>
+          <Title level="H2" text="Inicio"/>
+        </contentMiddle>
+        <contentLeft>
+          <ToggleButton id="idButtonError" visible="false" icon="sap-icon://message-popup" type="Emphasized" press="handleMessageViewPress"/>
+        </contentLeft>
+        <contentRight>
+          <!-- DG - Inicio -->
+          <Title level="H2" text="{mModeloUsuario>/Firstname} {mModeloUsuario>/Lastname} ({mModeloUsuario>/Uname})"/>
+          <!-- DG - Fin -->        
+          <Button id="idLogOffPress" icon="sap-icon://log" press="btnLogOffPress"/>
+        </contentRight>
+      </Bar>
+    </customHeader>
+
+ 
+    <VBox width="100%" justifyContent="Center" alignItems="Center">
+      <l:HorizontalLayout id="TileContainerExpanded" allowWrapping="true">
+
+        <GenericTile id="GenericTile1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Confirmar camión"
+          subheader="" press="onPressIngCamion">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+        <!-- RECIBIR HUS EWM -->
+        <GenericTile 
+          id="GenericTile11" 
+          subheader="" 
+          class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+          header="Recibir Hu's EWM" 
+          press="onSplitRouter('recibirHusEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.recibirHusEWM.view.recibirHusEWM', '14')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://database"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+        <!-- TRASLADAR HUS EWM -->
+        <GenericTile 
+          id="GenericTile13" 
+          subheader="" 
+          class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+          header="Trasladar Hu's EWM" 
+          press="onSplitRouter('trasladarHusEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.trasladarHusEWM.view.trasladarHusEWM', '16')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://database"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+        <!-- Reubicar HUs RMP EWM -->
+        <GenericTile 
+            id="GenericTile38"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Reubicar HUs RMP EWM" visible="true"
+            press="onSplitDialogRouter('reubicarHURMPEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.reubicarHURMPEWM.fragments.reubicarHURMPEWM', 'AvocadoProyecto.AvocadoProyecto.modules.reubicarHURMPEWM.controller.reubicarHURMPEWM', '38')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+        <!-- Trasladar HU de RMP -->
+        <GenericTile 
+            id="GenericTile39"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Retirar HU de RMP" visible="true"
+            press="onSplitRouter('TrasladarHURMPView', 'AvocadoProyecto.AvocadoProyecto.modules.trasladarHuRMP.view.Index', '39')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+        <!-- MAPA CAMARAS MPP EWM -->
+        <GenericTile 
+            id="GenericTile29"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Mapa Camaras de MMPP EWM" visible="true"
+            press="onSplitRouter('MapaCamarasMMPPEWM', 'AvocadoProyecto.AvocadoProyecto.modules.MapaCamarasMMPPEWM.view.Index', '29')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+        <!-- BINS en Camaras EWM -->
+        <GenericTile 
+            id="GenericTile35"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="BINS en Camaras EWM" visible="true"
+            press="onSplitDialogRouter('binsCamarasEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.binsCamarasEWM.fragments.binsCamarasEWM', 'AvocadoProyecto.AvocadoProyecto.modules.binsCamarasEWM.controller.binsCamarasEWM', '35')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://manager-insight"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+         <GenericTile 
+            id="GenericTile00"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Despacho de frutas : Documentos" visible="true"
+            press="onSplitRouter('DespachofrutaIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.Despachofruta.view.Index', '00')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://sap-box"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+                <!-- BASC Validación datos contenedor -->
+        <GenericTile 
+            id="GenericTile99"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Despacho de frutas : Salidas" visible="true"
+            press="onSplitRouter('DespachofrutasalidaIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.Despachofrutasalida.view.Index', '99')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://survey"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+        <!-- STAGING DE MODULO DE MMPP A PRODUCCION -->
+        <GenericTile 
+            id="GenericTile20"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Stage Módulo EWM"
+            subheader=""
+            press="onSplitRouter('stageModMMPPPrdDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.stageModMMPPPrd.view.stageModMMPPPrd', '20')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>       
+
+        <GenericTile id="GenericTile5" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="HU's a Línea de Empaque"
+          subheader="" press="onPressBinsEmp">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://machine"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+ <!-- ALTA PT INDUSTRIAL -->
+        <GenericTile 
+            id="GenericTile24"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Alta PT Industrial"
+            press="onSplitRouter('AltaPTindustrialView', 'AvocadoProyecto.AvocadoProyecto.modules.altaPtIndustrial.view.Index', '24')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://database"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- NUEVO CREAR PALLET PRODUCTO TERMINADO -->
+        <GenericTile 
+          id="GenericTile10" 
+          class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+          header="Nuevo Crear Palets de Producto Terminado"
+           press="onSplitRouter('nuevoCrearPalletTerminadoView', 'AvocadoProyecto.AvocadoProyecto.modules.nuevocrearpallet.view.ListaPreRegistro', '13')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+        <GenericTile 
+            id="GenericTile41"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Status de Guía" visible="true"
+            press="onPressStatusGuia">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://order-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+ <!-- REMONTAR PALLETS -->
+        <GenericTile 
+            id="GenericTile21"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Remontar pallets MM"
+            subheader=""
+            press="onSplitRouter('RemontarPalletsIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.remontarPallet.view.Index', '21')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>      
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- Split Pallets EWM -->
+        <GenericTile 
+            id="GenericTile28"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Split Pallets EWM"
+            press="onSplitRouter('SplitPalletsEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.SplitPalletsEWM.view.SplitPalletsEWM', '28')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://split"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>   
+
+        <!-- Reproceso Pallet EWM -->
+        <GenericTile 
+            id="GenericTile32"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Reproceso Pallet EWM"
+            press="onSplitDialogRouter('reprocesoPalletFragment', 'AvocadoProyecto.AvocadoProyecto.modules.reprocesoPallet.fragments.reprocesoPallet', 'AvocadoProyecto.AvocadoProyecto.modules.reprocesoPallet.controller.reprocesoPallet', '32')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://goalseek"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>   
+        <GenericTile id="GenericTile6" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Crear Palets de Producto Terminado"
+          subheader="" press="onPressPaletCrear">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- A5.1 Almacenar HU'S PT EWM-->
+        <GenericTile 
+            id="GenericTile25"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Recibir Pallet de PT en EWM"
+            press="onSplitRouter('AlmacenarHUsPTEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.AlmacenarHUsPTEWM.view.AlmacenarHUsPTEWM', '25')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>       
+
+        <!-- A5.2 Trasladar HU'S PT EWM-->
+        <GenericTile 
+            id="GenericTile27"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Ubicar Pallet en EWM"
+            press="onSplitRouter('TrasladarHUsPTEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.AlmacenarHUsPTEWM.view.TrasladarHUsPTEWM', '27')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shelf"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>       
+  <!-- A21 Reubicar Pallets PT EWM-->
+        <GenericTile 
+            id="GenericTile26"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Reubicar Pallets PT EWM"
+            press="onAbrirReubicarPalletEwm">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>       
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- Pallets en Inventario EWM -->
+        <GenericTile 
+            id="GenericTile34"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Pallets en Inventario EWM" visible="true"
+            press="onSplitDialogRouter('palletsInventarioEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.palletsInventarioEWM.fragments.palletsInventarioEWM', 'AvocadoProyecto.AvocadoProyecto.modules.palletsInventarioEWM.controller.palletsInventarioEWM', '34')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://manager-insight"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+
+        <!-- MAPA TUNELES ENFRIAMIENTO EWM -->
+        <GenericTile 
+            id="GenericTile30"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Mapa Tuneles de Enfriamiento EWM"
+            press="onSplitRouter('MapaTunelesEnfriamientoMMPPEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.MapaTunelesEnfriamientoEWM.view.Index', '30')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+  <!-- A18 Mapa Almacenamiento de Producto Terminado EWM-->
+        <GenericTile 
+            id="GenericTile36"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Mapa Almacenamiento de Producto Terminado EWM" visible="true"
+            press="onSplitRouter('MapaAlmProdTermEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.MapaAlmProdTermEWM.view.Index', '36')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- A7 Asignar Orden a Zona DESP. EWM-->
+        <GenericTile id="GenericTile15" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Asignar Orden a Zona de Despacho" press="onSplitRouter('asignarOrdenZonaEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.asignarOrdenZonaEWM.view.asignarOrdenZonaEWM', '18')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://course-program"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+        <!-- A9 Stage Out Pallet a Zona Desp.Ewm-->
+        <GenericTile 
+            id="GenericTile12" 
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Organizar Pallets en Zona de Despacho"
+            press="onSplitRouter('StageOutPalletIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.strageoutpallet.view.Index', '15')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://list"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+ <!-- A10.1 Asignar Contenedor a Transporte EWM-->
+        <GenericTile 
+            id="GenericTile14" 
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Asignar Contenedor"
+            press="onSplitRouter('AsignarContenedorIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.view.Index', '17')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://sap-box"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- A10.2 Asignar Puerta a Transporte EWM-->
+        <GenericTile 
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Asignar Puerta"
+            press="onSplitRouter('AsignarPuertaView', 'AvocadoProyecto.AvocadoProyecto.modules.asignarpuerta.view.AsignarPuertaIndex', '19')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://course-program"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>  
+
+        <!-- A11.1 Cargar Pallet en Contenedor EWM-->
+        <GenericTile 
+            id="GenericTile22"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Cargar Contenedor"
+            press="onSplitRouter('cargaPalletContEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.cargaPalletContEWM.view.cargaPalletContEWM', '22')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>       
+ <!-- A11.2 Salida de Camión de Despacho-->
+        <GenericTile 
+            id="GenericTile23"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Salida de Contenedor de Despacho"
+            press="onSplitRouter('salidaCamionDespEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.cargaPalletContEWM.view.salidaCamionDespEWM', '23')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>     
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- REPORTE FCLS-->
+        <GenericTile 
+            id="GenericTile44"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Reporte FCL's" visible="true"
+            press="onSplitRouter('ReporteFCLsView', 'AvocadoProyecto.AvocadoProyecto.modules.ReporteFCLs.view.ReporteFCLs', '44')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+
+        <!-- MAPA ZONA CONTENEDORES EWM -->
+        <GenericTile 
+            id="GenericTile31"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Mapa ZONA Contenedores EWM" visible="true"
+            press="onSplitRouter('MapaContenedoresFullEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.MapaZonaFullContenedoresEWM.view.Index', '31')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+ <!-- Inventario de Contenedores EWM -->
+        <GenericTile 
+            id="GenericTile33"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Inventario de Contenedores EWM" visible="true"
+            press="onSplitDialogRouter('inventarioContenedoresEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.inventarioContenedoresEWM.fragments.inventarioContenedoresEWM', 'AvocadoProyecto.AvocadoProyecto.modules.inventarioContenedoresEWM.controller.inventarioContenedoresEWM', '33')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://manager-insight"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+        <!-- PROCESO INICIO-FIN ENFRIAMIENTO -->
+        <GenericTile 
+            id="GenericTile40"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Proceso Inicio-Fin Enfriamiento" visible="true"
+            press="onSplitRouter('ProcesoInicioFinEnfriamientoView', 'AvocadoProyecto.AvocadoProyecto.modules.ProcesoInicioFinEnfriamiento.view.Index', '40')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://heating-cooling"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+
+        <!-- IMPRIMIR ETIQUETA PALLET TAG -->
+        <GenericTile 
+            id="GenericTile42"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Imprimir Etiqueta Pallet Tag" visible="true"
+            press="onSplitRouter('ImprimirEtiquetaPalletTagView', 'AvocadoProyecto.AvocadoProyecto.modules.ImprimirEtiquetaPalletTag.view.Index', '42')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://print"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+ <!-- BASC Validación datos contenedor -->
+        <GenericTile 
+            id="GenericTile43"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="BASC Validación datos contenedor" visible="true"
+            press="onSplitRouter('BASCValContEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.BASCValContEWM.view.BASCValContEWM', '43')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://survey"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+      </l:HorizontalLayout>
+      <!-- _______________________SEPARADOR_______________________-->
+      <l:HorizontalLayout allowWrapping="true">
+
+
+
+         <!-- Zona Full -->
+        <GenericTile 
+            id="GenericTile45"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Zona Full" visible="true"            
+            press="onSplitDialogRouter('zonaFullFragment', 'AvocadoProyecto.AvocadoProyecto.modules.zonaFull.fragments.zonaFull', 'AvocadoProyecto.AvocadoProyecto.modules.zonaFull.controller.zonaFull', '45')">
+          <tileContent>
+            <TileContent>
+              <content>               
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        <!-- BASC Validación datos contenedor -->
+
+<!-- Remonte en Almacén EWM  -->
+<!-- REQUERIMIENTO PENDIENTE -->
+<!--
+        <GenericTile 
+            id="GenericTile46"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Remonte en Almacén EWM"
+            subheader=""
+            press="onSplitRouter('RemontarPalletsIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.remontarPalletFrio.view.Index', '46')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>      
+ -->
+
+
+ <!-- Verificación de Carga de PT -->  
+        <GenericTile 
+            id="GenericTile47"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Verificación de Carga de PT"
+            press="onSplitRouter('VerificacionCargaPTView', 'AvocadoProyecto.AvocadoProyecto.modules.verificacionCargaPt.view.Index', '47')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://survey"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>   
+ 
+ </l:HorizontalLayout>
+ <l:HorizontalLayout allowWrapping="true">
+ <!-- Tablero de Programa de Empaque -->
+        <GenericTile 
+            id="GenericTile48"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Tablero de Programa de Empaque"
+            press="onSplitDialogRouter('tableroProgramaFragment','AvocadoProyecto.AvocadoProyecto.modules.tableroProgramaEmpaque.fragments.tableroPrograma','AvocadoProyecto.AvocadoProyecto.modules.tableroProgramaEmpaque.controller.tableroPrograma', '48')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>      
+        
+  <!-- Cumplimiento de Armado de Cajas --> 
+  
+        <GenericTile 
+            id="GenericTile49"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Cumplimiento de Armado de Cajas"
+            press="onSplitDialogRouter('tableroCumplimientoCajasFragment','AvocadoProyecto.AvocadoProyecto.modules.tableroCumplimientoArmadoCajas.fragments.tableroCumplimientoCajas', 'AvocadoProyecto.AvocadoProyecto.modules.tableroCumplimientoArmadoCajas.controller.tableroCumplimientoCajas','49')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>    
+        <!-- DG - Inicio -->
+        <GenericTile 
+            id="GenericTile50"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Remontar pallets EWM"
+            press="onSplitRouter('RemontarPalletsEWMIndexView','AvocadoProyecto.AvocadoProyecto.modules.remontarPalletEWM.view.Index', '50')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://shipping-status"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>      
+        <!-- DG - Fin -->
+      </l:HorizontalLayout>    
+          
+         <!-- _______________________SEPARADOR_______________________-->
+
+        <!--
+        <GenericTile id="GenericTile8" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Mover Palet"
+          subheader="Escaneo de códigos" press="onPressMover" visible="false">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://journey-depart"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        -->
+
+        <!--
+        <GenericTile id="GenericTile7" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Remontar Palet"
+          subheader="Tienes 0 tareas" press="onPressRemontar" visible="false">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://product"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        -->
+
+        <!--
+        <GenericTile id="GenericTile9" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Reproceso Palet"
+          subheader="Escaneo de códigos" press="onPressReproceso" visible="false">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://goalseek"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        -->
+
+        <!-- Inventario de Contenedores EWM -->
+        <!--
+        <GenericTile 
+            id="GenericTile37"
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+            header="Reubicar HUs RMP EWM" visible="false"
+            press="onSplitRouter('ReubicarHUsRMPEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.reubicarHusRmpEwm.view.Index', '37')">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://manager-insight"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        -->
+
+        <!--
+        <GenericTile id="GenericTile4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Stage Módulo" subheader="Tienes 0 tareas"
+          press="onPressAlmBins" visible="false">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://bar-code"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        -->
+
+        <!--
+        <GenericTile id="GenericTile2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Recepcionar camión"
+          subheader="Tienes 0 tareas" press="onPressConfCamion" visible="false">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://activity-2"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        -->
+
+        <!--
+        <GenericTile id="GenericTile3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Almacenar HU's"
+          subheader="Tienes 0 tareas" press="onPressAlmStage" visible="false">
+          <tileContent>
+            <TileContent>
+              <content>
+                <ImageContent src="sap-icon://database"/>
+              </content>
+            </TileContent>
+          </tileContent>
+        </GenericTile>
+        -->
+
+
+
+    </VBox>
+  </Page>
+</core:FragmentDefinition>

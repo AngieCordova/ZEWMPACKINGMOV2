@@ -1,0 +1,65 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.recibirHusEWM.controller.recibirHusEWM" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:l="sap.ui.layout">
+    <Page title="Recibir Hu's EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Table id="idHUTable" items="{detail>/results}" inset="false">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="HU's Pendientes por ubicar de P010" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <SearchField placeholder="Filtrar Guía" id="txtSearchHU" search="handleFilterHU" width="15rem"/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Guía"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Entrega"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Empresa Agricola"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Fecha creacion"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Módulo"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Variedad"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Bins"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Jabas"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Pallets"/>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Estatus"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem type="Navigation" press="onShowHUs">
+              <cells>
+                <Text text="{detail>Guia}"/>
+                <Text text="{detail>Vbeln}"/>
+                <Text text="{detail>NameOrg1}"/>
+                <Text text="{path: 'detail>Budat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy', strictParsing: true , UTC: true }}"/>
+                <Text text="{detail>ModuloDescr}"/>
+                <Text text="{detail>Variedad}"/>
+                <Text text="{detail>Bins}"/>
+                <Text text="{detail>Jabas}"/>
+                <Text text="{detail>Pallets}"/>
+                <Text text="{detail>StatusText}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+  <Dialog title="Acciones para el documento: {scopeDS>/IdPedido}" contentWidth="600px" type="Message" afterClose="onAfterCloseMasterDialog" afterOpen="onCreateMasterDialog">
+    <content>
+
+            <Button width="100%" icon="sap-icon://shipping-status" text="Despachar" type="Emphasized" press="onDespachar"/>
+            <Button width="100%" icon="sap-icon://media-reverse" text="Revertir" type="Emphasized" press="onRevertir"/>
+            <Button width="100%" icon="sap-icon://delete" text="Anular" type="Emphasized" press="onAnular"/>
+    </content>
+
+    <beginButton>
+      <Button icon="sap-icon://cancel" text="Cancelar" press="onCloseDialogReporteCamion"></Button>
+    </beginButton>
+  </Dialog>
+</core:FragmentDefinition>

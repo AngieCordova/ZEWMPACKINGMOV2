@@ -1,0 +1,308 @@
+<mvc:View 
+  controllerName="AvocadoProyecto.AvocadoProyecto.modules.strageoutpallet.controller.Details" 
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:l="sap.ui.layout"
+  xmlns:core="sap.ui.core">
+    <Page title="Detalles de Pedido" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressBack">
+      <content>
+                
+                <VBox class="sapUiSmallMargin" busy="{mBusy>/iniciar}">
+                    <f:Form editable="false">
+                        <f:title>
+                            <!-- <core:Title text="Address" /> -->
+                        </f:title>
+                        <f:layout>
+                            <f:ResponsiveGridLayout
+                                labelSpanXL="12"
+                                labelSpanL="12"
+                                labelSpanM="12"
+                                labelSpanS="12"
+                                adjustLabelSpan="false"
+                                emptySpanXL="0"
+                                emptySpanL="4"
+                                emptySpanM="0"
+                                emptySpanS="0"
+                                columnsXL="2"
+                                columnsL="2"
+                                columnsM="2"
+                                singleContainerFullSize="false" />
+                        </f:layout>
+                        <f:formContainers>
+                            <!-- ESCANEAR PALLET -->
+                            <f:FormContainer title="" id="form_container-escanear_pallet">                            
+                                <f:formElements>
+                                    <f:FormElement label="ESCANEAR PALLET">
+                                        <f:fields>
+                                            <Input 
+                                                id="input-escaner_pallet" 
+                                                liveChange="onChangeInputScanPallet"
+                                                submit="onEnviarPalletEscaneado">
+                                                <layoutData>
+                                                    <l:GridData span="XL10 L10 M10 S10" />
+                                                </layoutData>
+                                            </Input>
+                                            <Button
+                                                id="btn-escanear_pallet"
+                                                type="Emphasized" 
+                                                icon="sap-icon://search" 
+                                                width="18%" 
+                                                press="onEnviarPalletEscaneado">
+                                                <layoutData>
+                                                    <l:GridData span="XL2 L2 M2 S2" />
+                                                </layoutData>
+                                            </Button>
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+
+                            <!-- ESCANEAR UBICACION -->
+                            <f:FormContainer title="" id="form_container-escanear_ubicacion">
+                                <f:formElements>
+                                    <f:FormElement label="ESCANEAR UBICACIÓN">
+                                        <f:fields>
+                                            <Input 
+                                                submit="onEnviarUbicacionEscaneada"
+                                                liveChange="onChangeInputScanPallet"
+                                                id="input-escaner_ubicacion" 
+                                                enabled="false">
+                                                <layoutData>
+                                                    <l:GridData span="XL10 L10 M10 S10" />
+                                                </layoutData>
+                                            </Input>
+                                            <Button
+                                                id="btn-escaner_ubicacion" 
+                                                press="onEnviarUbicacionEscaneada"
+                                                enabled="false" 
+                                                type="Emphasized" 
+                                                icon="sap-icon://search" 
+                                                width="18%">
+                                                <layoutData>
+                                                    <l:GridData span="XL2 L2 M2 S2" />
+                                                </layoutData>
+                                            </Button>
+                                        </f:fields>
+                                    </f:FormElement>
+                                </f:formElements>
+                            </f:FormContainer>
+ 
+                            <f:FormContainer title="">
+                                <f:formElements>
+
+                                    <f:FormElement label="ORDEN /VIAJE">
+                                        <f:fields>
+                                            <Input id="input-orden_viaje_strageout" editable="false" value="1000">
+                                                <layoutData>
+                                                    <l:GridData span="XL9 L9 M9 S9" />
+                                                </layoutData>
+                                            </Input>
+                                            
+                                            <Button
+                                                id="btn-recargar_lista"
+                                                press="onRecargarLista"
+                                                type="Emphasized" 
+                                                icon="sap-icon://synchronize" 
+                                                width="18%">
+                                                <layoutData>
+                                                    <l:GridData span="XL3 L3 M3 S3" />
+                                                </layoutData>
+                                            </Button>
+                                        </f:fields>
+                                    </f:FormElement>
+                                    
+                                </f:formElements>
+                            </f:FormContainer>
+                            
+                            <f:FormContainer title="">          
+                                <f:formElements>     
+                                    
+                                    <!-- PENDIENTES -->
+                                    <f:FormElement label="PENDIENTES">
+                                        <f:fields>
+                                            <Input id="input-pendientes_rojos" editable="false" value="1000"/>
+                                        </f:fields>
+                                    </f:FormElement>
+
+                                    <!-- BOTON RECARGAR LISTA -->
+                                    <!-- <f:FormElement label="">
+                                        <f:fields>
+                                            <Button
+                                                id="btn-recargar_lista"
+                                                press="onRecargarLista"
+                                                type="Emphasized" 
+                                                icon="sap-icon://synchronize" 
+                                                width="18%">
+                                            </Button>
+                                        </f:fields>
+                                    </f:FormElement> -->
+
+                                    <!-- BOTON DESBLOQUEAR TODO -->
+                                    <!-- <f:FormElement label="Desbloquear">
+                                        <f:fields>
+                                            <Button
+                                                press="onDesbloquearPedidos"
+                                                type="Emphasized" 
+                                                icon="sap-icon://unlocked" 
+                                                width="18%">
+                                            </Button>
+                                        </f:fields>
+                                    </f:FormElement> -->
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+                    </f:Form>
+                </VBox>
+ <!-- inicio TKT 8000018866 -->
+       <Table id="table-envases"
+              items="{LISTPALLETSXENVASES>/}">
+                    <infoToolbar>
+                        <OverflowToolbar>
+                            <Label text="Contador de Pallets por Presentación/Envase"/>
+                        </OverflowToolbar>
+                    </infoToolbar>
+              <columns>
+                      <Column
+                             width="12em"
+                             hAlign="Center"
+                             vAlign="Middle">
+                              <Text text="ENVASE" />
+                       </Column>
+                              
+                       <Column
+                            width="12em"
+                            hAlign="Center"
+                             vAlign="Middle">
+                             <Text text="PALLETS" />
+                        </Column>
+                </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{LISTPALLETSXENVASES>TipoEnvase}"/>
+                                <Text text="{LISTPALLETSXENVASES>Contador}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+        </Table>
+  <!-- fin TKT 8000018866 -->
+        <Table id="table-detalles_pedido"
+                    items="{path:'ZEWM_0003>/UnidadesDeManipulacionSet',
+                    sorter:[{
+                        path:'MateriaSeca',
+                        descending:'true'
+                    }]}"
+                     busy="{mBusy>/iniciar}">
+                    <!-- growing="true"
+                    growingThreshold="5" -->
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <content>
+                                <Title text="Pedido Nº" level="H2"/>
+                                <ToolbarSpacer />
+                            </content>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <infoToolbar>
+                        <OverflowToolbar>
+                            <Label text="Lista de unidades de manipulación"/>
+                        </OverflowToolbar>
+                    </infoToolbar>
+                    <columns>
+                        <Column
+                            width="12em"
+                            hAlign="Center"
+                            vAlign="Middle">
+                            <Text text="ID PEDIDO" />
+                        </Column>
+                        <Column
+                            minScreenWidth="Tablet"
+                            demandPopin="true"
+                            hAlign="Center"
+                            vAlign="Middle">
+                            <Text text="UBICACIÓN DE PALLET" />
+                        </Column>
+                        <Column
+                            minScreenWidth="Desktop"
+                            demandPopin="true"
+                            hAlign="Center"
+                            vAlign="Middle">
+                            <Text text="NÚMERO DE PALLET" />
+                        </Column>
+
+
+
+                        <!-- Inicio TKT 8000018866  -->
+                        <Column
+                            minScreenWidth="Desktop"
+                            demandPopin="true"
+                            hAlign="Center"
+                            vAlign="Middle">
+                            <Text text="DESCRIPCIÓN" />
+                        </Column> 
+                        <!-- Fin TKT 8000018866  -->
+
+                        <!-- Inicio Modificación "Campo Extra"-->
+                        <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" vAlign="Middle">
+                            <Text text="% MAT. SECA" />
+                        </Column>
+                        <!-- Fin Modificación "Campo Extra"-->
+
+                        <Column
+                            minScreenWidth="Desktop"
+                            demandPopin="true"
+                            hAlign="Center"
+                            vAlign="Middle">
+                            <Text text="ZONA DESPACHO" />
+                        </Column>
+                            
+                        <Column
+                            width="5rem"
+                            minScreenWidth="Desktop"
+                            demandPopin="true"
+                            hAlign="Center"
+                            vAlign="Middle">
+                            <Text text="" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{ZEWM_0003>IdPedido}"/>
+                                <Text text="{ZEWM_0003>Ubicacion}" />
+                                <!-- <Text text="{ZEWM_0003>UnidadManipulacion}" /> -->
+                                
+                                <Text text="{ 
+                                    parts: [
+                                        {path: 'ZEWM_0003>UnidadManipulacion'},
+                                        {path: 'ZEWM_0003>UnidadManipulacionID2'}
+                                    ],
+                        formatter: '.formatter.concatenateStrings' }" 
+                                />
+                                <!--TKT 8000018866  -->
+                                <Text text="{ZEWM_0003>TipoEnvase} - {ZEWM_0003>Mix}"  />
+
+                                <!-- Inicio Modificación "Campo Extra"-->
+                                <Text text="{ZEWM_0003>MateriaSeca}" />
+                                <!-- Fin Modificación "Campo Extra"-->
+
+                                <!-- <Text text="{ZEWM_0003>UnidadManipulacionID2}" /> -->
+                                <Text text="{ZEWM_0003>ZonaDeDespacho}" />
+
+
+
+                                <Button
+                                    visible="{= ${ZEWM_0003>Color} === 'A'}"
+                                    press="onDesbloquearPedido"
+                                    type="Emphasized" 
+                                    icon="sap-icon://unlocked" 
+                                    width="18%"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+      </content>
+    </Page>
+</mvc:View>

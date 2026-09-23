@@ -1,0 +1,44 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog title="Buscar Producto" busy="{mBusy>/iniciar}" contentHeight="350px" contentWidth="600px" type="Message" afterClose="onCerrarFragmento('BuscarProducto')">
+		<content>
+			<RadioButtonGroup id="radio_btn-select_tipo_producto" select="onCambioTipoProducoAyudaBusqueda" columns="2" width="100%" class="sapUiMediumMarginBottom">
+                <RadioButton id="P" text="Propio" />
+                <RadioButton id="T" text="Tercero" />
+            </RadioButtonGroup>
+
+            <!-- <Table items="{ZEWM_0001>/ProductosSet}" inset="false"> -->
+            <Table items="{mListaProductos>/}" inset="false" id="table-matchcode_productos">
+                <headerToolbar>
+                    <Toolbar>
+                        <ToolbarSpacer/>
+                        <SearchField placeholder="Filtrar Productos" width="15rem" search="onFiltrarMatchcodeProductos"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                        <Text text="Producto"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                        <Text text="Descripción"/>
+                    </Column>                    
+                </columns>
+                <items>
+                <ColumnListItem press="onSeleccionarProducto" type="Navigation">
+                    <cells>
+                        <Text text="{mListaProductos>Producto}"/>
+                        <Text text="{mListaProductos>Descripcion}"/>
+                    </cells>
+                </ColumnListItem>
+                </items>
+            </Table>       
+
+		</content>
+		<beginButton>
+			<Button type="Ghost" icon="sap-icon://cancel" text="CANCELAR" press="onCerrarFragmento('BuscarProducto')"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

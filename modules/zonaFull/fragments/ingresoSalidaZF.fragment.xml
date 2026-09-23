@@ -1,0 +1,96 @@
+
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:tnt="sap.tnt" 
+                         xmlns:l="sap.ui.layout"
+                         xmlns:tab="sap.ui.table">
+
+    <Dialog title="APP Zona Full" 
+            contentWidth="70%" 
+            type="Message" 
+            afterClose="onAfterCloseDialog('ingresoSalidaZF')"
+             >
+        <content>
+         <Table 
+                id="idContenedores"                
+                items="{RepIngresoSalidaZF>/results}" 
+                inset="false" 
+                sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" >
+            <headerToolbar>
+              <Toolbar>
+                <Title text="Ingresar o Reubicar Contenedor" titleStyle="H3"/>
+                <ToolbarSpacer/>
+                <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTabla"/>
+                <Button icon="sap-icon://refresh" type="Transparent" press="onLoadContenedores('1')"/>
+              </Toolbar>
+            </headerToolbar>
+            <columns>
+             <!-- COLUMNA CHECKBOX -->
+              <Column hAlign="Center" vAlign="Middle" width="6rem">
+                <Text text="Item"/>
+              </Column>   
+              <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                <Text text="Booking"/>
+              </Column>
+              <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                <Text text="Contenedor"/>
+              </Column>
+              <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                <Text text="Orden"/>
+              </Column>
+              <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                <Text text="Viaje"/>
+              </Column>
+              <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                <Text text="Destino"/>                 
+              </Column>                  
+            </columns>
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <CheckBox select="onCheckInRow" 
+                  selected="{RepIngresoSalidaZF>check}"
+                            text="{RepIngresoSalidaZF>ITEM}" />                   
+                  <Text text="{RepIngresoSalidaZF>ZZ_CODRSERVA}"/>
+                  <Text text="{RepIngresoSalidaZF>ZZ_CONTENEDOR}"/>                  
+                  <Text text="{
+                              path: 'RepIngresoSalidaZF>ZZ_NUMORDEN',
+                              formatter: '.formatter.sinCerosIzq'
+                            }"/>                            
+                  <Text text="{
+                              path: 'RepIngresoSalidaZF>ZZ_VIAJE',
+                              formatter: '.formatter.sinCerosIzq'
+                            }"/>
+
+                  <Input enabled="{RepIngresoSalidaZF>check}"
+                        type="Text"
+                        value="{RepIngresoSalidaZF>UBICACION_BKP}"
+                        placeholder="Destino"                      
+                        showValueHelp="true"
+                        valueHelpOnly="true"
+                        valueHelpRequest=".onValueHelpRequested"                        
+                        class="sapUiSmallMarginBottom"
+                        >
+                        <suggestionItems>
+                          <core:Item text="{Name}" />
+                        </suggestionItems>
+                  </Input>                      
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </content>      
+        
+        <beginButton>          
+			    <Button icon="sap-icon://save" text="Guardar" enabled="{scopeZF>/activeGuardar}" press="onSaveSalidaZF()"></Button>      
+		    </beginButton>
+
+        <endButton>          
+			    <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('ingresoSalidaZF')"></Button>      
+		    </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

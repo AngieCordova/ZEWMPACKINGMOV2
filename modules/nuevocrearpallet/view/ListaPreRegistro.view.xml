@@ -1,0 +1,53 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.nuevocrearpallet.controller.ListaPreRegistro" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+    <Page title="Pre registrar PALET" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion" busy="{mBusy>/iniciarPost}">
+        <content>
+            <Table id="idPaletTableNuevo" items="{mListaAgrupada>/}" inset="false" itemPress="onAbrirModalPreRegistro" busy="{mBusy>/iniciar}">
+                <headerToolbar>
+                    <Toolbar>
+                        <!-- <Title text="Crear pallets de producto terminado" titleStyle="H3"/> -->
+                        <Button type="Emphasized" text="Tratar Paleta" icon="sap-icon://database" press="onIrTratarPallet"/>
+                        <ToolbarSpacer/>
+                        <Button type="Emphasized" text="Tratamiento Frío" icon="sap-icon://database" press="onAbrirTratamientoFrio"/> 
+                        <ToolbarSpacer/>
+                        <Button type="Emphasized" text="Re-Habilitar" icon="sap-icon://response" press="onAbrirModalRehabilitar"/>
+                        <ToolbarSpacer/>
+                        <Button type="Emphasized" text="Quitar" icon="sap-icon://delete" press="onEliminarProductosSeleccionados"/>
+                        <SearchField placeholder="Filtrar Paletas" width="15rem" search="onFiltrarDatosTabla"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                        <Text text="Seleccionar"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                        <Text text="Fecha de cosecha"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                        <Text text="Empresa Agrícola"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                        <Text text="Módulo"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" vAlign="Middle">
+                        <Text text="Estatus"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press="onPreRegistrarPallet">
+                        <cells>
+                        
+                        <CheckBox select="onSeleccionarProductoQuitar"/>
+                        <Text text="{mListaAgrupada>FCH_COSECHA}"/>
+                        <Text text="{mListaAgrupada>PARTNER_NAME}"/>
+                        <Text text="{mListaAgrupada>MODULO} - {mListaAgrupada>MODULO_DESCR}"/>
+                        <Label text="{mListaAgrupada>STATUS_DESCR}" design="Bold"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,134 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Pallets en Inventario EWM" contentWidth="100%" type="Message" afterClose="onAfterCloseMasterDialog" afterOpen="onCreateMasterDialog">
+
+      <content>
+        <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Número de Pallet" labelFor="txtInpFilter" design="Bold"/>
+              <Input id="txtInpFilter" value="{scope>/filtrado/NRO_PALLET}" submit="handleFilter"/>
+              <Label text="Código de Cliente" labelFor="txtInpFilter1" design="Bold"/>
+              <Input id="txtInpFilter1" value="{scope>/filtrado/COD_CLIENTE}" submit="handleFilter"/>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="handleFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Código de Producto" labelFor="txtInpFilter2" design="Bold"/>
+              <Input id="txtInpFilter2" value="{scope>/filtrado/PRODUCTO}" submit="handleFilter"/>
+              <Label text="Tipo de Almacén" labelFor="txtInpFilter3" design="Bold"/>
+              <Input id="txtInpFilter3" value="{scope>/filtrado/LGTYP}" submit="handleFilter"/>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Número de Pedido" labelFor="txtInpFilter4" design="Bold"/>
+              <Input id="txtInpFilter4" value="{scope>/filtrado/NRO_PEDIDO_SAP}" submit="handleFilter"/>
+              <Label text="Ubicación" labelFor="txtInpFilter5" design="Bold"/>
+              <Input id="txtInpFilter5" value="{scope>/filtrado/UBICACION}" submit="handleFilter"/>
+              <Button icon="sap-icon://print" text="Imprimir" type="Emphasized" press="onPrintReport" visible="false"/>
+              <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>
+          </VBox>
+        </HBox>
+
+        <Table id="idReportTable" items="{detail>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="PALETS EN INVENTARIO EWM ({scope>/totalRows})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Número de Pallet"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('NRO_PALLET')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Código de Producto"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('PRODUCTO')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Fecha de Empaque"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('FECHA_EMPAQUE')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Cantidad cajas Pallet"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('CANT_CAJAS')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Tipo de Almacén"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('LGTYP')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Ubicación"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('UBICACION')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Número de HU"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('NRO_HU')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Pedido SAP"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('NRO_PEDIDO_SAP')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Código Cliente"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('COD_CLIENTE')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Estado"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('ESTADO')"/>
+              </HBox>              
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{detail>NRO_PALLET}"/>
+                <Text text="{detail>PRODUCTO} - {detail>DESC_PROD}"/>
+                <Text text="{parts: [ {path: 'detail>FECHA_EMPAQUE'} ], formatter: '.formatter.formatDate'}"/>
+                <Text text="{detail>CANT_CAJAS}"/>
+                <Text text="{detail>LGTYP}"/>
+                <Text text="{detail>UBICACION}"/>
+                <Text text="{detail>NRO_HU}"/>
+                <Text text="{detail>NRO_PEDIDO_SAP} - {detail>POS_PEDIDO_SAP}"/>
+                <Text text="{detail>COD_CLIENTE} - {detail>NOMBRE_CLIENTE}"/>
+                <Text text="{detail>ESTADO}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseMasterDialog"></Button>
+		</beginButton>
+      
+	</Dialog>
+</core:FragmentDefinition>

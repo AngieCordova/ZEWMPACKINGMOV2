@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout">
+	<Dialog title="Filtrar" contentWidth="450px" type="Message" afterClose="onAfterCloseDialogReporte">
+			<Panel expandable="true" headerText="Filtro por un valor" width="100%">
+				<content>
+					<HBox alignItems="Stretch" class="sapUiSmallMargin nestedFlexboxes">
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="6" styleClass="sapUiTinyMargin" />
+							</layoutData>
+							<Label text="Fecha" labelFor="inpDialogFilterFechaOne" design="Bold" />
+                            <DatePicker
+                            id="inpDialogFilterFechaOne"
+                            displayFormat="dd/MM/yyyy"
+							valueFormat="dd/MM/yyyy"
+							dateValue="{scope>/tmp/inpDialogFilterFechaOne}"
+                            >                   
+                            </DatePicker>
+                            <Button icon="sap-icon://filter" text="Agregar" width="100%" type="Emphasized" press="handleFechaDialogFilter" />
+						</VBox>
+					</HBox>
+				</content>
+			</Panel>
+			<Panel expandable="true" headerText="Filtro por rango" width="100%">
+				<content>
+					<HBox alignItems="Stretch" class="sapUiSmallMargin nestedFlexboxes">
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="6" styleClass="sapUiTinyMargin" />
+							</layoutData>
+							<Label text="Desde" labelFor="inpDialogFilterFechaDesde" design="Bold" />
+                            <DatePicker
+                            id="inpDialogFilterFechaDesde"
+                            displayFormat="dd/MM/yyyy"
+							valueFormat="dd/MM/yyyy"
+							dateValue="{scope>/tmp/inpDialogFilterFechaDesde}"
+                            >                   
+                            </DatePicker>
+                            <Button icon="sap-icon://filter" text="Agregar" width="100%" type="Emphasized" press="handleFechaRangoDialogFilter" />
+						</VBox>
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="6" styleClass="sapUiTinyMargin" />
+							</layoutData>
+							<Label text="Hasta" labelFor="inpDialogFilterFechaHasta" design="Bold" />
+                            <DatePicker
+                            id="inpDialogFilterFechaHasta"
+                            displayFormat="dd/MM/yyyy"
+							valueFormat="dd/MM/yyyy"
+							dateValue="{scope>/tmp/inpDialogFilterFechaHasta}"
+                            >                   
+                            </DatePicker>
+						</VBox>
+					</HBox>
+				</content>
+			</Panel>
+
+		<beginButton>
+			<Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialogReporte"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

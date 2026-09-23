@@ -1,0 +1,147 @@
+<mvc:View
+  controllerName="AvocadoProyecto.AvocadoProyecto.modules.Despachofruta.controller.Detalledespachofruta"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core"
+    height="100%">
+    <Page title="DESPACHO FRUTA INDUSTRIAL" showNavButton="true" class="sapUiStdPage" navButtonPress="onVolverListado">
+
+
+        <content>
+            <f:SimpleForm
+                class="QuitarMargenSuperior"
+                editable="false"
+                layout="ResponsiveGridLayout"
+                title=""
+                labelSpanXL="12"
+                labelSpanL="12"
+                labelSpanM="12"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="0"
+                emptySpanL="0"
+                emptySpanM="0"
+                emptySpanS="0"
+                columnsXL="3"
+                columnsL="3"
+                columnsM="3"
+                singleContainerFullSize="false" >
+                <f:content>
+                    <!-- PRIMERA COLUMNA -->
+                    <core:Title text="" />
+                        <Label text="Tunel" />
+                            <Input editable="{mCampos>/EnabledTunel}" value="{mCabecera>/Tunel}" />
+
+                        <Label text="Proceso." />
+                          <!-- REQ012  Ajustes Semaforización -->
+                          <!-- <Input editable="{mCampos>/EnabledProceso}" value="{mCabecera>/Proceso}" /> -->
+                          <Input editable="{mCampos>/EnabledProceso}" value="{=Number(${mCabecera>/Proceso})}" />
+                    <!-- SEGUNDA COLUMNA -->
+                    <core:Title text="" />
+                        <Label text="Bachada" />
+                          <!-- REQ012  Ajustes Semaforización -->
+                          <!-- <Input editable="{mCampos>/EnabledBachada}" value="{mCabecera>/Bachada}" /> -->
+                           <Input editable="{mCampos>/EnabledBachada}" value="{=Number(${mCabecera>/Bachada})}" />
+
+                        <Label text="Tº Ambiente" />
+                                        <!-- groupingSeparator: ',', -->
+                            <Input
+                                editable="{mCampos>/EnabledTempAmbiente}"
+                                type="Number"
+                                liveChange="onComprobarTemp"
+                                value="{mCabecera>/TempAmb}"/>
+
+                    <!-- TERCERA COLUMNA -->
+                    <core:Title text="" />
+                        <Label text="Tº Set Point" />
+                            <Input
+                                editable="{mCampos>/EnabledTempSetPoint}"
+                                type="Number"
+                                value="{mCabecera>/TempSetPoint}"
+                                liveChange="onComprobarTemp"/>
+
+                        <Label text="Fecha" />
+                           <DatePicker
+                                id="date-fecha_produccion1"
+                                change="onCalcularDuracion"
+                                displayFormat ="dd.MM.yyyy"
+                                valueFormat="yyyy-MM-dd"
+                                editable="{mCampos>/EnabledFecha}"
+                                value="{mCabecera>/FechaProduccion}"/>
+                </f:content>
+            </f:SimpleForm>
+
+            <Table
+                id="table-lista_detalle_proceso_enfriamiento1"
+                inset="false"
+                items="{mCabecera>/TunelToDetalle}"
+                busy="true">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="DETALLE" level="H2"/>
+                            <ToolbarSpacer />
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <!-- COLUMNA PALLET -->
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="PALLET" />
+                    </Column>
+
+                    <!-- COLUMNA ENVASE -->
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="ENVASE" />
+                    </Column>
+
+                    <!-- COLUMNA CAJAS -->
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="CAJAS" />
+                    </Column>
+
+                    <!-- COLUMNA SENSOR -->
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <Text text="SENSOR" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{mCabecera>PaletId}"/>
+                            <Text text="{mCabecera>Envase}" />
+                            <Text text="{= Number(${mCabecera>CantidadCajas}) }" />
+                            <CheckBox selected="{mCabecera>Sensor}" editable="{mCampos>/EnabledCheckboxSensor}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+
+
+        <footer >
+            <OverflowToolbar>
+                <ToolbarSpacer></ToolbarSpacer>
+                <Button text="Cancelar" icon="sap-icon://decline" class="sapUiLargeMarginEnd" press="onVolverListado"/>
+                <Button id="btn-guardar1" text="Guardar" icon="sap-icon://save" visible="{mCampos>/VisibleBotonGuardar}" press="onGuardar"/>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

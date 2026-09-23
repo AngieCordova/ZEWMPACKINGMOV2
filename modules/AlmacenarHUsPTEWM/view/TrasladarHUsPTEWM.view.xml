@@ -1,0 +1,142 @@
+<mvc:View controllerName="AvocadoProyecto.AvocadoProyecto.modules.AlmacenarHUsPTEWM.controller.TrasladarHUsPTEWM"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:mvc="sap.ui.core.mvc"
+          displayBlock="true"
+          xmlns="sap.m"
+          xmlns:t="sap.tnt"
+          xmlns:l="sap.ui.layout"
+          xmlns:tnt="sap.tnt">
+
+    <Page title="Trasladar HU'S PT EWM" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+        <content>
+
+            <Table id="idHUPorTrasladarTable" items="{listHus>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Por trasladar ({scope>/totalPorTrasladarHUs})" titleStyle="H3"/>
+                        <ToolbarSpacer/>
+                        <SearchField placeholder="Filtrar" id="txtSearchPorTrasladar" search="handleFilterPorTrasladar" width="15rem"/>
+                        <Button icon="sap-icon://refresh" type="Transparent" press="onLoadPorTrasladar"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Pallet"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Envase"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Viaje / Orden"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Exportador"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Tipo Pallet"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="5em">
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle" visible="{listHus>visible}">
+                        <cells>
+                            <!--SCH-Inicio-Proyecto Guatemala -->
+                            <!-- <Text text="{listHus>HuidentH}"/> -->
+                            <Text text="{parts: [ {path: 'listHus>HuidentH'} ], formatter: '.formatter.concatenateZero'}"/>
+                            <!--SCH-Fin-Proyecto Guatemala -->
+
+                            <Text text="{listHus>Envase}"/>
+                            <Text text="{listHus>ZzViaje} / {listHus>ZzNumorden}"/>
+                            <Text text="{listHus>Exportador}"/>
+                            <Text text="{listHus>TipoPal}"/>
+                            <Button icon="sap-icon://add-activity-2" text="" width="100%" type="Emphasized" press=".onSelectTrasladarHU(${listHus>HuidentH},${listHus>HuidentP})" enabled="{scope>/btnEscanearHU}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+            <HBox class="sapUiSmallMargin">
+                <VBox>
+                    <layoutData>
+                        <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                    </layoutData>
+
+                    <Label text="Escanear HU" labelFor="inpScanHU" design="Bold"/>
+                    <Input id="inpScanHU" value="" submit="onScanHU" enabled="{scope>/btnEscanearHU}"/>
+                    <Button icon="sap-icon://initiative" text="Escanear" width="100%" type="Emphasized" press="onScanHU" enabled="{scope>/btnEscanearHU}"/>
+                </VBox>
+
+                <VBox>
+                    <layoutData>
+                        <FlexItemData growFactor="6" styleClass="sapUiTinyMargin"/>
+                    </layoutData>
+
+                    <Label text="Ubicación destino" labelFor="inpDestinoHU" design="Bold"/>
+
+                    <!--INI TKT 8000022166 - Restricción aceptación de saldos-->
+                    <!-- <Input id="inpDestinoHU" submit="onEvaluaTrasladoHU" value="{scope>/LgplaNueva}" enabled="{scope>/btnTrasladarHU}"/> -->
+                    <!-- <Button icon="sap-icon://activity-2" text="Trasladar" width="100%" type="Emphasized" press="onEvaluaTrasladoHU" enabled="{scope>/btnTrasladarHU}"/> -->
+                    <!--FIN TKT 8000022166 - Restricción aceptación de saldos-->
+
+                    <Input id="inpDestinoHU" submit="onTrasladarHU" value="{scope>/LgplaNueva}" enabled="{scope>/btnTrasladarHU}"/>
+                    <Button icon="sap-icon://activity-2" text="Trasladar" width="100%" type="Emphasized" press="onTrasladarHU" enabled="{scope>/btnTrasladarHU}"/>
+                </VBox>
+            </HBox>
+
+            <Table id="idHUTrasladadoTable" items="{HUTrasladado>/}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Pallets con ubicación EWM ({scope>/totalTrasladadoHUs})" titleStyle="H3"/>
+                        <ToolbarSpacer/>
+                        <SearchField placeholder="Filtrar" id="txtSearchTrasladado" search="handleFilterTrasladado" width="15rem"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Pallet"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Viaje / Orden"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="Ubicación"/>
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    </Column>
+
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <!--SCH-Fin-Proyecto Guatemala -->
+                            <!--<Text text="{HUTrasladado>HuidentH}"/>  -->
+                            <Text text="{parts: [ {path: 'HUTrasladado>HuidentH'} ], formatter: '.formatter.concatenateZero'}"/>
+                            <!--SCH-Fin-Proyecto Guatemala -->
+
+                            <Text text="{HUTrasladado>ZzViaje} / {HUTrasladado>ZzNumorden}"/>
+                            <Text text="{HUTrasladado>LgplaNueva}"/>
+                            <Text text="{HUTrasladado>msgResponse}"/>
+                            <tnt:InfoLabel text="{HUTrasladado>msgStatus}" colorScheme="{HUTrasladado>colorScheme}" displayOnly="true"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+    </Page>
+</mvc:View>

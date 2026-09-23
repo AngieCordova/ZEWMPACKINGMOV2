@@ -1,0 +1,79 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.asignarpuerta.controller.AsignarPuertaIndex" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.tnt">
+		<Page title="ASIGNAR PUERTA a TRANSPORTE EWM." showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+			<content>
+				<FlexBox
+					direction="Column"
+					height="100%"
+					renderType="Bare"
+					justifyContent="Inherit"
+					alignItems="Center">
+					<items>
+						<Table id="table-lista_transportes_asignar_puerta" items="{ZEWM_0006>/TranportesSet}">
+						<!-- <Table> -->
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="" level="H2"/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column
+									hAlign="Center" vAlign="Middle"
+									width="12em">
+									<Text text="Número de Pedido" />
+								</Column>
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Número de Contenedor" />
+								</Column>
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Empresa de Transportes" />
+								</Column>
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Referencia" />
+								</Column>
+								<Column
+									hAlign="Center" vAlign="Middle"
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Estado" />
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="Navigation" press="onSelectItem">
+									<cells>
+										<Text
+											text="{ZEWM_0006>IdPedido}"/>
+										<Text
+											text="{ZEWM_0006>IdContenedor}"/>
+										<Text
+											text="{ZEWM_0006>IdEmpresa} - {ZEWM_0006>Empresa}"/>
+										<Text
+											text="{ZEWM_0006>NroOrden} - {ZEWM_0006>NroViaje}"/>
+										<Text
+											text="{ZEWM_0006>Estado}"/>
+									</cells>
+								</ColumnListItem>								
+							</items>
+						</Table>
+					</items>
+				</FlexBox>
+			</content>
+		</Page>
+</mvc:View>

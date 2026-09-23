@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		growingThreshold="10"
+		cancel="onCerrarFragmento('MCProducto')"
+		confirm="onSelectMCTratamientoFrio"
+		search="onFilterMCTratamientoFrio($event, ['MATNR','MAKTX'])"
+		noDataText="SIN DATOS"
+		title="Lista de Productos"
+		items="{scope>/MCTratamientoFrio/}" >
+		<StandardListItem
+			title="{scope>MATNR}-{scope>MAKTX}"
+			description=""
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

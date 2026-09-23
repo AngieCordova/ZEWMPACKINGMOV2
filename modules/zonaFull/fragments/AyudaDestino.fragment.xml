@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Seleccione Destino"
+		search="onFiltrarMatchcode($event, ['UBICACION'])"
+		confirm="onAgregarMCUbicacionZF"
+		cancel="onCloseDialog('ayudaDestinoZF')"
+		noDataText="Sin Datos"
+		items="{AyudaUbicacionZF>/}">
+		<StandardListItem
+			title="{AyudaUbicacionZF>UBICACION}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

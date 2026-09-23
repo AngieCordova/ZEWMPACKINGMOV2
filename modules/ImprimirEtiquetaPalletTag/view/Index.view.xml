@@ -1,0 +1,13 @@
+<mvc:View 
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.ImprimirEtiquetaPalletTag.controller.Index" 
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+	xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core"
+    height="100%">
+    <Page title="Imprimir Etiqueta Pallet TAG" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+        
+        
+    </Page>
+</mvc:View>

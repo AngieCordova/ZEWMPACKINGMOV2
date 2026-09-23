@@ -1,0 +1,118 @@
+<mvc:View
+  controllerName="AvocadoProyecto.AvocadoProyecto.modules.Despachofrutasalida.controller.Index"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:grid="sap.ui.layout.cssgrid"
+  xmlns:f="sap.f"
+  xmlns:core="sap.ui.core"
+  xmlns:t="sap.tnt"
+  xmlns:tab="sap.ui.table">
+    <Page xmlns="sap.m" title="DESPACHO DE FRUTA: SALIDAS" showNavButton="true" class="sapUiStdPage" navButtonPress="onPressInicion">
+      <content>
+        <Panel width="auto" class="sapUiResponsiveMargin">
+          <content>
+            <Table items="{myParam>/mListaPedDespacho}" id="table-pedidos_despachod">
+              <headerToolbar>
+                <Toolbar>
+
+                  <ToolbarSpacer/>
+                  <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTabla"/>
+                  <OverflowToolbarButton text="Filter" type="Transparent" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onFiltros"/>
+                  <OverflowToolbarButton text="refresh" type="Transparent" icon="sap-icon://refresh" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onRefresh"/>
+                </Toolbar>
+              </headerToolbar>
+              <columns>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Documento" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Tipo" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Phone"
+                  demandPopin="true">
+                  <Text text="Guía" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Tablet"
+                  demandPopin="true">
+                  <Text text="Transporte" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="Desktop"
+                  demandPopin="true">
+                  <Text text="Cliente" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Peso venta(kg)" />
+                </Column>
+                    <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Peso cargado(kg)" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Nro HUs" />
+                </Column>
+                <Column
+                  width="7em"
+                  hAlign="Center"
+                  vAlign="Middle"
+                  minScreenWidth="1480px"
+                  demandPopin="true">
+                  <Text text="Estado" />
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem type="Navigation" press="onCellClick">
+                  <cells>
+                    <Text text="{myParam>NRO_DOC}"/>
+                    <Text text="{myParam>TIP_DOC_DES}"/>
+                    <Text text="{myParam>XBLNR}"/>
+                    <Text text="{myParam>TRANSPORTISTA}"/>
+                    <Text text="{myParam>NAME1}"/>
+                    <Text text="{myParam>PESO_VENTA}"/>
+                    <Text text="{myParam>PESO_CARGA}"/>
+                    <Text text="{parts: [ {path: 'myParam>NRO_HUS'} ], formatter: '.formatter.trim'}"/>
+                    <Text text="{myParam>EST_DOC_DES}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+      </content>
+    </Page>
+</mvc:View>

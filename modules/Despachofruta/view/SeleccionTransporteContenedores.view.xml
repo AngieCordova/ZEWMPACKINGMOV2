@@ -1,0 +1,28 @@
+<mvc:View
+	controllerName="AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.controller.SeleccionTransporteContenedores"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.tnt">
+		<Page
+            title="SELECCIÓN de TRANSPORTES/CONTENEDORES"
+            showNavButton="true"
+            class="sapUiStdPage sapUiResponsivePadding--header"
+            navButtonPress="onPressInicion">
+			<content>
+                <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.fragments.CabeceraSeleccionTransporte" type="XML"/>
+                <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.fragments.TablaContenedoresAsignados" type="XML"/>
+                <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.fragments.TablaContenedores" type="XML"/>
+
+			</content>
+
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button id="btn-aceptar_asignacion_contenedo" type="Accept" text="GUARDAR" press="onGuardarContenedores" enabled="true"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+</mvc:View>

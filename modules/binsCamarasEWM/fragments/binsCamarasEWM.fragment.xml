@@ -1,0 +1,199 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 
+                         xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:tnt="sap.tnt" 
+                         xmlns:l="sap.ui.layout"
+                         xmlns:f="sap.f">
+  <Dialog title="BINS en Camaras EWM" contentWidth="100%" type="Message" afterClose="onAfterCloseMasterDialog" afterOpen="onCreateMasterDialog">
+
+      <content>
+        <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Empresa Agrícola" labelFor="txtInpFilter" design="Bold"/>
+              <Input id="txtInpFilter" value="{scope>/filtrado/EMP_AGRICOLA}" submit="handleFilter"/>
+              <Label text="Variedad" labelFor="txtInpFilter1" design="Bold"/>
+              <Input id="txtInpFilter1" value="{scope>/filtrado/VARIEDAD}" submit="handleFilter"/>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="handleFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Modulo" labelFor="txtInpFilter2" design="Bold"/>
+              <Input id="txtInpFilter2" value="{scope>/filtrado/MODULO}" submit="handleFilter"/>
+              <Label text="Código de BIN" labelFor="txtInpFilter3" design="Bold"/>
+              <Input id="txtInpFilter3" value="{scope>/filtrado/CODIGO_BIN}" submit="handleFilter"/>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Guía" labelFor="txtInpFilter4" design="Bold"/>
+              <Input id="txtInpFilter4" value="{scope>/filtrado/GUIA}" submit="handleFilter"/>
+              <Label text="Ubicación" labelFor="txtInpFilter5" design="Bold"/>
+              <Input id="txtInpFilter5" value="{scope>/filtrado/UBICACION}" submit="handleFilter"/>
+              <Button icon="sap-icon://print" text="Imprimir" type="Emphasized" press="onPrintReport" visible="false"/>
+              <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Fecha Recepción" labelFor="txtInpFilter6" design="Bold"/>               
+              <DatePicker
+                  value="{scope>/filtrado/FECHA_RECEPCION}" submit="handleFilter"
+                    valueFormat="YYYYMMdd"
+                    displayFormat="dd.MM.YYYY"
+                    change="handleChange">                   
+               </DatePicker>
+              <Label text="Almacén" labelFor="txtInpFilter7" design="Bold"/>
+              <Input id="txtInpFilter7" value="{scope>/filtrado/LGORT}" submit="handleFilter"/>             
+          </VBox>
+        </HBox>
+
+        <Table id="idReportTable" items="{detail>/results}" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="BINS EN CAMARA EWM ({scope>/totalRows})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Empresa Agrícola"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('EMP_AGRICOLA')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="F.Cosecha"/>
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('FECHA_COSECHA')"/-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="F.Recep."/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('FECHA_RECEPCION')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="H.Recep."/>
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('HORA_RECEPCION')"/-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+              <Text text="Mod"/>
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('MODULO')"/-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Guía"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('GUIA')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Variedad"/>
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('VARIEDAD')"/-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="BIN"/>
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('CODIGO_BIN')"/-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="HU SAP"/>
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('HU_SAP')"/-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Ubic."/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('UBICACION')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Peso"/>
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('PESO')"/-->
+              </HBox>              
+            </Column>            
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>                
+                <Text text="F/H Inicio Enf."/>                
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('HORA_INICIO_ENF')"/-->
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="F/H Final Enfr."/>
+                <!--<Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('HORA_FIN_ENF')"/-->
+              </HBox>              
+            </Column>              
+             <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="T.Reposo"/>  
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('TIEMPO_REPOSO')"/>             
+              </HBox>              
+            </Column> 
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Obs."/> 
+                <!--Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('INHALT')"/--> 
+              </HBox>              
+            </Column>
+           
+          </columns>
+          <items>
+            <ColumnListItem>
+              <customData>
+                <core:CustomData key="binsCamarasEWM" value="{parts: [ {path: 'detail>TIEMPO_REPOSO'} ], formatter: '.formatter.colorTReposo'}" writeToDom="true" />
+              </customData>
+
+              <cells>                
+                <Text text="{detail>EMP_AGRICOLA}"/>
+                <Text text="{parts: [ {path: 'detail>FECHA_COSECHA'} ], formatter: '.formatter.formatDate'}"/>
+                <Text text="{parts: [ {path: 'detail>FECHA_RECEPCION'} ], formatter: '.formatter.formatDate'}"/>
+                <Text text="{parts: [ {path: 'detail>HORA_RECEPCION'} ], formatter: '.formatter.formatHora'}"/>
+                <Text text="{detail>MODULO}"/>
+                <Text text="{detail>GUIA}"/>
+                <Text text="{detail>VARIEDAD}"/>
+                <Text text="{detail>CODIGO_BIN}"/>
+                <Text text="{detail>HU_SAP}"/>
+                <Text text="{detail>UBICACION}"/>
+                <Text text="{detail>PESO}"/>                 
+                <Text text="{parts: [ {path: 'detail>FECHA_INI_ENF'} ], formatter: '.formatter.formatDate'}
+                              - {parts: [ {path: 'detail>HORA_INICIO_ENF'} ], formatter: '.formatter.formatHora'}"/>
+                              
+                <Text text="{parts: [ {path: 'detail>FECHA_FIN_ENF'} ], formatter: '.formatter.formatDate'}
+                              - {parts: [ {path: 'detail>HORA_FIN_ENF'} ], formatter: '.formatter.formatHora'}"/>                         
+                              
+                <Text class="binsCamarasEWM-color" text="{detail>TIEMPO_REPOSO}"/>                    
+                <Text text="{detail>INHALT}"/>     
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+
+    <beginButton>
+      <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseMasterDialog"></Button>
+    </beginButton>
+      
+  </Dialog>
+</core:FragmentDefinition>

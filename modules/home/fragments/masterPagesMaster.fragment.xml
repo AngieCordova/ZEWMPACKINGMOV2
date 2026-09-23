@@ -1,0 +1,159 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.table" xmlns:t="sap.tnt">
+  <Page id="master2" icon="sap-icon://action" floatingFooter="true" class="sapUiStdPage" showNavButton="false" navButtonPress="NavPressMenu">
+    <!-- DG - Inicio -->
+    <customHeader>
+      <Bar>
+        <contentLeft >
+          <Link
+			text="{mModeloCentro>/Texto}"
+			emphasized="true"
+			press=".onAbrirAyudaBusquedaCentro" />
+        </contentLeft>
+      </Bar>
+    </customHeader>  
+    <!-- DG - Fin --> 
+    <t:NavigationList id="navigationList" selectedItem="1">
+      <t:NavigationListItem id="1" text="Inicio" icon="sap-icon://home" select="navPressInicion"/>
+
+      <t:NavigationListItem id="2" text="Confirmar camóns" icon="sap-icon://shipping-status" select="onPressIngCamion"/>
+
+      <t:NavigationListItem id="14" text="Recibir Hu's EWM" icon="sap-icon://database" select="onSplitRouter('recibirHusEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.recibirHusEWM.view.recibirHusEWM', '14')"/>
+
+      <t:NavigationListItem id="16" text="Trasladar Hu's EWM" icon="sap-icon://database" select="onSplitRouter('trasladarHusEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.trasladarHusEWM.view.trasladarHusEWM', '16')"/>      
+
+      <!-- Reubicar HUs RMP EWM-->
+      <t:NavigationListItem id="38" text="Reubicar HUs RMP EWM" icon="sap-icon://shipping-status" select="onSplitDialogRouter('reubicarHURMPEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.reubicarHURMPEWM.fragments.reubicarHURMPEWM', 'AvocadoProyecto.AvocadoProyecto.modules.reubicarHURMPEWM.controller.reubicarHURMPEWM', '38')"/>
+
+      <!-- A17 TRASLADAR HUs RMP EWM -->
+      <t:NavigationListItem id="39" text="Retirar HU de RMP" icon="sap-icon://manager-insight" select="onSplitRouter('TrasladarHURMPView', 'AvocadoProyecto.AvocadoProyecto.modules.trasladarHuRMP.view.Index', '39')"/>
+
+      <!-- A18 Mapa Camaras de MMPP EWM-->
+      <t:NavigationListItem id="29" text="Mapa Camaras de MMPP EWM" icon="sap-icon://bar-code" select="onSplitRouter('MapaCamarasMMPPEWM', 'AvocadoProyecto.AvocadoProyecto.modules.MapaCamarasMMPPEWM.view.Index', '29')" visible="true"/>
+
+      <!-- A17 BINS en Camaras EWM-->
+      <t:NavigationListItem id="35" text="BINS en Camaras EWM" icon="sap-icon://manager-insight" select="onSplitDialogRouter('binsCamarasEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.binsCamarasEWM.fragments.binsCamarasEWM', 'AvocadoProyecto.AvocadoProyecto.modules.binsCamarasEWM.controller.binsCamarasEWM', '35')"/>
+<t:NavigationListItem id="00" text="Despacho de frutas : Documentos" icon="sap-icon://sap-box" select="onSplitRouter('DespachofrutaIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.Despachofruta.view.Index', '00')"/>
+<t:NavigationListItem id="99" text="Despacho de frutas : Salidas" icon="sap-icon://shipping-status" select="onSplitRouter('DespachofrutasalidaIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.Despachofrutasalida.view.Index', '99')"/>
+
+      <t:NavigationListItem id="20" text="Stage Módulo EWM" icon="sap-icon://bar-code" select="onSplitRouter('stageModMMPPPrdDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.stageModMMPPPrd.view.stageModMMPPPrd', '20')"/>
+
+      <t:NavigationListItem id="6" text="HU's a Línea de Empaque" icon="sap-icon://machine" select="onPressBinsEmp"/>
+
+      <t:NavigationListItem id="24" text="Alta PT Industrial" icon="sap-icon://database" select="onSplitRouter('AltaPTindustrialView', 'AvocadoProyecto.AvocadoProyecto.modules.altaPtIndustrial.view.Index', '24')"/>
+
+      <t:NavigationListItem id="13" text="Nuevo Crear Palets de Producto Terminado" icon="sap-icon://shipping-status" select="onSplitRouter('nuevoCrearPalletTerminadoView',
+ 'AvocadoProyecto.AvocadoProyecto.modules.nuevocrearpallet.view.ListaPreRegistro', +
+'13')"/>
+
+      <t:NavigationListItem id="12" text="Status de Guía" icon="sap-icon://order-status" select="onPressStatusGuia"/>
+
+      <t:NavigationListItem id="21" text="Remontar pallets MM" icon="sap-icon://bar-code" select="onSplitRouter('RemontarPalletsIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.remontarPallet.view.Index', '21')"/>
+
+    <!-- DG - Inicio -->
+      <t:NavigationListItem id="50" text="Remontar pallets EWM" icon="sap-icon://bar-code" select="onSplitRouter('RemontarPalletsEWMIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.remontarPalletEWM.view.Index', '50')"/>
+    <!-- DG - Fin -->
+
+      <t:NavigationListItem id="28" text="Split Pallets EWM" icon="sap-icon://split" select="onSplitRouter('SplitPalletsEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.SplitPalletsEWM.view.SplitPalletsEWM', '28')"/>
+
+      <t:NavigationListItem id="32" text="Reproceso Pallet EWM" icon="sap-icon://goalseek" select="onSplitDialogRouter('reprocesoPalletFragment', 'AvocadoProyecto.AvocadoProyecto.modules.reprocesoPallet.fragments.reprocesoPallet', 'AvocadoProyecto.AvocadoProyecto.modules.reprocesoPallet.controller.reprocesoPallet', '32')" visible="true"/>
+
+      <t:NavigationListItem id="7" text="Crear Palets de Producto Terminado" icon="sap-icon://shipping-status" select="onPressPaletCrear"/>
+
+      <!-- A5.1 Almacenar HU'S PT EWM-->
+      <t:NavigationListItem id="25" text="Recibir Pallet de PT en EWM" icon="sap-icon://shipping-status" select="onSplitRouter('AlmacenarHUsPTEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.AlmacenarHUsPTEWM.view.AlmacenarHUsPTEWM', '25')"/>
+
+      <!-- A5.2 Trasladar HU'S PT EWM-->
+      <t:NavigationListItem id="27" text="Ubicar Pallet en EWM" icon="sap-icon://shelf" select="onSplitRouter('TrasladarHUsPTEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.AlmacenarHUsPTEWM.view.TrasladarHUsPTEWM', '27')"/>
+
+      <!-- A21 Reubicar Pallets PT EWM-->
+      <t:NavigationListItem id="26" text="Reubicar Pallets PT EWM" icon="sap-icon://shipping-status" select="onAbrirReubicarPalletEwm"/>
+
+      <!-- A17 Pallets en Inventario EWM-->
+      <t:NavigationListItem id="34" text="Pallets en Inventario EWM" icon="sap-icon://manager-insight" select="onSplitDialogRouter('palletsInventarioEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.palletsInventarioEWM.fragments.palletsInventarioEWM', 'AvocadoProyecto.AvocadoProyecto.modules.palletsInventarioEWM.controller.palletsInventarioEWM', '34')"/>
+
+      <!-- A18 Mapa Tuneles de Enfriamiento EWM-->
+      <t:NavigationListItem id="30" text="Mapa Tuneles de Enfriamiento EWM" icon="sap-icon://bar-code" select="onSplitRouter('MapaTunelesEnfriamientoMMPPEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.MapaTunelesEnfriamientoEWM.view.Index', '30')" visible="true"/>
+      <!-- A18 Mapa Almacenamiento de Producto Terminado EWM-->
+      <t:NavigationListItem id="36" text="Mapa Almacenamiento de Producto Terminado EWM" icon="sap-icon://bar-code" select="onSplitRouter('MapaAlmProdTermEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.MapaAlmProdTermEWM.view.Index', '36')" visible="true"/>
+
+      <!-- A7 Asignar Orden a Zona DESP. EWM-->
+      <t:NavigationListItem id="18" text="Asignar Orden a Zona de Despacho" icon="sap-icon://course-program" select="onSplitRouter('asignarOrdenZonaEWMDetailView', 'AvocadoProyecto.AvocadoProyecto.modules.asignarOrdenZonaEWM.view.asignarOrdenZonaEWM', '18')"/>
+
+      <!-- A9 Stage Out Pallet a Zona Desp.Ewm-->
+      <t:NavigationListItem id="15" text="Organizar Pallets en Zona de Despacho" icon="sap-icon://list" select="onSplitRouter('StageOutPalletIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.strageoutpallet.view.Index', '15')"/>
+
+      <!-- A10.1 Asignar Contenedor a Transporte EWM-->
+      <t:NavigationListItem id="17" text="Asignar Contenedores" icon="sap-icon://sap-box" select="onSplitRouter('AsignarContenedorIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.view.Index', '17')"/>
+
+      <!-- A10.2 Asignar Puerta a Transporte EWM-->
+      <t:NavigationListItem id="19" text="Asignar Puerta" icon="sap-icon://course-program" select="onSplitRouter('AsignarPuertaView', 'AvocadoProyecto.AvocadoProyecto.modules.asignarpuerta.view.AsignarPuertaIndex', '19')"/>
+
+      <!-- A11.1 Cargar Pallet en Contenedor EWM-->
+      <t:NavigationListItem id="22" text="Cargar Contenedor" icon="sap-icon://shipping-status" select="onSplitRouter('cargaPalletContEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.cargaPalletContEWM.view.cargaPalletContEWM', '22')"/>
+
+      <!-- A11.2 Salida de Camión de Despacho-->
+      <t:NavigationListItem id="23" text="Salida de Contenedor de Despacho" icon="sap-icon://shipping-status" select="onSplitRouter('salidaCamionDespEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.cargaPalletContEWM.view.salidaCamionDespEWM', '23')"/>
+
+      <!-- REPORTE FCLS-->
+      <t:NavigationListItem id="44" text="Reporte FCL's" icon="sap-icon://shipping-status" select="onSplitRouter('ReporteFCLsView', 'AvocadoProyecto.AvocadoProyecto.modules.ReporteFCLs.view.ReporteFCLs', '44')" visible="true"/>
+
+      <!-- A18 Mapa ZONA Contenedores EWM-->
+      <t:NavigationListItem id="31" text="Mapa ZONA Contenedores EWM" icon="sap-icon://bar-code" select="onSplitRouter('MapaContenedoresFullEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.MapaZonaFullContenedoresEWM.view.Index', '31')" visible="true"/>
+
+      <!-- A17 Inventario de Contenedores EWM-->
+      <t:NavigationListItem id="33" text="Inventario de Contenedores EWM" icon="sap-icon://manager-insight" select="onSplitDialogRouter('inventarioContenedoresEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.inventarioContenedoresEWM.fragments.inventarioContenedoresEWM', 'AvocadoProyecto.AvocadoProyecto.modules.inventarioContenedoresEWM.controller.inventarioContenedoresEWM', '33')"/>
+      
+      <!-- PROCESO INICIO-FIN ENFRIAMIENTO -->
+      <t:NavigationListItem id="40" text="Proceso Inicio-Fin Enfriamiento" icon="sap-icon://heating-cooling" select="onSplitRouter('ProcesoInicioFinEnfriamientoView', 'AvocadoProyecto.AvocadoProyecto.modules.ProcesoInicioFinEnfriamiento.view.Index', '40')"/>
+      
+      <!-- IMPRIMIR ETIQUETA PALLET TAG -->
+      <t:NavigationListItem id="42" text="Imprimir Etiqueta Pallet Tag" icon="sap-icon://print" select="onSplitRouter('ImprimirEtiquetaPalletTagView', 'AvocadoProyecto.AvocadoProyecto.modules.ImprimirEtiquetaPalletTag.view.Index', '42')"/>
+     
+      <!-- <t:NavigationListItem id="3" text="Recepcionar camión" icon="sap-icon://activity-2" select="onPressConfCamion"/> -->
+      
+      <!-- <t:NavigationListItem id="5" text="Almacenar HU's" icon="sap-icon://database" select="onPressAlmStage"/> -->
+      
+      <!-- <t:NavigationListItem id="4" text="Stage Módulo" icon="sap-icon://bar-code" select="onPressAlmBins"/> -->
+
+
+      <!-- <t:NavigationListItem id="9" text="Mover Palet" icon="sap-icon://journey-depart" select="onPressMover"/> -->
+      
+      <!-- <t:NavigationListItem id="10" text="Remontar Palet" icon="sap-icon://product" select="onPressRemontar"/> -->
+      
+      <!-- <t:NavigationListItem id="11" text="Reproceso Palet" icon="sap-icon://goalseek" select="onPressReproceso"/> -->
+
+      <!-- <t:NavigationListItem id="17" text="Asignar Contenedor A Puerta. EWM" icon="sap-icon://sap-box" select="onSplitRouter('AsignarContenedorIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.asignarcontenedor.view.Index', '17')"/> -->
+
+      <!-- BASC Validación datos contenedor -->
+      <t:NavigationListItem id="43" text="BASC Validación datos contenedor" icon="sap-icon://survey" select="onSplitRouter('BASCValContEWMView', 'AvocadoProyecto.AvocadoProyecto.modules.BASCValContEWM.view.BASCValContEWM', '43')"/>
+
+      <!-- Zona Full -->      
+      <t:NavigationListItem id="45" text="Zona Full" icon="sap-icon://shipping-status" select="onSplitDialogRouter('zonaFullFragment', 'AvocadoProyecto.AvocadoProyecto.modules.zonaFull.fragments.zonaFull', 'AvocadoProyecto.AvocadoProyecto.modules.zonaFull.controller.zonaFull', '45')" visible="true"/>
+
+      <!-- REQUERIMIENTO PENDIENTE -->
+      <!-- Remonte en Almacén EWM -->    
+       <!--  
+       <t:NavigationListItem id="46" text="Remonte en Almacén EWM" icon="sap-icon://bar-code" select="onSplitRouter('RemontarPalletsIndexView', 'AvocadoProyecto.AvocadoProyecto.modules.remontarPalletFrio.view.Index', '46')"/>
+       -->
+             
+       <!-- Verificacion Carga de PT -->        
+       <t:NavigationListItem id="47" text="Verificación de Carga de PT" icon="sap-icon://survey" select="onSplitRouter('VerificacionCargaPTView', 'AvocadoProyecto.AvocadoProyecto.modules.verificacionCargaPt.view.Index', '47')"/>
+      
+       
+    	 <!-- Tablero Programa de Empaque -->
+       <t:NavigationListItem id="48" text="Tablero de Programa de Empaque" icon="sap-icon://shipping-status" select="onSplitDialogRouter('tableroProgramaFragment','AvocadoProyecto.AvocadoProyecto.modules.tableroProgramaEmpaque.fragments.tableroPrograma', 'AvocadoProyecto.AvocadoProyecto.modules.tableroProgramaEmpaque.controller.tableroPrograma','48')"/>
+     
+       <!-- Cumplimiento de Armado de Cajas -->       
+       <t:NavigationListItem id="49" text="Cumplimiento de Armado de Cajas" icon="sap-icon://shipping-status" select="onSplitDialogRouter('tableroCumplimientoCajasFragment','AvocadoProyecto.AvocadoProyecto.modules.tableroCumplimientoArmadoCajas.fragments.tableroCumplimientoCajas', 'AvocadoProyecto.AvocadoProyecto.modules.tableroCumplimientoArmadoCajas.controller.tableroCumplimientoCajas','49')"/>
+       
+    </t:NavigationList>
+    <footer >
+      <OverflowToolbar>
+        <t:NavigationList id="navigationList2" width="100%">
+          <t:NavigationListItem id="8" text="Anterior" icon="sap-icon://forward" select="handleNavButtonPress"/>
+        </t:NavigationList>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</core:FragmentDefinition>

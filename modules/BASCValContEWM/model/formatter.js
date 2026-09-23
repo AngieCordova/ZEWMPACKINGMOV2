@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{date:function(sDate){var date=eval("new "+sDate.replace(/\//gi,""));return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()},showPuerta:function(e,t){return typeof e!=="boolean"&&e!=""?e:t},enabledCheckbox:function(e){return e=="T"?true:false},colorStatus:function(e){switch(e){case"T":return 7;case"E":return 2;default:return 3}},nombreStatus:function(e){switch(e){case"T":return"Terminado";case"E":return"Pendiente";case"O":return"Observado";default:return"Pendiente"}}}});
+//# sourceMappingURL=formatter.js.map

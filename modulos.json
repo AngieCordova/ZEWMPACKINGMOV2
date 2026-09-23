@@ -1,0 +1,36 @@
+{
+	"ModuloColeccion": [
+	{
+		"Modulo": "23",
+		"Bins": "6",
+		"Javas": "0",
+		"Pallets": "0",
+		"Action": true
+	},
+	{
+		"Modulo": "24",
+		"Bins": "25",
+		"Javas": "242",
+		"Pallets": "11",
+		"Action": true
+	}
+	],
+	"BinsColeccion": [
+	{
+		"Planta": "-",
+		"Ubicacion": "R2",
+		"Sub": "-",
+		"Fila": "-",
+		"Columna": "04",
+		"Posicion": "-"
+	},
+	{
+		"Planta": "-",
+		"Ubicacion": "R3",
+		"Sub": "-",
+		"Fila": "-",
+		"Columna": "12",
+		"Posicion": "-"
+	}
+	]
+}

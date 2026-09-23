@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{date:function(sDate){var date=eval("new "+sDate.replace(/\//gi,""));return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()},dateString:function(e){if(e==undefined||e==null||e==NaN||e=="")return"";return e.substr(6,2)+"/"+e.substr(4,2)+"/"+e.substr(0,4)},agregarClaseColorPedido:function(e){debugger}}});
+//# sourceMappingURL=formatter.js.map

@@ -1,0 +1,61 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:form="sap.ui.layout.form" 
+    xmlns:l="sap.ui.layout">
+	<Dialog id="dialog-remontar_pallet" title="REMONTAR PALET" contentHeight="100%" contentWidth="100%" type="Message" afterClose="onCerrarFragmento('ModalRemontarPalet')">
+		<content>
+            <!-- CABECERA DE PALETA -->
+			<Panel headerText="Detalles de Paleta" expandable="true" expanded="true" width="auto">
+                <content>
+                    <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.remontarPalletEWM.fragments.CabeceraListaPalletsRemontar" type="XML"/>                  
+                </content>
+            </Panel>
+
+            <!--  -->
+            <Panel headerText="Paletas Incompletas Disponibles ({mCantidades>/disponibles})" expandable="true" expanded="false" width="auto">
+                <content>
+                    <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.remontarPalletEWM.fragments.TablaPalletsRemontar" type="XML"/>
+                </content>
+            </Panel>
+            
+            <!-- -->
+            <Panel headerText="Combinar Pallet Detalles" expandable="true" expanded="false" width="auto">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Combinar Pallet Detalles ({mCantidades>/preparadas})"/>
+                        <ToolbarSpacer/>
+                       
+                        <!--INI TKT 8000024930  -->                        
+                                              
+                        <Label text="Imprimir Pallet SHEET" labelFor="checkBox-PalletSheet" />
+                        <CheckBox id="checkBox-PalletSheet" select="onChkImpresoraOrdViaje"  />
+                        
+                        <Input id="input-impresora_pallets_sheet" width="170px" editable="false"/>
+                        <Button press="onAbrirAyudaBusqImpresoraPSheet" 
+                                width="50px" 
+                                type="Emphasized" 
+                                icon="sap-icon://print" 
+                                enabled="{scope>/btnImprimirSheet}"/> 
+                                                       
+                        <!--FIN TKT 8000024930  -->
+                        
+                        <Input id="input-impresora_remontar_pallets" width="100px" editable="false"/>
+                        <Button press="onAbrirAyudaBusquedaGrupoImpresora" width="50px" type="Emphasized" icon="sap-icon://print"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <core:Fragment fragmentName="AvocadoProyecto.AvocadoProyecto.modules.remontarPalletEWM.fragments.TablaPalletsPreparados" type="XML"/>
+                </content>
+            </Panel>
+            
+		</content>
+
+		<beginButton>
+            <Button press="onGuardarPalletsRemontar" type="Ghost" icon="sap-icon://save" text="Guardar"></Button>
+		</beginButton>
+		<endButton>
+			<Button press="onCerrarFragmento('ModalRemontarPalet')" type="Emphasized" icon="sap-icon://decline" text="Cerrar" id="btn-cerrar_fragmento"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

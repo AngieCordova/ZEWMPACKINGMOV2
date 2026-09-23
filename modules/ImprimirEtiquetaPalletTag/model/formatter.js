@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{getEstadoHoraInicio:function(r,t){try{var n=!r&&!t;if(n){return"Pendiente"}else{try{var e=r.substring(0,2);var i=r.substring(2,4);var u=r.substring(4,6);return`${e}:${i}:${u}`}catch(r){return""}}}catch(r){return"ERROR"}},getPresionadoBotonInicio:function(r,t){try{var n=false;var e=r&&t;if(e)n=true;return n}catch(r){return false}}}});
+//# sourceMappingURL=formatter.js.map

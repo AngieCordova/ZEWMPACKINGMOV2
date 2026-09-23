@@ -1,0 +1,224 @@
+<core:FragmentDefinition 
+    xmlns="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+	xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core"
+    height="100%">
+	<m:Dialog 
+        title="Proceso Inicio y Fin de Enfriamiento"
+        contentHeight="100%" 
+        contentWidth="100%" 
+        type="Standard" 
+        afterClose="onCerrarModal">
+        
+        <m:customHeader>
+            <m:Bar>
+                <m:contentLeft>
+                    <m:Button id="btn-volver_atras" visible="false" type="Ghost" icon="sap-icon://nav-back" press="onVolverAtras"></m:Button>
+                </m:contentLeft>
+
+                <m:contentMiddle>
+                    <m:Text text="Proceso Inicio y Fin de Enfriamiento"/>
+                </m:contentMiddle>
+
+                <m:contentRight>
+                    <m:Button type="Ghost" icon="sap-icon://decline" press="onCerrarModal"></m:Button>
+                </m:contentRight>
+            </m:Bar>
+        </m:customHeader>
+		
+        <m:NavContainer
+            id="navCon"
+            width="98%"
+            class="navContainerControl sapUiSmallMarginBottom">
+            <m:Page id="p1" showHeader="false">
+                    <!-- rowSelectionChange="onCheckInRow" -->
+                <TreeTable
+                    id="table-lista_procesamiento_enfriamiento"
+                        rows="{mLista>/}"
+                        selectionMode="None"
+                        enableSelectAll="false"
+                        ariaLabelledBy="title">
+                    <!-- <extension>
+                        <m:OverflowToolbar style="Clear">
+                            <m:Title id="title" text="Clothing"/>
+                            <m:ToolbarSpacer/>
+                            <m:Button text="Collapse all" press="onCollapseAll"/>
+                            <m:Button text="Collapse selection" press="onCollapseSelection"/>
+                            <m:Button text="Expand first level" press="onExpandFirstLevel"/>
+                            <m:Button text="Expand selection" press="onExpandSelection"/>
+                        </m:OverflowToolbar>
+                    </extension> -->
+                    <columns>
+                        <!-- # -->
+                        <Column hAlign="Center" width="6rem">
+                            <m:Label text=""/>
+                            <template>
+                                <m:CheckBox select="onCheckInRow" />
+                            </template>
+                        </Column>
+                        
+                        <!-- # -->
+                        <Column hAlign="Center">
+                            <m:Label text="#"/>
+                            <template>
+                                <m:Text text="{mLista>modulo}" wrapping="false" />
+                            </template>
+                        </Column>
+
+                        <!-- PALLETS -->
+                        <Column hAlign="Center">
+                            <m:Label text="Pallets"/>
+                            <template>
+                                <m:Text text="{mLista>pallets}" />
+                            </template>
+                        </Column>
+
+                        <!-- INICIO -->
+                        <Column hAlign="Center">
+                            <m:Label text=""/>
+                            <template>
+                                <m:ToggleButton text="Inicio" pressed="false" enabled="false"/>
+                                <!-- <m:Button text="Inicio" type="Emphasized" press="onPress" enabled="false"/> -->
+                            </template>
+                        </Column>
+
+                        <!-- FIN -->
+                        <Column hAlign="Center">
+                            <m:Label text=""/>
+                            <template>
+                                <m:ToggleButton text="Fin" pressed="false" enabled="false"/>
+                                <!-- <m:Button text="Fin" type="Ghost" press="onPress" enabled="false"/> -->
+                            </template>
+                        </Column>
+
+                        <!-- HORA INICIO -->
+                        <Column hAlign="Center">
+                            <m:Label text="Hora inicio"/>
+                            <template>
+                                <m:Text text="{mLista>hora}" />
+                            </template>
+                        </Column>
+
+                        <!-- TIEMPO HR -->
+                        <Column hAlign="Center" width="8rem">
+                            <m:Label text="Tiempo (HR)"/>
+                            <template>
+                                <m:Input value="{mLista>tiempo}" editable="false"/>
+                            </template>
+                        </Column>
+                    </columns>
+                </TreeTable>
+            </m:Page>
+
+            <m:Page id="p2" showHeader="false" showNavButton="true" navButtonPress="onVolverAtras" backgroundDesign="Transparent">
+
+                <m:ObjectHeader
+                    responsive="true"
+                    fullScreenOptimized="true"
+                    intro="test intro"
+                    title="Test"
+                    titleActive="false"
+                    titlePress="handleTitlePress"
+                    showMarkers="false"
+                    markFlagged="false"
+                    markFavorite="false"
+                    numberState="Warning"
+                    number="1"
+                    numberUnit="Unidad"
+                    backgroundDesign="Transparent"
+                    class="sapUiResponsivePadding--header" >
+                    <m:ObjectAttribute
+                        title="Tunel"
+                        text="T01"/>
+                    <m:ObjectAttribute
+                        title="Proceso"
+                        text="15"
+                        active="true"/>
+                    <m:ObjectAttribute
+                        title="Bachada"
+                        text="2"/>
+                    <m:ObjectAttribute
+                        title="Tº Ambiente"
+                        text=" - "/>
+                    <m:ObjectAttribute
+                        title="Tº Set Point"
+                        text=" - "/>
+                    <m:statuses>
+                        <m:ObjectStatus
+                            title="Fecha"
+                            text="Pending"
+                            state="Warning"/>
+                    </m:statuses>
+                    <m:headerContainer>
+                    </m:headerContainer>
+                </m:ObjectHeader>
+
+                <m:content>
+
+                    <m:Table inset="false">
+                        <m:infoToolbar>
+                            <m:OverflowToolbar>
+                                <m:Label text="DETALLE"/>
+                            </m:OverflowToolbar>
+                        </m:infoToolbar>
+                        <m:columns>
+                            <!-- COLUMNA PALLET -->
+                            <m:Column
+                                hAlign="Center"
+                                vAlign="Middle">
+                                <m:Text text="PALLET" />
+                            </m:Column>
+
+                            <!-- COLUMNA ENVASE -->
+                            <m:Column
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                hAlign="Center"
+                                vAlign="Middle">
+                                <m:Text text="ENVASE" />
+                            </m:Column>
+
+                            <!-- COLUMNA CAJAS -->
+                            <m:Column
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                hAlign="Center"
+                                vAlign="Middle">
+                                <m:Text text="CAJAS" />
+                            </m:Column>
+
+                            <!-- COLUMNA SENSOR -->
+                            <m:Column
+                                minScreenWidth="Desktop"
+                                demandPopin="true"
+                                hAlign="Center"
+                                vAlign="Middle">
+                                <m:Text text="Weight" />
+                            </m:Column>
+                        </m:columns>
+                        <m:items>
+                            <m:ColumnListItem>
+                                <m:cells>
+                                    <m:Text text="7012335"/>
+                                    <m:Text text="CAJA MISSION 4kg" />
+                                    <m:Text text="264" />
+                                    <m:Text text="Sensor" />
+                                </m:cells>
+                            </m:ColumnListItem>
+                        </m:items>
+                    </m:Table>
+                </m:content>
+            </m:Page>
+        </m:NavContainer>
+
+		<m:beginButton>
+			<m:Button enabled="false" type="Ghost" icon="sap-icon://save" text="Guardar" press="onCerrarModal"></m:Button>
+		</m:beginButton>
+		<m:endButton>
+            <m:Button type="Ghost" icon="sap-icon://cancel" text="Cerrar" press="onCerrarModal"></m:Button>
+		</m:endButton>
+	</m:Dialog>
+</core:FragmentDefinition>

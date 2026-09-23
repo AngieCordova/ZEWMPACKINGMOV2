@@ -1,0 +1,60 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m">
+    <m:Panel>
+		<m:headerToolbar>
+			<m:OverflowToolbar>
+				<m:Title text="Contenedor Asignado"/>
+			</m:OverflowToolbar>
+		</m:headerToolbar>
+        <m:content>
+            <Table
+                id="table-contendedores_asignados"
+                editable="false"
+                enableColumnReordering="false"
+                rows="{CONTENEDORES_ASIGNADOS>/}"
+                selectionMode="None"
+                visibleRowCount="1"
+                ariaLabelledBy="title">
+                <!-- <extension>
+                    <m:OverflowToolbar>
+                        <m:Title text="Contenedor Asignado"/>
+                    </m:OverflowToolbar>
+                </extension> -->
+                <columns>
+                    <Column hAlign="Center">
+                        <m:Label text="ID" />
+                        <template>
+                            <m:Text text="{CONTENEDORES_ASIGNADOS>IdTransporte}" wrapping="false" />
+                        </template>
+                    </Column>
+                    <Column hAlign="Center">
+                        <m:Label text="Número De Contenedor" />
+                        <template>
+                            <m:Label text="{CONTENEDORES_ASIGNADOS>IdContenedor}"/>
+                        </template>
+                    </Column>
+                    <Column hAlign="Center">
+                        <m:Label text="Número De Booking" />
+                        <template>
+                            <m:Label text="{CONTENEDORES_ASIGNADOS>Booking}" />
+                        </template>
+                    </Column>
+                    <Column hAlign="Center">
+                        <m:Label text="Acción" />
+                        <template>
+                            <m:Button type="Emphasized" icon="sap-icon://less" width="18%" press="onQuitarContenedor">
+                                <!-- <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S2" />
+                                </layoutData> -->
+                            </m:Button>
+                        </template>
+                    </Column>            
+                </columns>
+            </Table>
+        </m:content>
+    </m:Panel>
+</core:FragmentDefinition>

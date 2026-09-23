@@ -1,0 +1,274 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 
+                         xmlns:tb="sap.ui.table"
+                         xmlns="sap.m" 
+                         xmlns:core="sap.ui.core" 
+                         xmlns:form="sap.ui.layout.form" 
+                         xmlns:tnt="sap.tnt" 
+                         xmlns:l="sap.ui.layout"
+                         xmlns:tab="sap.ui.table">
+
+    <Dialog title="Avance en Línea del Programa de Empaque" 
+            contentWidth="80%" 
+            type="Message" 
+            afterClose="onAfterCloseDialog('controlProduccion')"
+             >
+        <content>
+         
+            <HBox
+          alignItems="Stretch"
+          class="sapUiSmallMargin nestedFlexboxes">
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Año" labelFor="txtInpFilter" design="Bold"/>
+              <ComboBox selectedKey="{filtro>/ZzYear}" items="{Years>/results}">
+        <core:Item key="{Years>ZzYear}" text="{Years>ZzYear}" />
+        </ComboBox>
+              <Label text="Org. Vtas" labelFor="txtInpFilter1" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Vkorg}" items="{Vkorg>/results}">
+                <core:ListItem key="{Vkorg>Vkorg}" text="{Vkorg>Vtext}" additionalText = "{Vkorg>Vkorg}"/>
+        </ComboBox>
+              <Button icon="sap-icon://filter" text="Buscar" type="Emphasized" press="onFilterProduccion"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Semana" labelFor="txtInpFilter2" design="Bold"/>
+              <Input width="60%" value="{filtro>/Semana}" submit="handleFilter" showValueHelp="true" valueHelpRequest=".onFilterModal"/>
+              <Label text="Clase" labelFor="txtInpFilter3" design="Bold"/>
+              <ComboBox showSecondaryValues= "true" selectedKey="{filtro>/Clase}" items="{Clase>/results}">
+        <core:ListItem key="{Clase>Clase}" text="{Clase>Bezei}" additionalText = "{Clase>Clase}"/>
+        </ComboBox>
+              <Button icon="sap-icon://clear-filter" text="Limpiar" type="Default" press="handleCleanFilter"/>
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Cultivo" labelFor="txtInpFilter4" design="Bold"/>
+              <ComboBox showSecondaryValues= "true"  selectedKey="{filtro>/Cultivo}" change="onChangeCultivo" items="{Cultivo>/results}">
+              <core:ListItem key="{Cultivo>Codcult}" text="{Cultivo>Cultivo}" additionalText = "{Cultivo>Codcult}"/>
+        </ComboBox>
+              <Label text="Variedad" labelFor="txtInpFilter5" design="Bold"/>
+               <ComboBox selectedKey="{filtro>/Variedad}" items="{Variedad>/results}">
+        <core:Item key="{Variedad>Variedad}" text="{Variedad>Variedad}" />
+        </ComboBox>
+              
+             <!--  <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>-->
+          </VBox>
+          <VBox>
+            <layoutData>
+              <FlexItemData growFactor="4" styleClass="sapUiTinyMargin"/>
+            </layoutData>
+              <Label text="Status" labelFor="txtInpFilter4" design="Bold"/>
+              <ComboBox selectedKey="{filtro>/Status}" items="{Status>/results}">
+        <core:Item key="{Status>ZzStatusConten}" text="{Status>ZzStatusConten}" />
+        </ComboBox>
+              <Label text="Formato" labelFor="txtInpFilter5" design="Bold"/>
+               <ComboBox selectedKey="{filtro>/Formato}" items="{Formato>/results}">
+        <core:Item key="{Formato>Codigo}" text="{Formato>Tipo}" />
+        </ComboBox>
+              
+             <!--  <Button icon="sap-icon://excel-attachment" text="Exportar" type="Emphasized" press="onGetCSV"/>-->
+          </VBox>
+        </HBox>
+    <VBox>
+        <Table items="{ControlProduccion>/results}" id="tblControlProduccion" inset="false" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Control de Producción ({= ${ControlProduccion>/results}.length})" titleStyle="H3"/>
+              <ToolbarSpacer/>
+              <!-- <Button icon="sap-icon://refresh" type="Transparent" press="onLoadDetail"/>-->            
+               <SearchField placeholder="Buscar" width="15rem" search="onFiltrarTabla"/>             
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Calibre"/>
+               	<Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Calibre')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Orden Viaje"/>
+               <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('OrdenViaje')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+              <Text text="Solicitante"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Consignatario')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Cliente"/>
+               	<Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Status')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Código"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Codigo')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Descripción"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Descripcion')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Cliente Etiqueta"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('ClienteEtiqueta')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Pallets Prod."/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Producido')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Pallets Faltantes"/>
+                  <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Pallfaltan')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Cajas Faltantes"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Cajfaltan')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="F. Propuesta Despacho"/>
+               	<Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Fecprodespa')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Prioridad Planificación"/>
+                <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('Prioridad')"/>
+              </HBox>              
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <HBox>
+                <Text text="Indicación"/>
+                <!-- <Button icon="sap-icon://sort" text="" type="Transparent" press="onTableSort('NRO_HU')"/> -->
+              </HBox>              
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{ControlProduccion>Calibre}"/>
+                <Text text="{ControlProduccion>OrdenViaje}"/>
+                <Text text="{ControlProduccion>Consignatario}"/>
+                <Text text="{ControlProduccion>Status}"/>
+                <Text text="{ControlProduccion>Codigo}"/>
+                <Text text="{ControlProduccion>Descripcion}"/>
+                <Text text="{ControlProduccion>ClienteEtiqueta}"/>
+                <Text text="{ControlProduccion>Producido}"/>
+                <Text text="{ControlProduccion>Pallfaltan}"/>
+                <Text text="{ControlProduccion>Cajfaltan}"/>
+                <Text text="{ControlProduccion>Fecprodespa}"/>
+                <Text text="{ControlProduccion>Prioridad}"/>
+                <Text text="{ControlProduccion>Indicacion}"/>
+          
+              </cells>
+            </ColumnListItem>
+          </items>           
+               
+        </Table>
+     	<VBox>
+     	<!-- Pie pagina -->
+    <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+      <FlexBox alignItems="Start">
+        <Label text="Total" textAlign="Left" design="Bold" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Label>
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+        <Label text="{ControlProduccion>/totalPallProd}" textAlign="Right" design="Bold" width="130%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Label>
+        <Label text="{ControlProduccion>/totalPallFal}" textAlign="End" design="Bold" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Label>
+        <Label text="{ControlProduccion>/totalCajasFal}" textAlign="Center" design="Bold" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Label>
+
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+          <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+        <Text  text="" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Text>
+      </FlexBox>
+    </Panel>
+    </VBox>
+        </VBox>
+        </content>      
+        
+       <!--  <beginButton>          
+          <Button icon="sap-icon://save" text="Guardar" enabled="{scopeZF>/activeGuardar}" press="onSaveSalidaZF()"></Button>      
+    </beginButton> -->
+
+        <endButton>          
+          <Button icon="sap-icon://cancel" text="Cerrar" press="onCloseDialog('controlProduccion')"></Button>      
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

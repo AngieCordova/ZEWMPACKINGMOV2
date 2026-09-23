@@ -1,0 +1,125 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="RE-HABILITAR GUÍA" contentHeight="100%" contentWidth="80%" type="Message" busy="{mBusy>/iniciarPost}">
+		<content>
+		
+            <form:Form width="100%" editable="true" visible="true" class="inputPaddingTopNull" id="form_uno_rehabilitar_palet">
+                <!-- <form:title/> -->
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                        labelSpanXL="12"
+                        labelSpanL="12"
+                        labelSpanM="12"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="3"
+                        columnsL="3"
+                        columnsM="3"
+                        singleContainerFullSize="false" />
+			    </form:layout>
+                <form:formContainers>
+
+                    <form:FormContainer>                        
+                        <form:formElements>    
+                        	<!--FECHA DE COSECHA-->
+                            <form:FormElement label="Fecha de cosecha">     
+                                <DatePicker
+                                    id="select-rehabilitar_fecha"
+                                    displayFormat="dd-MM-YYYY"
+                                    valueFormat="dd-MM-YYYY"
+                                    class="sapUiSmallMarginBottom"
+                                    change="onCambioFechaRehabilitacion"/>                           
+                                <!-- <Select 
+                                    valueState="None" 
+                                    id="select-rehabilitar_fechas_cosechas" 
+                                    forceSelection="false" 
+                                    busy="true" 
+                                    busyIndicatorDelay="300">
+                                </Select> -->
+                            </form:FormElement>                        	
+                        </form:formElements>
+                    </form:FormContainer>
+
+                    <form:FormContainer>
+                        <form:formElements>                           
+                           <!-- EMPRESA AGRICOLA -->
+                            <form:FormElement label="Empresa Agrícola">
+                                <form:fields>
+                                    <Select 
+                                        id="select-rehabilitar_empresa_agricola"
+                                        items="{mListaEmpresas>/}"
+                                        enabled="false" 
+                                        change="onCambioEmpresaRehabilitacion">
+                                        <core:Item key="{mListaEmpresas>EMPRESA_AGRICOLA}" text="{mListaEmpresas>EMPRESA_AGRICOLA}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>                   
+                        </form:formElements>
+                    </form:FormContainer>
+                        
+                    <form:FormContainer>
+                        <form:formElements>                           
+                           <!-- MODULO -->
+                            <form:FormElement label="Módulo">
+                                <form:fields>                                    
+                                    <Select 
+                                        id="select-rehabilitar_modulo"
+                                        enabled="false" 
+                                        items="{mListaModulos>/}"
+                                        change="onCambioModuloRehabilitacion">
+                                        <core:Item key="{mListaModulos>MODULO}" text="{mListaModulos>MODULO}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>                   
+                        </form:formElements>                        
+                    </form:FormContainer>
+
+                </form:formContainers>
+            </form:Form>
+
+            <!-- BOTON BUSCAR -->
+            <Button press="onBuscarGuiasRehabilitar"  text="BUSCAR" icon="sap-icon://search" type="Emphasized" width="100%" class="inputPaddingTopNull">
+                <layoutData>
+                    <l:GridData span="XL12 L12 M12 S12" />
+                </layoutData>
+            </Button>
+
+            <Table id="table-lista_guias_rehabilitar" inset="false" items="{mListaGuias>/}">
+                <columns>
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        width="12em">
+                        <Text text="SELECCIONAR" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                        vAlign="Middle"
+                        minScreenWidth="Tablet"
+                        demandPopin="true">
+                        <Text text="CÓDIGO DE GUÍA" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <CheckBox select="onSeleccionarGuiaRehabilitar"/>
+                            <Text text="{mListaGuias>GUIA}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+		</content>
+
+        <beginButton>
+            <Button type="Ghost" text="CANCELAR" press="onCerrarFragmento('RehabilitarPallet')"></Button>
+        </beginButton>
+		<endButton>
+			<Button type="Emphasized" text="ACTIVAR" press="onRehabilitarGuiasSeleccionadas"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
